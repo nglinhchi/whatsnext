@@ -106,10 +106,12 @@ class FirebaseController: NSObject, DatabaseProtocol {
     func cleanup() {}
     
     
-    func addAccount(username: String, password: String) -> Account {
+    func addAccount(username: String, password: String, firstname: String, lastname: String) -> Account {
         let account = Account()
         account.username = username
         account.password = password
+        account.firstname = firstname
+        account.lastname = lastname
         do {
             if let accountRef = try accountRef?.addDocument(from: account) {
                 account.id = accountRef.documentID }

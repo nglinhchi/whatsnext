@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LogInViewController: UIViewController, DatabaseListener, LoadAccountsDelegate {
+class LogInViewController: UIViewController, DatabaseListener {
     
     
 
@@ -77,13 +77,9 @@ class LogInViewController: UIViewController, DatabaseListener, LoadAccountsDeleg
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "signupSegue" {
             let destination = segue.destination as! SignUpViewController
-            destination.accountsDelegate = self }
-    }
-
-    
-    func loadAccounts(_ accounts: [Account]) -> Bool {
-//        let a: [Account] = accounts
-        return true
+            destination.accounts = accounts
+            destination.databaseController = databaseController
+            }
     }
     
 }

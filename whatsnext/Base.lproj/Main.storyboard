@@ -255,11 +255,11 @@
             </objects>
             <point key="canvasLocation" x="3912" y="82"/>
         </scene>
-        <!--Item-->
+        <!--Random-->
         <scene sceneID="qKj-JP-qeh">
             <objects>
                 <navigationController id="tKv-Xp-ACe" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="CyL-CZ-KyC"/>
+                    <tabBarItem key="tabBarItem" title="Random" image="lightbulb" catalog="system" id="CyL-CZ-KyC"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uGb-kB-l1R">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -272,11 +272,11 @@
             </objects>
             <point key="canvasLocation" x="3539" y="842"/>
         </scene>
-        <!--Item-->
+        <!--Routine-->
         <scene sceneID="2Ko-V9-2kd">
             <objects>
                 <navigationController id="4tD-zr-Q0i" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="ayC-mV-psL"/>
+                    <tabBarItem key="tabBarItem" title="Routine" image="bookmark" catalog="system" id="ayC-mV-psL"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="pPf-Bz-uuZ">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -289,11 +289,11 @@
             </objects>
             <point key="canvasLocation" x="4336" y="842"/>
         </scene>
-        <!--Item-->
+        <!--Schedule-->
         <scene sceneID="hrh-WC-FrI">
             <objects>
                 <navigationController id="JWk-1n-WbM" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="HAt-89-nQi"/>
+                    <tabBarItem key="tabBarItem" title="Schedule" image="calendar" catalog="system" id="HAt-89-nQi"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ktm-SB-WH2">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -306,11 +306,11 @@
             </objects>
             <point key="canvasLocation" x="2755" y="842"/>
         </scene>
-        <!--Item-->
+        <!--Settings-->
         <scene sceneID="b83-4a-YW7">
             <objects>
                 <navigationController id="QHE-CI-6Qp" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="AvE-Iz-M3v"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" id="AvE-Iz-M3v"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JBh-q4-npr">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -389,6 +389,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="bookmark" catalog="system" width="112" height="128"/>
+        <image name="calendar" catalog="system" width="128" height="106"/>
+        <image name="gear" catalog="system" width="128" height="119"/>
+        <image name="lightbulb" catalog="system" width="113" height="128"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

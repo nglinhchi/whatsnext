@@ -9,7 +9,9 @@ import UIKit
 
 class SignUpViewController: UIViewController {
 
-    weak var accountsDelegate: LoadAccountsDelegate?
+    
+    var accounts: [Account] = []
+    weak var databaseController: DatabaseProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +36,18 @@ class SignUpViewController: UIViewController {
             displayMessage(title: "Invalid", message: "Please fill in all fields.")
             return
         }
+        for i in accounts {
+            if username == i.username {
+                displayMessage(title: "Invalid", message: "Username already exist")
+                return
+            }
+        }
+        if password != retype {
+            displayMessage(title: "Invalid", message: "Password doesn't match")
+            return
+        }
+        databaseController?.addAccount(username: username, password: password, firstname: firstname, lastname: lastname)
+        
     }
     
     
