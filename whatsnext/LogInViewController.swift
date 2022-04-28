@@ -7,16 +7,17 @@
 
 import UIKit
 
-class LogInViewController: UIViewController, DatabaseListener {
+class LogInViewController: UIViewController, DatabaseListener, LoadAccountsDelegate {
+    
+    
 
     // UI ELEMENTS !!!!!!!!!!!!!!!
-    
     @IBOutlet weak var appLogo: UIView!
     @IBOutlet weak var usernameTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
     
     
-//    var allAccounts = ["user1": "abc", "user2" : "asd", "user3" : "qwe"]
+    // VARIABLES
     var accounts: [Account] = []
     weak var databaseController: DatabaseProtocol?
     var listenerType: ListenerType = .account
@@ -70,14 +71,19 @@ class LogInViewController: UIViewController, DatabaseListener {
         databaseController?.removeListener(listener: self)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "signupSegue" {
+            let destination = segue.destination as! SignUpViewController
+            destination.accountsDelegate = self }
     }
-    */
 
+    
+    func loadAccounts(_ accounts: [Account]) -> Bool {
+//        let a: [Account] = accounts
+        return true
+    }
+    
 }
