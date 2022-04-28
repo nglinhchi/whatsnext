@@ -34,8 +34,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Log In" cornerStyle="capsule"/>
                                 <connections>
-                                    <action selector="loginBT:" destination="BYZ-38-t0r" eventType="touchUpInside" id="K4j-GG-fAm"/>
-                                    <action selector="loginBTN:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4S6-hD-gyy"/>
+                                    <action selector="loginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="phM-Zb-Xdl"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lTB-LN-WJE">
@@ -181,10 +180,6 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Sign Up" cornerStyle="capsule"/>
-                                <connections>
-                                    <action selector="loginBT:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L22-EB-rjG"/>
-                                    <action selector="loginBTN:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iOy-ij-MHK"/>
-                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0Uf-81-aHb"/>

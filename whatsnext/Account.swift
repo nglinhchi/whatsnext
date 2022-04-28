@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import FirebaseFirestoreSwift
 
-class Account: NSObject {
+class Account: NSObject, Encodable, Decodable {
     
-    var username: String! // key
-    var password: String!
-    var firstname: String!
-    var lastname: String!
+    @DocumentID var id: String?
+    var username: String?
+    var password: String?
+    var firstname: String?
+    var lastname: String?
     
 }
