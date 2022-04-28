@@ -23,38 +23,6 @@ class LogInViewController: UIViewController, DatabaseListener {
     
     
     @IBAction func loginButton(_ sender: Any) {
-        
-        var username: String!
-        var password: String!
-        
-        
-//        username = usernameTF.text
-//        password = passwordTF.text
-        
-//        guard let _ = username, let _ = password else {
-//            return
-//        }
-//
-//        for (un, pw) in allAccounts {
-//            if (username, password) == (un, pw) {
-//                print("valid")
-//                break
-//            } else {
-//                print("invalid")
-//            }
-//        }
-        
-        
-//        guard let username = usernameTF.text, let password = passwordTF.text else {
-//            return
-//        }
-//        if username.isEmpty || password.isEmpty {
-//            displayMessage(title: "Invalid", message: "Username/password cannot be empty.")
-//            return
-//        }
-//        else {
-//            displayMessage(title: "Invalid", message: "Invalid email")
-//        }
     
         guard let username = usernameTF.text, let password = passwordTF.text else {
             return
@@ -67,15 +35,15 @@ class LogInViewController: UIViewController, DatabaseListener {
         }
         
         if username.isEmpty || password.isEmpty {
-            displayMessage(title: "Invalid", message: "Username/password cannot be empty.")
+            displayMessage(title: "Huhhhh", message: "Username/password cannot be empty.")
             return
         }
         if flag {
 //            performSegue(withIdentifier: "logInSegue", sender: sender)
-            displayMessage(title: "Message", message: "Logged in successfully")
+            displayMessage(title: "Ah yessss", message: "Logged in successfully")
         }
         else {
-            displayMessage(title: "Message", message: "Incorrect username/password")
+            displayMessage(title: "Oh nooooo", message: "Incorrect username/password")
         }
         
     }
