@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF26B2732822317400ACE8B9 /* TabScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF26B2722822317400ACE8B9 /* TabScheduleViewController.swift */; };
+		AF26B2752822580A00ACE8B9 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF26B2742822580A00ACE8B9 /* AddItemViewController.swift */; };
 		AF27503D2819174A00152BB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF27503C2819174A00152BB1 /* AppDelegate.swift */; };
 		AF27503F2819174A00152BB1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF27503E2819174A00152BB1 /* SceneDelegate.swift */; };
 		AF2750412819174A00152BB1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2750402819174A00152BB1 /* ViewController.swift */; };
@@ -48,6 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AF26B2722822317400ACE8B9 /* TabScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabScheduleViewController.swift; sourceTree = "<group>"; };
+		AF26B2742822580A00ACE8B9 /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 		AF2750392819174A00152BB1 /* whatsnext.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = whatsnext.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF27503C2819174A00152BB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF27503E2819174A00152BB1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +132,8 @@
 				AFDC9FC4281A7A9000BB5C39 /* DatabaseProtocol.swift */,
 				AF2750402819174A00152BB1 /* ViewController.swift */,
 				AF2750422819174A00152BB1 /* Main.storyboard */,
+				AF26B2742822580A00ACE8B9 /* AddItemViewController.swift */,
+				AF26B2722822317400ACE8B9 /* TabScheduleViewController.swift */,
 				AFDC9FB728192B1900BB5C39 /* Account.swift */,
 				AFDC9FC2281A7A4F00BB5C39 /* FIrebaseController.swift */,
 				AFDC9FB52819244700BB5C39 /* LogInViewController.swift */,
@@ -305,10 +311,12 @@
 				AFDC9FC9281A896500BB5C39 /* UIViewController+displayMessage.swift in Sources */,
 				AFDC9FCD281A97D800BB5C39 /* LoadAccountsDelegate.swift in Sources */,
 				AF2750412819174A00152BB1 /* ViewController.swift in Sources */,
+				AF26B2752822580A00ACE8B9 /* AddItemViewController.swift in Sources */,
 				AFDC9FCB281A930A00BB5C39 /* SignUpViewController.swift in Sources */,
 				AFDC9FC7281A7CC300BB5C39 /* MulticastDelegate.swift in Sources */,
 				AF27503D2819174A00152BB1 /* AppDelegate.swift in Sources */,
 				AFDC9FC3281A7A4F00BB5C39 /* FIrebaseController.swift in Sources */,
+				AF26B2732822317400ACE8B9 /* TabScheduleViewController.swift in Sources */,
 				AF27503F2819174A00152BB1 /* SceneDelegate.swift in Sources */,
 				AFDC9FC5281A7A9000BB5C39 /* DatabaseProtocol.swift in Sources */,
 			);
