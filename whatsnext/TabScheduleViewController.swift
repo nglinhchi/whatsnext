@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class TabScheduleViewController: UIViewController {
 
@@ -14,19 +15,26 @@ class TabScheduleViewController: UIViewController {
     var models = [Item]()
     
     
-    
-    
     // UI ELEMENTS *****************************************************
     @IBOutlet weak var table: UITableView!
     
     
-    
     // BUTTONS *********************************************************
-    
     @IBAction func addTaskBTN(_ sender: Any) {
         // show add task VC
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "add") as? AddItemViewController else {
+            return
+        }
+        vc.completion = { name, category in
+            DispatchQueue.main.async {
+                self.navigationController?.popToRootViewController(animated: true)
+                let item = Item(name: name, category: category)
+                self.models.append(item)
+                self.table.reloadData()
+            }
+        }
+        navigationController?.pushViewController(vc, animated: true)
     }
-    
     
     @IBAction func editDiaryBTN(_ sender: Any) {
         // show edit diary VC
@@ -36,19 +44,8 @@ class TabScheduleViewController: UIViewController {
     // METHODS *********************************************************
     override func viewDidLoad() {
         super.viewDidLoad()
-    
         table.delegate = self
         table.dataSource = self
-        
-
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy"
-        let d = formatter.date(from: "18/04/2022")!
-
-        let a = Item(title: "FIT3178 workshop", date: d, identifier: "ID")
-
-        models.append(a)
-        
     }
 
 }
@@ -76,8 +73,9 @@ extension TabScheduleViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = models[indexPath.row].title
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ItemTableViewCell
+        cell.categoryTagLabel?.text = models[indexPath.row].category
+        cell.nameLabel?.text = models[indexPath.row].name
         return cell
         
     }
@@ -86,9 +84,17 @@ extension TabScheduleViewController: UITableViewDataSource {
 }
 
 
-
 struct Item {
-    let title: String
-    let date: Date
-    let identifier: String
+    let name: String
+    let category: String
+}
+
+
+
+class ItemTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var categoryTagLabel: UILabel!
+    @IBOutlet weak var timeTagLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    
 }
