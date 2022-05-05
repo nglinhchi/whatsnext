@@ -9,21 +9,34 @@ import UIKit
 
 class EditJournalViewController: UIViewController {
 
+    
+    // VARIABLES + CONSTANTS *******************************************
+    public var completion: ((String) -> Void)?
+    
+    
+    
+    @IBOutlet weak var journalTF: UITextField!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    @IBAction func discardBTN(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
-    */
-
+    
+    
+    @IBAction func saveBTN(_ sender: Any) {
+        if let journal = journalTF.text, !journal.isEmpty {
+            completion?(journal)
+        }
+        
+    }
+    
+    
 }

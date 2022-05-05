@@ -17,7 +17,8 @@ class TabScheduleViewController: UIViewController {
     
     // UI ELEMENTS *****************************************************
     @IBOutlet weak var table: UITableView!
-    
+    @IBOutlet weak var dateBTN: UIButton!
+    @IBOutlet weak var journalLabel: UILabel!
     
     // BUTTONS *********************************************************
     @IBAction func addTaskBTN(_ sender: Any) {
@@ -28,7 +29,7 @@ class TabScheduleViewController: UIViewController {
         vc.completion = { name, category in
             DispatchQueue.main.async {
                 self.navigationController?.popToRootViewController(animated: true)
-                let item = Item(name: name, category: category)
+                let item = Item(name: name, category: category, done: false)
                 self.models.append(item)
                 self.table.reloadData()
             }
@@ -41,9 +42,30 @@ class TabScheduleViewController: UIViewController {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "journal") as? EditJournalViewController else {
             return
         }
+        vc.completion = {journal in
+            DispatchQueue.main.async {
+                self.navigationController?.popToRootViewController(animated: true)
+                self.journalLabel.text = journal
+            }
+        }
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
+    @IBAction func dateBTN(_ sender: Any) {
+        let picker : UIDatePicker = UIDatePicker()
+        picker.datePickerMode = .date
+        picker.addTarget(self, action: #selector(changeDate(sender:)), for: UIControl.Event.valueChanged)
+        picker.frame.size = CGSize(width: 0, height: 250)
+        //        dateBTN.setTitle("HELLO", for: .normal)
         
     }
+    
+    
+    @objc func changeDate(sender: UIDatePicker) {
+        
+    }
+    
     
     
     // METHODS *********************************************************
@@ -55,7 +77,6 @@ class TabScheduleViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         navigationController?.navigationBar.isHidden = true
     }
 }
@@ -86,6 +107,11 @@ extension TabScheduleViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ItemTableViewCell
         cell.categoryTagLabel?.text = models[indexPath.row].category
         cell.nameLabel?.text = models[indexPath.row].name
+        if models[indexPath.row].done {
+            // show filled circle
+        } else {
+            // show empty circle
+        }
         return cell
         
     }
@@ -97,6 +123,7 @@ extension TabScheduleViewController: UITableViewDataSource {
 struct Item {
     let name: String
     let category: String
+    var done: Bool
 }
 
 
@@ -106,5 +133,10 @@ class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var categoryTagLabel: UILabel!
     @IBOutlet weak var timeTagLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
+    
+    @IBAction func checkBTN(_ sender: Any) {
+        // change item's done to !done
+//        models[indexPath.row].done = !(models[indexPath.row].done)
+    }
     
 }
