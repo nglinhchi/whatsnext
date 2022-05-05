@@ -361,19 +361,8 @@
                                     <action selector="addTaskBTN:" destination="CIU-Lq-Jjn" eventType="touchUpInside" id="Nj6-Qy-yKm"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="IZ3-89-H4i">
-                                <rect key="frame" x="20" y="162" width="374" height="100"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="UJy-h4-ijL"/>
-                                </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisici reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </string>
-                                <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="nfn-bO-roM">
-                                <rect key="frame" x="20" y="292" width="374" height="521"/>
+                                <rect key="frame" x="20" y="314" width="374" height="499"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="aYu-zf-3c6" customClass="ItemTableViewCell" customModule="whatsnext" customModuleProvider="target">
@@ -430,20 +419,27 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8c9-FU-GR6">
+                                <rect key="frame" x="20" y="162" width="374" height="122"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisici reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="GaY-zv-iaZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="s5C-Hj-cuU" firstAttribute="centerX" secondItem="bRv-nF-z4h" secondAttribute="centerX" id="4FA-lF-Vdv"/>
                             <constraint firstItem="GaY-zv-iaZ" firstAttribute="trailing" secondItem="nfn-bO-roM" secondAttribute="trailing" constant="20" id="7ZV-UL-aQI"/>
+                            <constraint firstItem="8c9-FU-GR6" firstAttribute="top" secondItem="s5C-Hj-cuU" secondAttribute="bottom" constant="30" id="992-CM-eMi"/>
                             <constraint firstItem="g5U-RM-Saw" firstAttribute="leading" secondItem="GaY-zv-iaZ" secondAttribute="leading" constant="20" id="ETm-FV-zkp"/>
-                            <constraint firstItem="nfn-bO-roM" firstAttribute="top" secondItem="IZ3-89-H4i" secondAttribute="bottom" constant="30" id="LaB-YK-fTx"/>
+                            <constraint firstItem="8c9-FU-GR6" firstAttribute="leading" secondItem="GaY-zv-iaZ" secondAttribute="leading" constant="20" id="F2U-O2-dEu"/>
+                            <constraint firstItem="GaY-zv-iaZ" firstAttribute="trailing" secondItem="8c9-FU-GR6" secondAttribute="trailing" constant="20" id="JZN-LQ-VYw"/>
                             <constraint firstItem="GaY-zv-iaZ" firstAttribute="trailing" secondItem="oop-as-Ckc" secondAttribute="trailing" constant="20" id="Mkj-Nh-v2C"/>
+                            <constraint firstItem="nfn-bO-roM" firstAttribute="top" secondItem="8c9-FU-GR6" secondAttribute="bottom" constant="30" id="N7T-31-vr4"/>
                             <constraint firstItem="s5C-Hj-cuU" firstAttribute="top" secondItem="GaY-zv-iaZ" secondAttribute="top" id="VUy-TU-rqS"/>
-                            <constraint firstItem="IZ3-89-H4i" firstAttribute="leading" secondItem="GaY-zv-iaZ" secondAttribute="leading" constant="20" id="YCU-DE-fvE"/>
-                            <constraint firstItem="IZ3-89-H4i" firstAttribute="top" secondItem="s5C-Hj-cuU" secondAttribute="bottom" constant="30" id="bcZ-Jo-zlG"/>
                             <constraint firstItem="nfn-bO-roM" firstAttribute="leading" secondItem="GaY-zv-iaZ" secondAttribute="leading" constant="20" id="fAc-Nf-px1"/>
-                            <constraint firstItem="GaY-zv-iaZ" firstAttribute="trailing" secondItem="IZ3-89-H4i" secondAttribute="trailing" constant="20" id="hpT-rc-eDi"/>
                             <constraint firstItem="g5U-RM-Saw" firstAttribute="centerY" secondItem="s5C-Hj-cuU" secondAttribute="centerY" id="nVg-od-Uz1"/>
                             <constraint firstItem="GaY-zv-iaZ" firstAttribute="bottom" secondItem="nfn-bO-roM" secondAttribute="bottom" id="nw9-Gq-PZb"/>
                             <constraint firstItem="oop-as-Ckc" firstAttribute="centerY" secondItem="s5C-Hj-cuU" secondAttribute="centerY" id="tdl-d6-M52"/>
@@ -700,7 +696,7 @@
         <!--Edit diary-->
         <scene sceneID="5eP-aK-weG">
             <objects>
-                <viewController id="WbH-fn-CCa" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="journal" id="WbH-fn-CCa" customClass="EditJournalViewController" customModule="whatsnext" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="t4U-ej-6wq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

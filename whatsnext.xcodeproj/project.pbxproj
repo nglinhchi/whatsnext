@@ -30,6 +30,7 @@
 		AFDC9FC9281A896500BB5C39 /* UIViewController+displayMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDC9FC8281A896500BB5C39 /* UIViewController+displayMessage.swift */; };
 		AFDC9FCB281A930A00BB5C39 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDC9FCA281A930A00BB5C39 /* SignUpViewController.swift */; };
 		AFDC9FCD281A97D800BB5C39 /* LoadAccountsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDC9FCC281A97D800BB5C39 /* LoadAccountsDelegate.swift */; };
+		AFF9BF332823AFD90082AC74 /* EditJournalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF9BF322823AFD90082AC74 /* EditJournalViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		AFDC9FC8281A896500BB5C39 /* UIViewController+displayMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+displayMessage.swift"; sourceTree = "<group>"; };
 		AFDC9FCA281A930A00BB5C39 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		AFDC9FCC281A97D800BB5C39 /* LoadAccountsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAccountsDelegate.swift; sourceTree = "<group>"; };
+		AFF9BF322823AFD90082AC74 /* EditJournalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditJournalViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,7 @@
 				AFDC9FC0281A552100BB5C39 /* GoogleService-Info.plist */,
 				AF27504A2819174C00152BB1 /* Info.plist */,
 				AFDC9FC8281A896500BB5C39 /* UIViewController+displayMessage.swift */,
+				AFF9BF322823AFD90082AC74 /* EditJournalViewController.swift */,
 			);
 			path = whatsnext;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 			files = (
 				AFDC9FB828192B1900BB5C39 /* Account.swift in Sources */,
 				AFDC9FB62819244700BB5C39 /* LogInViewController.swift in Sources */,
+				AFF9BF332823AFD90082AC74 /* EditJournalViewController.swift in Sources */,
 				AFDC9FC9281A896500BB5C39 /* UIViewController+displayMessage.swift in Sources */,
 				AFDC9FCD281A97D800BB5C39 /* LoadAccountsDelegate.swift in Sources */,
 				AF2750412819174A00152BB1 /* ViewController.swift in Sources */,

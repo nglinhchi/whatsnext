@@ -48,7 +48,6 @@ class AddItemViewController: UIViewController {
     
     
     @IBAction func discardBTN(_ sender: Any) {
-        dismiss(animated: true)
     }
     
     

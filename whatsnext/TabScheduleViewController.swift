@@ -38,6 +38,11 @@ class TabScheduleViewController: UIViewController {
     
     @IBAction func editDiaryBTN(_ sender: Any) {
         // show edit diary VC
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "journal") as? EditJournalViewController else {
+            return
+        }
+        navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     
@@ -48,6 +53,11 @@ class TabScheduleViewController: UIViewController {
         table.dataSource = self
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.isHidden = true
+    }
 }
 
 
