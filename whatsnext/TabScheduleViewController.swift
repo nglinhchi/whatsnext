@@ -27,10 +27,10 @@ class TabScheduleViewController: UIViewController {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "add") as? AddItemViewController else {
             return
         }
-        vc.completion = { name, category in
+        vc.completion = { name, category, time in
             DispatchQueue.main.async {
                 self.navigationController?.popToRootViewController(animated: true)
-                let item = Item(name: name, category: category, done: false)
+                let item = Item(name: name, category: category, time: time, completed: false)
                 self.models.append(item)
                 self.table.reloadData()
             }
@@ -123,9 +123,27 @@ extension TabScheduleViewController: UITableViewDataSource {
             cell.categoryTagLabel?.backgroundColor = .tintColor
         }
         
+        // time
+        let t: Time = models[indexPath.row].time
+        var time: String
+        switch t.type {
+        case "-":
+            time = "-"
+        case "exact":
+            time = t.time
+        case "start-end":
+            time = "\(t.start) - \(t.end)"
+        case "duration":
+            time = t.duration
+        default:
+            time = "-"
+        }
+        
+        cell.timeTagLabel?.text = time
+        
         
         // handle cell's button
-         if models[indexPath.row].done {
+         if models[indexPath.row].completed {
             // show filled circle
          } else {
             // show empty circle
@@ -141,9 +159,20 @@ extension TabScheduleViewController: UITableViewDataSource {
 
 
 struct Item {
-    let name: String
-    let category: String
-    var done: Bool
+    var name: String
+    var category: String
+    var time: Time
+    var completed: Bool
+    
+}
+
+// TODO temporary type --> change to date later??????
+struct Time {
+    var type: String
+    var time: String
+    var start: String
+    var end: String
+    var duration: String
 }
 
 
