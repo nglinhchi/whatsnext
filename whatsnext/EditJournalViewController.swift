@@ -12,6 +12,7 @@ class EditJournalViewController: UIViewController {
     
     // VARIABLES + CONSTANTS *******************************************
     public var completion: ((String) -> Void)?
+    var currentJournal: String?
     
     
     
@@ -21,6 +22,7 @@ class EditJournalViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        journalTF.text = currentJournal
 
         // Do any additional setup after loading the view.
     }

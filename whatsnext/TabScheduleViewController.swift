@@ -15,6 +15,7 @@ class TabScheduleViewController: UIViewController {
     var models = [Item]()
     
     
+    
     // UI ELEMENTS *****************************************************
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var dateBTN: UIButton!
@@ -39,9 +40,10 @@ class TabScheduleViewController: UIViewController {
     
     @IBAction func editDiaryBTN(_ sender: Any) {
         // show edit diary VC
-        guard let vc = storyboard?.instantiateViewController(withIdentifier: "journal") as? EditJournalViewController else {
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "journal") as? EditJournalViewController  else {
             return
         }
+        vc.currentJournal = journalLabel.text
         vc.completion = {journal in
             DispatchQueue.main.async {
                 self.navigationController?.popToRootViewController(animated: true)
@@ -105,13 +107,31 @@ extension TabScheduleViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ItemTableViewCell
-        cell.categoryTagLabel?.text = models[indexPath.row].category
+        
+        // name
         cell.nameLabel?.text = models[indexPath.row].name
-        if models[indexPath.row].done {
-            // show filled circle
-        } else {
-            // show empty circle
+        
+        
+        // category
+        cell.categoryTagLabel?.text = models[indexPath.row].category
+        switch models[indexPath.row].category {
+        case "home":
+            cell.categoryTagLabel?.backgroundColor = UIColor(red: 5/255, green: 147/255, blue: 23/255, alpha: 1)
+        case "uni":
+            cell.categoryTagLabel?.backgroundColor = UIColor(red: 230/255, green: 87/255, blue: 5/255, alpha: 1)
+        default:
+            cell.categoryTagLabel?.backgroundColor = .tintColor
         }
+        
+        
+        // handle cell's button
+         if models[indexPath.row].done {
+            // show filled circle
+         } else {
+            // show empty circle
+         }
+        
+        
         return cell
         
     }

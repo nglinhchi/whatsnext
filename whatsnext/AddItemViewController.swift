@@ -16,13 +16,19 @@ class AddItemViewController: UIViewController {
     
     // UI ELEMENTS *****************************************************
     @IBOutlet weak var taskTF: UITextField!
+    
     @IBOutlet weak var categorySegment: UISegmentedControl!
+    
     @IBOutlet weak var dateTF: UITextField!
+    
     @IBOutlet weak var timeSegment: UISegmentedControl!
     @IBOutlet weak var timeTF: UITextField!
+    @IBOutlet weak var startTF: UITextField!
+    @IBOutlet weak var endTF: UITextField!
+    @IBOutlet weak var durationTF: UITextField!
+    
     @IBOutlet weak var notesTF: UITextField!
-    @IBOutlet weak var subtask1TF: UITextField!
-
+    // missing subtask stack
     
     // BUTTONS *********************************************************
     @IBAction func addSubtaskBTN(_ sender: Any) {
@@ -30,18 +36,8 @@ class AddItemViewController: UIViewController {
     
     @IBAction func saveBTN(_ sender: Any) {
         if let name = taskTF.text, !name.isEmpty {
-            let category: String
-            switch categorySegment.selectedSegmentIndex
-               {
-               case 0:
-                   category = "home"
-               case 1:
-                   category = "uni"
-               case 2:
-                   category = "work"
-                default:
-                    category = "home"
-               }
+            let category =
+            categorySegment.titleForSegment(at: categorySegment.selectedSegmentIndex) ?? ""
             completion?(name, category)
         }
     }
@@ -53,10 +49,52 @@ class AddItemViewController: UIViewController {
     }
     
     
+    @IBAction func timeSegmentControl(_ sender: Any) {
+        
+        
+       // print(timeSegment.titleForSegment(at: timeSegment.selectedSegmentIndex) ?? "")
+        
+        
+        switch timeSegment.selectedSegmentIndex {
+        case 1:
+            print("1")
+            timeTF.isHidden = false
+            startTF.isHidden = true
+            endTF.isHidden = true
+            durationTF.isHidden = true
+        case 2:
+            print("2")
+            timeTF.isHidden = true
+            startTF.isHidden = false
+            endTF.isHidden = false
+            durationTF.isHidden = true
+        case 3:
+            print("3")
+            timeTF.isHidden = true
+            startTF.isHidden = true
+            endTF.isHidden = true
+            durationTF.isHidden = false
+        default:
+            timeTF.isHidden = true
+            startTF.isHidden = true
+            endTF.isHidden = true
+            durationTF.isHidden = true
+        }
+        
+    }
+    
+    
+    
     // METHODS *********************************************************
     override func viewDidLoad() {
         super.viewDidLoad()
+        timeTF.isHidden = true
+        startTF.isHidden = true
+        endTF.isHidden = true
+        durationTF.isHidden = true
     }
+    
+    
     
 
 
