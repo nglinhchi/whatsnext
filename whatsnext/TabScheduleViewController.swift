@@ -21,16 +21,16 @@ class TabScheduleViewController: UIViewController {
     @IBOutlet weak var dateBTN: UIButton!
     @IBOutlet weak var journalLabel: UILabel!
     
+    
     // BUTTONS *********************************************************
     @IBAction func addTaskBTN(_ sender: Any) {
         // show add task VC
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "add") as? AddItemViewController else {
             return
         }
-        vc.completion = { name, category, time in
+        vc.completion = { item in
             DispatchQueue.main.async {
                 self.navigationController?.popToRootViewController(animated: true)
-                let item = Item(name: name, category: category, time: time, completed: false)
                 self.models.append(item)
                 self.table.reloadData()
             }
@@ -53,7 +53,7 @@ class TabScheduleViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    
+    // DATE SELECTOR
     @IBAction func dateBTN(_ sender: Any) {
         let picker : UIDatePicker = UIDatePicker()
         picker.datePickerMode = .date
@@ -63,9 +63,7 @@ class TabScheduleViewController: UIViewController {
         
     }
     
-    
     @objc func changeDate(sender: UIDatePicker) {
-        
     }
     
     
@@ -81,17 +79,41 @@ class TabScheduleViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
     }
+    
 }
+
+
+
+
+
+
 
 
 
 extension TabScheduleViewController: UITableViewDelegate {
     
+    // SELECT A TASK --> SEE ITS DETAILS
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "details") as? ItemDetailsViewController  else {
+            return
+        }
+        
+        vc.item = models[indexPath.row]
+        vc.completion = { journal in
+            DispatchQueue.main.async {
+                self.navigationController?.popToRootViewController(animated: true)
+//                self.journalLabel.text = journal
+            }
+        }
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }
+
+
+
+
 
 
 
@@ -105,42 +127,18 @@ extension TabScheduleViewController: UITableViewDataSource {
         return models.count
     }
     
+    // LOAD DATA IN THE ROW
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ItemTableViewCell
         
         // name
         cell.nameLabel?.text = models[indexPath.row].name
         
-        
         // category
         cell.categoryTagLabel?.text = models[indexPath.row].category
-        switch models[indexPath.row].category {
-        case "home":
-            cell.categoryTagLabel?.backgroundColor = UIColor(red: 5/255, green: 147/255, blue: 23/255, alpha: 1)
-        case "uni":
-            cell.categoryTagLabel?.backgroundColor = UIColor(red: 230/255, green: 87/255, blue: 5/255, alpha: 1)
-        default:
-            cell.categoryTagLabel?.backgroundColor = .tintColor
-        }
         
-        // time
-        let t: Time = models[indexPath.row].time
-        var time: String
-        switch t.type {
-        case "-":
-            time = "-"
-        case "exact":
-            time = t.time
-        case "start-end":
-            time = "\(t.start) - \(t.end)"
-        case "duration":
-            time = t.duration
-        default:
-            time = "-"
-        }
-        
-        cell.timeTagLabel?.text = time
-        
+        cell.timeTagLabel?.text = models[indexPath.row].time.getTime()
         
         // handle cell's button
          if models[indexPath.row].completed {
@@ -148,32 +146,14 @@ extension TabScheduleViewController: UITableViewDataSource {
          } else {
             // show empty circle
          }
-        
-        
         return cell
-        
     }
     
-    
 }
 
 
-struct Item {
-    var name: String
-    var category: String
-    var time: Time
-    var completed: Bool
-    
-}
 
-// TODO temporary type --> change to date later??????
-struct Time {
-    var type: String
-    var time: String
-    var start: String
-    var end: String
-    var duration: String
-}
+
 
 
 
@@ -189,3 +169,4 @@ class ItemTableViewCell: UITableViewCell {
     }
     
 }
+

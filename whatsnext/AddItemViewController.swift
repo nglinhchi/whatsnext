@@ -11,7 +11,7 @@ class AddItemViewController: UIViewController {
 
     
     // VARIABLES + CONSTANTS *******************************************
-    public var completion: ((String, String, Time) -> Void)?
+    public var completion: ((Item) -> Void)?
     
     
     // UI ELEMENTS *****************************************************
@@ -20,10 +20,10 @@ class AddItemViewController: UIViewController {
     // category
     @IBOutlet weak var categorySegment: UISegmentedControl!
     // date
-    @IBOutlet weak var dateTF: UITextField!
+    @IBOutlet weak var datePicker: UIDatePicker!
     // time
     @IBOutlet weak var timeSegment: UISegmentedControl!
-    @IBOutlet weak var timeTF: UITextField!
+    @IBOutlet weak var exactTF: UITextField!
     @IBOutlet weak var startTF: UITextField!
     @IBOutlet weak var endTF: UITextField!
     @IBOutlet weak var durationTF: UITextField!
@@ -33,46 +33,34 @@ class AddItemViewController: UIViewController {
     @IBOutlet weak var subtaskStack: UIStackView!
     @IBOutlet weak var subtask1TF: UITextField!
     
+    var timePicker = UIDatePicker()
+    
     // BUTTONS *********************************************************
     
     
-    
+    // TIME AND SUBTASK TODO
     @IBAction func saveBTN(_ sender: Any) {
-        if let name = taskTF.text, !name.isEmpty {
-            let category =
-            categorySegment.titleForSegment(at: categorySegment.selectedSegmentIndex) ?? ""
-            let timeType = timeSegment.titleForSegment(at: timeSegment.selectedSegmentIndex) ?? ""
-            var time = Time(type: timeType, time: "", start: "", end: "", duration: "")
-            switch timeSegment.selectedSegmentIndex {
-            case 1:
-                guard let t = timeTF.text, !t.isEmpty else {
-                    return
-                }
-                time = Time(type: timeType, time: t, start: "", end: "", duration: "")
-            case 2:
-                guard let s = startTF.text, !s.isEmpty,
-                      let e = endTF.text, !e.isEmpty else {
-                    return
-                }
-                time = Time(type: timeType, time: "", start: s, end: e, duration: "")
-            case 3:
-                guard let d = durationTF.text, !d.isEmpty else {
-                    return
-                }
-                time = Time(type: timeType, time: "", start: "", end: "", duration: d)
-            default:
-                return
-            }
-            
-            
-            completion?(name, category, time)
+        guard let name = taskTF.text, !name.isEmpty else {
+            return // display message
         }
+        let category = categorySegment.titleForSegment(at: categorySegment.selectedSegmentIndex) ?? ""
+        let day = datePicker.date
+        
+        
+        
+        let time = Time(type: "-", exact: Date(), interval: DateInterval(), duration: Date())
+        
+        
+        
+        let notes = notesTF.text ?? ""
+        let subtasks = [String]()
+        let item = Item(name: name, category: category, day: day, time: time, notes: notes, subtasks: subtasks, completed: false)
+        completion?(item)
     }
     
     
     @IBAction func discardBTN(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
-//        self.dismiss(animated: true, completion: nil)
     }
     
     
@@ -80,24 +68,24 @@ class AddItemViewController: UIViewController {
         switch timeSegment.selectedSegmentIndex {
         case 1:
             print("1")
-            timeTF.isHidden = false
+            exactTF.isHidden = false
             startTF.isHidden = true
             endTF.isHidden = true
             durationTF.isHidden = true
         case 2:
             print("2")
-            timeTF.isHidden = true
+            exactTF.isHidden = true
             startTF.isHidden = false
             endTF.isHidden = false
             durationTF.isHidden = true
         case 3:
             print("3")
-            timeTF.isHidden = true
+            exactTF.isHidden = true
             startTF.isHidden = true
             endTF.isHidden = true
             durationTF.isHidden = false
         default:
-            timeTF.isHidden = true
+            exactTF.isHidden = true
             startTF.isHidden = true
             endTF.isHidden = true
             durationTF.isHidden = true
@@ -112,13 +100,90 @@ class AddItemViewController: UIViewController {
     
     
     
+    func createDatePicker(TF: UITextField) {
+        
+        timePicker.datePickerMode = .time
+        timePicker.preferredDatePickerStyle = .wheels
+        timePicker.locale = Locale(identifier: "en_US")
+        
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let doneBTN: UIBarButtonItem
+        switch TF {
+        case exactTF:
+            doneBTN = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneExact))
+        case startTF:
+            doneBTN = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneStart))
+        case endTF:
+            doneBTN = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneEnd))
+        case durationTF:
+            doneBTN = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneDuration))
+            timePicker.datePickerMode = .countDownTimer
+        default:
+            return
+        }
+        let spaceBTN = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelBTN = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPressed))
+        
+        toolbar.setItems([cancelBTN, spaceBTN, doneBTN], animated: true  )
+        TF.inputAccessoryView = toolbar
+        TF.inputView = timePicker
+        
+        
+    }
+    
+    @objc func doneExact() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm a"
+        dateFormatter.locale = Locale(identifier: "en_US")
+        exactTF.text = dateFormatter.string(from: timePicker.date)
+        self.view.endEditing(true)
+    }
+    
+    
+    @objc func doneStart() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm a"
+        dateFormatter.locale = Locale(identifier: "en_US")
+        startTF.text = dateFormatter.string(from: timePicker.date)
+        self.view.endEditing(true)
+    }
+    
+    
+    @objc func doneEnd() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm a"
+        dateFormatter.locale = Locale(identifier: "en_US")
+        endTF.text = dateFormatter.string(from: timePicker.date)
+        self.view.endEditing(true)
+    }
+    
+    
+    @objc func doneDuration() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh hrs mm mins"
+        dateFormatter.locale = Locale(identifier: "en_US")
+        durationTF.text = dateFormatter.string(from: timePicker.date)
+        self.view.endEditing(true)
+    }
+    
+    
+    @objc func cancelPressed() {
+        self.view.endEditing(true)
+    }
+    
+    
     // METHODS *********************************************************
     override func viewDidLoad() {
         super.viewDidLoad()
-        timeTF.isHidden = true
+        exactTF.isHidden = true
         startTF.isHidden = true
         endTF.isHidden = true
         durationTF.isHidden = true
+        createDatePicker(TF: exactTF)
+        createDatePicker(TF: startTF)
+        createDatePicker(TF: endTF)
+        createDatePicker(TF: durationTF)
     }
     
     

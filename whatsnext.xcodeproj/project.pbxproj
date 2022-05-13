@@ -18,6 +18,9 @@
 		AF2750542819174C00152BB1 /* whatsnextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2750532819174C00152BB1 /* whatsnextTests.swift */; };
 		AF27505E2819174C00152BB1 /* whatsnextUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF27505D2819174C00152BB1 /* whatsnextUITests.swift */; };
 		AF2750602819174C00152BB1 /* whatsnextUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF27505F2819174C00152BB1 /* whatsnextUITestsLaunchTests.swift */; };
+		AF6E0CED282B82A700FAB86F /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E0CEC282B82A700FAB86F /* ItemDetailsViewController.swift */; };
+		AF6E0D2B282CF3F600FAB86F /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E0D2A282CF3F600FAB86F /* Item.swift */; };
+		AF6E0D2D282CF42500FAB86F /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E0D2C282CF42500FAB86F /* Time.swift */; };
 		AFDC9FB62819244700BB5C39 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDC9FB52819244700BB5C39 /* LogInViewController.swift */; };
 		AFDC9FB828192B1900BB5C39 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDC9FB728192B1900BB5C39 /* Account.swift */; };
 		AFDC9FBB281A520200BB5C39 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = AFDC9FBA281A520200BB5C39 /* FirebaseAuth */; };
@@ -66,6 +69,9 @@
 		AF2750592819174C00152BB1 /* whatsnextUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = whatsnextUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF27505D2819174C00152BB1 /* whatsnextUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = whatsnextUITests.swift; sourceTree = "<group>"; };
 		AF27505F2819174C00152BB1 /* whatsnextUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = whatsnextUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		AF6E0CEC282B82A700FAB86F /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
+		AF6E0D2A282CF3F600FAB86F /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		AF6E0D2C282CF42500FAB86F /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		AFDC9FB52819244700BB5C39 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		AFDC9FB728192B1900BB5C39 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		AFDC9FC0281A552100BB5C39 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -134,8 +140,11 @@
 				AFDC9FC4281A7A9000BB5C39 /* DatabaseProtocol.swift */,
 				AF2750402819174A00152BB1 /* ViewController.swift */,
 				AF2750422819174A00152BB1 /* Main.storyboard */,
+				AF6E0CEC282B82A700FAB86F /* ItemDetailsViewController.swift */,
 				AF26B2742822580A00ACE8B9 /* AddItemViewController.swift */,
 				AF26B2722822317400ACE8B9 /* TabScheduleViewController.swift */,
+				AF6E0D2A282CF3F600FAB86F /* Item.swift */,
+				AF6E0D2C282CF42500FAB86F /* Time.swift */,
 				AFDC9FB728192B1900BB5C39 /* Account.swift */,
 				AFDC9FC2281A7A4F00BB5C39 /* FIrebaseController.swift */,
 				AFDC9FB52819244700BB5C39 /* LogInViewController.swift */,
@@ -311,7 +320,10 @@
 			files = (
 				AFDC9FB828192B1900BB5C39 /* Account.swift in Sources */,
 				AFDC9FB62819244700BB5C39 /* LogInViewController.swift in Sources */,
+				AF6E0CED282B82A700FAB86F /* ItemDetailsViewController.swift in Sources */,
 				AFF9BF332823AFD90082AC74 /* EditJournalViewController.swift in Sources */,
+				AF6E0D2B282CF3F600FAB86F /* Item.swift in Sources */,
+				AF6E0D2D282CF42500FAB86F /* Time.swift in Sources */,
 				AFDC9FC9281A896500BB5C39 /* UIViewController+displayMessage.swift in Sources */,
 				AFDC9FCD281A97D800BB5C39 /* LoadAccountsDelegate.swift in Sources */,
 				AF2750412819174A00152BB1 /* ViewController.swift in Sources */,
