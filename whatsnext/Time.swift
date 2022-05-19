@@ -49,15 +49,24 @@ class Time {
         case "-":
             time = "-"
         case "exact":
-            time = "-"
+            time = dateToString(date: exact)
         case "start-end":
-            time = "-"
+            let start = dateToString(date: interval.start)
+            let end = dateToString(date: interval.end)
+            time = "\(start) - \(end)"
         case "duration":
-            time = "-"
+            time = duration
         default:
             time = "-"
         }
         return time
+    }
+    
+    func dateToString(date: Date) -> String {
+        let timeFormatter = DateFormatter()
+        timeFormatter.locale = Locale(identifier: "en_US")
+        timeFormatter.dateFormat = "h:mm a"
+        return timeFormatter.string(from: date)
     }
     
     

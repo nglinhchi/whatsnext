@@ -12,7 +12,7 @@ class TabScheduleViewController: UIViewController {
 
     
     // VARIABLES + CONSTANTS *******************************************
-    var models = [Item]()
+    static var models = [Item]()
     
     
     
@@ -20,6 +20,23 @@ class TabScheduleViewController: UIViewController {
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var dateBTN: UIButton!
     @IBOutlet weak var journalLabel: UILabel!
+    
+    
+    
+    // METHODS *********************************************************
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        table.delegate = self
+        table.dataSource = self
+    }
+
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
     
     
     // BUTTONS *********************************************************
@@ -31,7 +48,7 @@ class TabScheduleViewController: UIViewController {
         vc.completion = { item in
             DispatchQueue.main.async {
                 self.navigationController?.popToRootViewController(animated: true)
-                self.models.append(item)
+                TabScheduleViewController.models.append(item)
                 self.table.reloadData()
             }
         }
@@ -68,17 +85,7 @@ class TabScheduleViewController: UIViewController {
     
     
     
-    // METHODS *********************************************************
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        table.delegate = self
-        table.dataSource = self
-    }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = true
-    }
     
 }
 
@@ -99,7 +106,7 @@ extension TabScheduleViewController: UITableViewDelegate {
             return
         }
         
-        vc.item = models[indexPath.row]
+        vc.item = TabScheduleViewController.models[indexPath.row]
         vc.completion = { journal in
             DispatchQueue.main.async {
                 self.navigationController?.popToRootViewController(animated: true)
@@ -124,30 +131,32 @@ extension TabScheduleViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return models.count
+        return TabScheduleViewController.models.count
     }
     
-    // LOAD DATA IN THE ROW
+    // LOAD DATA INTO THE ROW
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ItemTableViewCell
         
         // name
-        cell.nameLabel?.text = models[indexPath.row].name
+        cell.nameLabel?.text = TabScheduleViewController.models[indexPath.row].name
         
         // category
-        cell.categoryTagLabel?.text = models[indexPath.row].category
+        cell.categoryTagLabel?.text = TabScheduleViewController.models[indexPath.row].category
         
-        cell.timeTagLabel?.text = models[indexPath.row].time.getTime()
+        cell.timeTagLabel?.text = TabScheduleViewController.models[indexPath.row].time.getTime()
         
         // handle cell's button
-         if models[indexPath.row].completed {
+        if TabScheduleViewController.models[indexPath.row].completed {
             // show filled circle
          } else {
             // show empty circle
          }
+        
         return cell
     }
+
     
 }
 
@@ -163,9 +172,17 @@ class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var timeTagLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     
+    @IBOutlet weak var checkView: UIButton!
+    
     @IBAction func checkBTN(_ sender: Any) {
-        // change item's done to !done
+        // TODO change item's done to !done
 //        models[indexPath.row].done = !(models[indexPath.row].done)
+        
+        checkView.currentImage == UIImage(systemName: "circle") ?
+        checkView.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal) :
+        checkView.setImage(UIImage(systemName: "circle"), for: .normal)
+        
+        
     }
     
 }

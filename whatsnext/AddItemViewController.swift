@@ -211,6 +211,39 @@ class AddItemViewController: UIViewController {
     }
     
     
+    // done time
+    
+    // with animation
+    /*
+     UIView.transition(with: button, duration: 0.4,
+                       options: .transitionCrossDissolve,
+                       animations: {
+                      button.hidden = false
+                   })
+     */
+    
+    
+    @IBAction func doneExact(_ sender: Any) {
+        timePicker.isHidden = true
+    }
+    
+    
+    @IBAction func doneStart(_ sender: Any) {
+        timePicker.isHidden = true
+    }
+    
+    
+    @IBAction func doneEnd(_ sender: Any) {
+        timePicker.isHidden = true
+    }
+    
+    
+    @IBAction func doneDuration(_ sender: Any) {
+        timePicker.isHidden = true
+    }
+    
+    
+    
     @IBAction func changeTimePicker(_ sender: Any) {
         
         // check all types not just start end anymore, esp duration!!!!!

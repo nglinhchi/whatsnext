@@ -421,10 +421,10 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="eXc-yG-oof" secondAttribute="trailing" id="Jb6-O5-XFj"/>
                                                 <constraint firstItem="aMB-og-A3o" firstAttribute="leading" secondItem="vwg-Xc-0XR" secondAttribute="leading" constant="10" id="QaJ-ha-WrU"/>
+                                                <constraint firstItem="QSQ-al-lXU" firstAttribute="leading" secondItem="aMB-og-A3o" secondAttribute="trailing" constant="10" id="bT3-FY-TNc"/>
                                                 <constraint firstItem="aMB-og-A3o" firstAttribute="centerY" secondItem="vwg-Xc-0XR" secondAttribute="centerY" id="dke-6f-pLq"/>
                                                 <constraint firstItem="eXc-yG-oof" firstAttribute="leading" secondItem="Zzg-Ex-sUM" secondAttribute="trailing" constant="10" id="eQU-qU-Byu"/>
                                                 <constraint firstItem="QSQ-al-lXU" firstAttribute="centerY" secondItem="vwg-Xc-0XR" secondAttribute="centerY" id="isl-tu-TkG"/>
-                                                <constraint firstItem="QSQ-al-lXU" firstAttribute="leading" secondItem="aMB-og-A3o" secondAttribute="trailing" constant="10" id="klO-oo-Qcw"/>
                                                 <constraint firstItem="Zzg-Ex-sUM" firstAttribute="centerY" secondItem="vwg-Xc-0XR" secondAttribute="centerY" id="llu-aZ-cmB"/>
                                                 <constraint firstItem="Zzg-Ex-sUM" firstAttribute="leading" secondItem="QSQ-al-lXU" secondAttribute="trailing" id="yMM-ud-XU4"/>
                                                 <constraint firstItem="eXc-yG-oof" firstAttribute="centerY" secondItem="vwg-Xc-0XR" secondAttribute="centerY" id="zQB-8U-4T8"/>
@@ -432,6 +432,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="categoryTagLabel" destination="QSQ-al-lXU" id="Y3o-31-CtD"/>
+                                            <outlet property="checkView" destination="aMB-og-A3o" id="MsA-ct-XGd"/>
                                             <outlet property="nameLabel" destination="eXc-yG-oof" id="cPg-ET-BoI"/>
                                             <outlet property="timeTagLabel" destination="Zzg-Ex-sUM" id="CTW-I7-fHe"/>
                                         </connections>
@@ -642,6 +643,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
                                             <action selector="clickExact:" destination="mk7-lH-cAP" eventType="editingDidBegin" id="zUF-cN-Qef"/>
+                                            <action selector="doneExact:" destination="mk7-lH-cAP" eventType="editingDidEnd" id="klf-vq-A7S"/>
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Start time..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XzY-Nt-x3J">
@@ -650,6 +652,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
                                             <action selector="clickStart:" destination="mk7-lH-cAP" eventType="editingDidBegin" id="OU2-v3-Oci"/>
+                                            <action selector="doneStart:" destination="mk7-lH-cAP" eventType="editingDidEnd" id="xk1-KJ-cY8"/>
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="End time..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BaE-w2-sCc">
@@ -658,6 +661,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
                                             <action selector="clickEnd:" destination="mk7-lH-cAP" eventType="editingDidBegin" id="fh6-OW-WyG"/>
+                                            <action selector="doneEnd:" destination="mk7-lH-cAP" eventType="editingDidEnd" id="gCc-Ve-Wd5"/>
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Duration..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tu7-2Y-vEV">
@@ -666,6 +670,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
                                             <action selector="clickDuration:" destination="mk7-lH-cAP" eventType="editingDidBegin" id="R8I-x2-tWi"/>
+                                            <action selector="doneDuration:" destination="mk7-lH-cAP" eventType="editingDidEnd" id="E1R-XU-NFp"/>
                                         </connections>
                                     </textField>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="txv-Su-Ziz">
@@ -682,7 +687,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="y3q-zQ-4Pu">
                                 <rect key="frame" x="40" y="850" width="334" height="34"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="egg" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dgV-gi-o65">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="subtask..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dgV-gi-o65">
                                         <rect key="frame" x="0.0" y="0.0" width="334" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -986,7 +991,7 @@
             <point key="canvasLocation" x="3431.884057971015" y="2260.7142857142858"/>
         </scene>
     </scenes>
-    <color key="tintColor" red="0.91976243257522583" green="0.43159278908785159" blue="0.6029689457991857" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+    <color key="tintColor" red="0.92156862745098034" green="0.43137254901960786" blue="0.60392156862745094" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
         <image name="bookmark" catalog="system" width="112" height="128"/>
         <image name="calendar" catalog="system" width="128" height="106"/>
