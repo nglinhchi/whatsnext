@@ -606,24 +606,24 @@
                                 </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7e-0I-hcp">
-                                <rect key="frame" x="40" y="619.5" width="334" height="20.5"/>
+                                <rect key="frame" x="40" y="729.5" width="334" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtasks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QaK-tl-vO7">
-                                <rect key="frame" x="40" y="704" width="70" height="20.5"/>
+                                <rect key="frame" x="40" y="814" width="70" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="notes..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lt6-tf-P4V">
-                                <rect key="frame" x="40" y="650" width="334" height="34"/>
+                                <rect key="frame" x="40" y="760" width="334" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpZ-J3-sZD">
-                                <rect key="frame" x="329" y="699" width="45" height="31"/>
+                                <rect key="frame" x="329" y="809" width="45" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" imagePadding="0.0">
                                     <imageReference key="image" image="plus.circle.fill" catalog="system" symbolScale="large"/>
@@ -633,33 +633,54 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="fPL-4r-VMT">
-                                <rect key="frame" x="40" y="433.5" width="334" height="166"/>
+                                <rect key="frame" x="40" y="433.5" width="334" height="276"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Time..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zh4-5o-wgo">
                                         <rect key="frame" x="0.0" y="0.0" width="334" height="34"/>
                                         <edgeInsets key="layoutMargins" top="8" left="8" bottom="10" right="8"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="clickExact:" destination="mk7-lH-cAP" eventType="editingDidBegin" id="zUF-cN-Qef"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Start time..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XzY-Nt-x3J">
                                         <rect key="frame" x="0.0" y="44" width="334" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="clickStart:" destination="mk7-lH-cAP" eventType="editingDidBegin" id="OU2-v3-Oci"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="End time..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BaE-w2-sCc">
                                         <rect key="frame" x="0.0" y="88" width="334" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="clickEnd:" destination="mk7-lH-cAP" eventType="editingDidBegin" id="fh6-OW-WyG"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Duration..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tu7-2Y-vEV">
                                         <rect key="frame" x="0.0" y="132" width="334" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="clickDuration:" destination="mk7-lH-cAP" eventType="editingDidBegin" id="R8I-x2-tWi"/>
+                                        </connections>
                                     </textField>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="txv-Su-Ziz">
+                                        <rect key="frame" x="0.0" y="176" width="334" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="9RC-3t-GLa"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="changeTimePicker:" destination="mk7-lH-cAP" eventType="valueChanged" id="Hcn-bB-jmb"/>
+                                        </connections>
+                                    </datePicker>
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="y3q-zQ-4Pu">
-                                <rect key="frame" x="40" y="740" width="334" height="34"/>
+                                <rect key="frame" x="40" y="850" width="334" height="34"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="egg" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dgV-gi-o65">
                                         <rect key="frame" x="0.0" y="0.0" width="334" height="34"/>
@@ -738,6 +759,7 @@
                         <outlet property="subtask1TF" destination="dgV-gi-o65" id="8L5-hF-kQM"/>
                         <outlet property="subtaskStack" destination="y3q-zQ-4Pu" id="y88-6i-Tpx"/>
                         <outlet property="taskTF" destination="I9K-xE-QaH" id="0NZ-WW-YRR"/>
+                        <outlet property="timePicker" destination="txv-Su-Ziz" id="SLQ-jD-UOt"/>
                         <outlet property="timeSegment" destination="b3V-gc-4vM" id="4yp-nJ-GUu"/>
                     </connections>
                 </viewController>
@@ -962,21 +984,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pXA-TE-cAJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3431.884057971015" y="2260.7142857142858"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="MMF-lJ-L8O">
-            <objects>
-                <viewController id="rto-2z-HCV" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="bHW-Ra-T9L">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="apa-l8-Ngd"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rwL-c2-Mkm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1930" y="1588"/>
         </scene>
     </scenes>
     <color key="tintColor" red="0.91976243257522583" green="0.43159278908785159" blue="0.6029689457991857" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

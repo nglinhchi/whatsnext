@@ -15,10 +15,34 @@ class Time {
     var interval: DateInterval
     var duration: Date
     
-    init(type: String, exact: Date, interval: DateInterval, duration: Date) {
+    
+    init(type: String) {
+        self.type = type
+        self.exact = Date() // irrelevant
+        self.interval = DateInterval() // irrelevant
+        self.duration = Date() // irrelevant
+    }
+    
+    init(type: String, exact: Date) {
         self.type = type
         self.exact = exact
+        self.interval = DateInterval() // irrelevant
+        self.duration = Date() // irrelevant
+    }
+    
+    
+    init(type: String, interval: DateInterval) {
+        self.type = type
+        self.exact = Date() // irrelevant
         self.interval = interval
+        self.duration = Date() // irrelevant
+    }
+    
+    
+    init(type: String, duration: Date) {
+        self.type = type
+        self.exact = Date() // irrelevant
+        self.interval = DateInterval() // irrelevant
         self.duration = duration
     }
     
