@@ -10,7 +10,7 @@ import UserNotifications
 
 class TabScheduleViewController: UIViewController {
 
-    
+     
     // VARIABLES + CONSTANTS *******************************************
     static var models = [Item]()
     
