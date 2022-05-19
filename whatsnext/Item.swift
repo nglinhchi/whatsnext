@@ -15,7 +15,6 @@ struct Item {
     var time: Time
     var notes: String
     var subtasks: [String]
-    var completed: Bool
-    
+    var completed: Bool  
 }
 

@@ -10,39 +10,30 @@ import Foundation
 
 class Time {
     
-    var type: String
-    var exact: Date
-    var interval: DateInterval
-    var duration: Date
+    var type: String = ""
+    var exact = Date()
+    var interval = DateInterval()
+    var duration: String = ""
     
     
     init(type: String) {
         self.type = type
-        self.exact = Date() // irrelevant
-        self.interval = DateInterval() // irrelevant
-        self.duration = Date() // irrelevant
     }
     
     init(type: String, exact: Date) {
         self.type = type
         self.exact = exact
-        self.interval = DateInterval() // irrelevant
-        self.duration = Date() // irrelevant
     }
     
     
     init(type: String, interval: DateInterval) {
         self.type = type
-        self.exact = Date() // irrelevant
         self.interval = interval
-        self.duration = Date() // irrelevant
     }
     
     
-    init(type: String, duration: Date) {
+    init(type: String, duration: String) {
         self.type = type
-        self.exact = Date() // irrelevant
-        self.interval = DateInterval() // irrelevant
         self.duration = duration
     }
     

@@ -14,10 +14,9 @@ class AddItemViewController: UIViewController {
     public var completion: ((Item) -> Void)?
     
     static var timeFormatter = DateFormatter()
-    static var durationFormatter = DateFormatter()
-    static var hourFormatter = DateFormatter()
-    static var minuteFormatter = DateFormatter()
     static var timeField = ""
+    
+    
     
     
     // UI ELEMENTS *****************************************************
@@ -54,6 +53,7 @@ class AddItemViewController: UIViewController {
     // METHODS *********************************************************
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         exactTF.isHidden = true
         startTF.isHidden = true
@@ -61,18 +61,10 @@ class AddItemViewController: UIViewController {
         durationTF.isHidden = true
         timePicker.isHidden = true
         
-        
-        AddItemViewController.hourFormatter.dateFormat = "h"
-        AddItemViewController.minuteFormatter.dateFormat = "m"
-        
         AddItemViewController.timeFormatter.locale = Locale(identifier: "en_US")
         AddItemViewController.timeFormatter.dateFormat = "hh:mm a"
         
-        AddItemViewController.durationFormatter.locale = Locale(identifier: "en_US")
-        AddItemViewController.durationFormatter.dateFormat = "hh hours mm minutes"
     }
-    
-    
     
     
     
@@ -81,51 +73,84 @@ class AddItemViewController: UIViewController {
     
     // SAVE BUTTON
     @IBAction func saveBTN(_ sender: Any) {
+        
+        
+        /* acceptance criteria
+         * name filled
+         * exact: exact filled
+         * start-end: start filled, end filled, start < end
+         * duration: duration filled
+        */
+        
+        // AC task name filled
         guard let name = taskTF.text, !name.isEmpty else {
             displayMessage(title: "Invalid Task", message: "Please fill in the name.")
-            return // display message
+            return
         }
+        
         let timeIndex = timeSegment.selectedSegmentIndex
-        let tType = timeSegment.titleForSegment(at: timeIndex)!
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "hh:mm a"
-    
+        let timeType = timeSegment.titleForSegment(at: timeIndex)!
         let time: Time
+        
+        let fullFormatter = DateFormatter()
+        fullFormatter.locale = Locale(identifier: "en_US")
+        fullFormatter.dateFormat = "dd/MM/yyyy hh:mm a"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US")
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        let date = dateFormatter.string(from: datePicker.date)
+        
         switch timeIndex {
+        
         case 1:
-            // exact
-            guard let exact = timeFormatter.date(from: exactTF.text!) else {
-                let e = timeFormatter.date(from: exactTF.text!)
-                print(e)
+            // AC exact time filled
+            guard let stringTime = exactTF.text, !stringTime.isEmpty else {
                 displayMessage(title: "Invalid Task", message: "Please fill in the time.")
                 return
             }
-            time = Time(type: tType, exact: exact)
+            let stringExact = "\(date) \(stringTime)"
+            let exact = fullFormatter.date(from: stringExact)!
+            time = Time(type: timeType, exact: exact)
+            
         case 2:
-            // start-end
-            guard let start = timeFormatter.date(from: startTF.text!),
-                  let end = timeFormatter.date(from: endTF.text!) else {
+            // AC start filled, end filled, start > end
+            guard let stringTimeStart = startTF.text, !stringTimeStart.isEmpty,
+                  let stringTimeEnd = endTF.text, !stringTimeEnd.isEmpty else {
                 displayMessage(title: "Invalid Task", message: "Please fill in all time intervals.")
                 return
             }
-            time = Time(type: tType, interval: DateInterval(start: start, end: end))
+            let stringStart = "\(date) \(stringTimeStart)"
+            let start = fullFormatter.date(from: stringStart)!
+            let stringEnd = "\(date) \(stringTimeEnd)"
+            let end = fullFormatter.date(from: stringEnd)!
+            guard start < end else {
+                displayMessage(title: "Invalid Task", message: "End time cannot be earlier than start time.")
+                return
+            }
+            time = Time(type: timeType, interval: DateInterval(start: start, end: end))
+            
         case 3:
-            // duration
-            guard let duration = timeFormatter.date(from: durationTF.text!) else {
+            // AC duration filled
+            guard let duration = durationTF.text, !duration.isEmpty else {
                 displayMessage(title: "Invalid Task", message: "Please fill in the duration.")
                 return
             }
-            time = Time(type: tType, duration: duration)
+            time = Time(type: timeType, duration: duration)
         default:
-            time = Time(type: tType)
+            time = Time(type: timeType)
         }
         
         let category = categorySegment.titleForSegment(at: categorySegment.selectedSegmentIndex) ?? ""
         let day = datePicker.date
         let notes = notesTF.text ?? ""
         let subtasks = [String]()
-        let item = Item(name: name, category: category, day: day, time: time, notes: notes, subtasks: subtasks, completed: false)
+        let item = Item(name: name, category: category,
+                        day: day, time: time,
+                        notes: notes, subtasks: subtasks,
+                        completed: false)
         completion?(item)
+        
     }
     
     
@@ -216,6 +241,7 @@ class AddItemViewController: UIViewController {
     // SUBTASK
     @IBAction func addSubtaskBTN(_ sender: Any) {
         // this is too hard, might just do so in view details screen
+        // to do: no text field at beginning, add on when click on buttons
     }
     
     
