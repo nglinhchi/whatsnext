@@ -40,6 +40,9 @@ class TabScheduleViewController: UIViewController {
     
     
     // BUTTONS *********************************************************
+    
+    
+    // BUTTON - NEW TASK
     @IBAction func addTaskBTN(_ sender: Any) {
         // show add task VC
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "add") as? AddItemViewController else {
@@ -49,12 +52,15 @@ class TabScheduleViewController: UIViewController {
             DispatchQueue.main.async {
                 self.navigationController?.popToRootViewController(animated: true)
                 TabScheduleViewController.models.append(item)
+                print(item.subtasks)
                 self.table.reloadData()
             }
         }
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    
+    // BUTTON - JOURNAL
     @IBAction func editDiaryBTN(_ sender: Any) {
         // show edit diary VC
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "journal") as? EditJournalViewController  else {
@@ -70,7 +76,7 @@ class TabScheduleViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    // DATE SELECTOR
+    // DATE SELECTOR (NOT WORKING)
     @IBAction func dateBTN(_ sender: Any) {
         let picker : UIDatePicker = UIDatePicker()
         picker.datePickerMode = .date
@@ -154,6 +160,9 @@ extension TabScheduleViewController: UITableViewDataSource {
             // show empty circle
          }
         
+        
+        cell.checkView.tag = indexPath.row
+        
         return cell
     }
 
@@ -178,9 +187,16 @@ class ItemTableViewCell: UITableViewCell {
         // TODO change item's done to !done
 //        models[indexPath.row].done = !(models[indexPath.row].done)
         
-        checkView.currentImage == UIImage(systemName: "circle") ?
-        checkView.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal) :
-        checkView.setImage(UIImage(systemName: "circle"), for: .normal)
+        if let button = sender as? UIButton {
+            TabScheduleViewController.models[button.tag].completed = !TabScheduleViewController.models[button.tag].completed
+            
+            print(TabScheduleViewController.models[button.tag].completed)
+            
+            TabScheduleViewController.models[button.tag].completed ?
+            checkView.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal) :
+            checkView.setImage(UIImage(systemName: "circle"), for: .normal)
+        }
+        
         
         
     }

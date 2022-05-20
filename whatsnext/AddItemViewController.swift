@@ -40,13 +40,17 @@ class AddItemViewController: UIViewController {
     // notes
     @IBOutlet weak var notesTF: UITextField!
     
-    // subtask
-    @IBOutlet weak var subtaskStack: UIStackView!
-    @IBOutlet weak var subtask1TF: UITextField!
+    // subtask TO ADD
+    
+    @IBOutlet weak var table: UITableView!
+    
+    @IBOutlet weak var subtaskTF: UITextField!
+    
+    var subtasks = [String]()
+    
     
     // time picker
     @IBOutlet weak var timePicker: UIDatePicker!
-    
     
     
     
@@ -60,6 +64,10 @@ class AddItemViewController: UIViewController {
         endTF.isHidden = true
         durationTF.isHidden = true
         timePicker.isHidden = true
+        
+        table.delegate = self
+        table.dataSource = self
+        
         
         AddItemViewController.timeFormatter.locale = Locale(identifier: "en_US")
         AddItemViewController.timeFormatter.dateFormat = "hh:mm a"
@@ -144,10 +152,9 @@ class AddItemViewController: UIViewController {
         let category = categorySegment.titleForSegment(at: categorySegment.selectedSegmentIndex) ?? ""
         let day = datePicker.date
         let notes = notesTF.text ?? ""
-        let subtasks = [String]()
         let item = Item(name: name, category: category,
                         day: day, time: time,
-                        notes: notes, subtasks: subtasks,
+                        notes: notes, subtasks: self.subtasks,
                         completed: false)
         completion?(item)
         
@@ -273,9 +280,68 @@ class AddItemViewController: UIViewController {
     
     // SUBTASK
     @IBAction func addSubtaskBTN(_ sender: Any) {
+        
+        guard let subtask = subtaskTF.text, !subtask.isEmpty else {
+            return
+        }
+        subtasks.append(subtask)
+        subtaskTF.text = ""
+        self.table.reloadData()
         // this is too hard, might just do so in view details screen
         // to do: no text field at beginning, add on when click on buttons
     }
     
+    
+}
+
+
+
+
+
+
+// *********************************************************************************************
+
+
+extension AddItemViewController: UITableViewDelegate {
+    
+    // SELECT A TASK --> SEE ITS DETAILS
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+}
+
+
+extension AddItemViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return subtasks.count
+    }
+    
+    // LOAD DATA INTO THE ROW
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SubtaskTableViewCell
+
+        // put the strings from subtasks t subtask table
+        cell.subtaskLabel.text = subtasks[indexPath.row]
+        
+        return cell
+    }
+
+}
+
+
+// *********************************************************************************************
+
+
+
+class SubtaskTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var subtaskLabel: UILabel!
     
 }
