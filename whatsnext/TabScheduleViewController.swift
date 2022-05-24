@@ -132,14 +132,12 @@ extension TabScheduleViewController: UITableViewDataSource {
         
         cell.timeTagLabel?.text = TabScheduleViewController.models[indexPath.row].time.getTime()
         
-        // handle cell's button
-        if TabScheduleViewController.models[indexPath.row].completed {
-            // show filled circle
-         } else {
-            // show empty circle
-         }
-        
         cell.checkView.tag = indexPath.row
+        
+        
+        TabScheduleViewController.models[indexPath.row].completed ?
+        cell.checkView.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal) :
+        cell.checkView.setImage(UIImage(systemName: "circle"), for: .normal)
         
         return cell
     }
@@ -165,14 +163,21 @@ class ItemTableViewCell: UITableViewCell {
         // TODO change item's done to !done
 //        models[indexPath.row].done = !(models[indexPath.row].done)
         
+        print("??")
+        
         if let button = sender as? UIButton {
             TabScheduleViewController.models[button.tag].completed = !TabScheduleViewController.models[button.tag].completed
             
-            print(TabScheduleViewController.models[button.tag].completed)
+            print("CLICKED for index \(button.tag)")
             
+            print(TabScheduleViewController.models[button.tag].completed)
+            print(button.tag)
+            
+            // TODO keep changing the tag???
             TabScheduleViewController.models[button.tag].completed ?
             checkView.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal) :
             checkView.setImage(UIImage(systemName: "circle"), for: .normal)
+            
         }
         
         

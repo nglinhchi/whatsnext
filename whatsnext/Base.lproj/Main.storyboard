@@ -340,9 +340,6 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="default"/>
                                     <fontDescription key="titleFontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
                                 </buttonConfiguration>
-                                <connections>
-                                    <action selector="dateBTN:" destination="CIU-Lq-Jjn" eventType="touchUpInside" id="lXI-eX-L1J"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g5U-RM-Saw">
                                 <rect key="frame" x="20" y="94.5" width="48.5" height="31"/>
@@ -849,32 +846,34 @@
                                     <action selector="saveBTN:" destination="WbH-fn-CCa" eventType="touchUpInside" id="Wcu-k7-Pac"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="roundedRect" placeholder="day reflection..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="m09-4A-wq5">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vK5-jU-5t1">
                                 <rect key="frame" x="40" y="114.5" width="334" height="200"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="R38-Ce-sVE"/>
+                                    <constraint firstAttribute="height" constant="200" id="5je-dh-PoF"/>
                                 </constraints>
+                                <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="E3y-ih-MEr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="DC5-NI-3GC" firstAttribute="centerY" secondItem="xNG-1X-6NM" secondAttribute="centerY" id="1yQ-u0-NY9"/>
-                            <constraint firstItem="m09-4A-wq5" firstAttribute="top" secondItem="xNG-1X-6NM" secondAttribute="bottom" constant="30" id="5g8-tG-tWp"/>
+                            <constraint firstItem="vK5-jU-5t1" firstAttribute="top" secondItem="xNG-1X-6NM" secondAttribute="bottom" constant="30" id="8JE-qa-3fv"/>
                             <constraint firstItem="MgC-CS-nZ7" firstAttribute="centerX" secondItem="t4U-ej-6wq" secondAttribute="centerX" id="DvF-bq-Ai8"/>
                             <constraint firstItem="MgC-CS-nZ7" firstAttribute="top" secondItem="E3y-ih-MEr" secondAttribute="top" constant="10" id="EcP-RK-W8B"/>
-                            <constraint firstItem="m09-4A-wq5" firstAttribute="leading" secondItem="E3y-ih-MEr" secondAttribute="leading" constant="40" id="INS-IW-icl"/>
                             <constraint firstItem="E3y-ih-MEr" firstAttribute="trailing" secondItem="DC5-NI-3GC" secondAttribute="trailing" constant="20" id="OI8-u6-SZE"/>
                             <constraint firstItem="xNG-1X-6NM" firstAttribute="leading" secondItem="E3y-ih-MEr" secondAttribute="leading" constant="20" id="ZQ4-NU-nJc"/>
-                            <constraint firstItem="E3y-ih-MEr" firstAttribute="trailing" secondItem="m09-4A-wq5" secondAttribute="trailing" constant="40" id="fOr-kL-tmf"/>
+                            <constraint firstItem="E3y-ih-MEr" firstAttribute="trailing" secondItem="vK5-jU-5t1" secondAttribute="trailing" constant="40" id="bys-Ju-cAf"/>
                             <constraint firstItem="MgC-CS-nZ7" firstAttribute="centerY" secondItem="xNG-1X-6NM" secondAttribute="centerY" id="kyp-NG-puN"/>
+                            <constraint firstItem="vK5-jU-5t1" firstAttribute="leading" secondItem="E3y-ih-MEr" secondAttribute="leading" constant="40" id="sWt-5g-wg6"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Edit diary" id="l8H-y6-gDF"/>
                     <connections>
-                        <outlet property="journalTF" destination="m09-4A-wq5" id="cio-ah-6bk"/>
+                        <outlet property="journalTV" destination="vK5-jU-5t1" id="F2J-4A-fCn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ib6-Ki-h1w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

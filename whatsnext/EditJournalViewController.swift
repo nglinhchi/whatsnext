@@ -15,14 +15,17 @@ class EditJournalViewController: UIViewController {
     var currentJournal: String?
     
     
+    @IBOutlet weak var journalTV: UITextView!
     
-    @IBOutlet weak var journalTF: UITextField!
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        journalTF.text = currentJournal
+        journalTV.text = currentJournal
+        journalTV.layer.cornerRadius = 10
+        journalTV.layer.borderWidth = 1
+        journalTV.layer.borderColor = .init(genericCMYKCyan: 0, magenta: 255, yellow: 0, black: 255, alpha: 1)
 
         // Do any additional setup after loading the view.
     }
@@ -34,7 +37,7 @@ class EditJournalViewController: UIViewController {
     
     
     @IBAction func saveBTN(_ sender: Any) {
-        if let journal = journalTF.text, !journal.isEmpty {
+        if let journal = journalTV.text, !journal.isEmpty {
             completion?(journal)
         }
         
