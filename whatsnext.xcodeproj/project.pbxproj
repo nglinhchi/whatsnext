@@ -21,6 +21,7 @@
 		AF6E0CED282B82A700FAB86F /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E0CEC282B82A700FAB86F /* ItemDetailsViewController.swift */; };
 		AF6E0D2B282CF3F600FAB86F /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E0D2A282CF3F600FAB86F /* Item.swift */; };
 		AF6E0D2D282CF42500FAB86F /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E0D2C282CF42500FAB86F /* Time.swift */; };
+		AF9F80DF283C9F1D00E647DC /* EditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F80DE283C9F1D00E647DC /* EditItemViewController.swift */; };
 		AFDC9FB62819244700BB5C39 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDC9FB52819244700BB5C39 /* LogInViewController.swift */; };
 		AFDC9FB828192B1900BB5C39 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDC9FB728192B1900BB5C39 /* Account.swift */; };
 		AFDC9FBB281A520200BB5C39 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = AFDC9FBA281A520200BB5C39 /* FirebaseAuth */; };
@@ -72,6 +73,7 @@
 		AF6E0CEC282B82A700FAB86F /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
 		AF6E0D2A282CF3F600FAB86F /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		AF6E0D2C282CF42500FAB86F /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
+		AF9F80DE283C9F1D00E647DC /* EditItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemViewController.swift; sourceTree = "<group>"; };
 		AFDC9FB52819244700BB5C39 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		AFDC9FB728192B1900BB5C39 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		AFDC9FC0281A552100BB5C39 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				AF27504A2819174C00152BB1 /* Info.plist */,
 				AFDC9FC8281A896500BB5C39 /* UIViewController+displayMessage.swift */,
 				AFF9BF322823AFD90082AC74 /* EditJournalViewController.swift */,
+				AF9F80DE283C9F1D00E647DC /* EditItemViewController.swift */,
 			);
 			path = whatsnext;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFDC9FB828192B1900BB5C39 /* Account.swift in Sources */,
+				AF9F80DF283C9F1D00E647DC /* EditItemViewController.swift in Sources */,
 				AFDC9FB62819244700BB5C39 /* LogInViewController.swift in Sources */,
 				AF6E0CED282B82A700FAB86F /* ItemDetailsViewController.swift in Sources */,
 				AFF9BF332823AFD90082AC74 /* EditJournalViewController.swift in Sources */,

@@ -16,8 +16,7 @@ class AddItemViewController: UIViewController {
     static var timeFormatter = DateFormatter()
     static var timeField = ""
     
-    
-    
+    var item: Item?
     
     // UI ELEMENTS *****************************************************
     
@@ -46,7 +45,7 @@ class AddItemViewController: UIViewController {
     
     @IBOutlet weak var subtaskTF: UITextField!
     
-    var subtasks = [String]()
+    var subtasks = [Subtask]()
     
     
     // time picker
@@ -71,6 +70,42 @@ class AddItemViewController: UIViewController {
         
         AddItemViewController.timeFormatter.locale = Locale(identifier: "en_US")
         AddItemViewController.timeFormatter.dateFormat = "hh:mm a"
+        
+        
+        // for edit
+        if let item = item {
+            taskTF.text = item.name
+            let cat_index: Int
+            switch item.category {
+            case "home":
+                cat_index = 0
+            case "uni":
+                cat_index = 1
+            case "work":
+                cat_index = 2
+            default:
+                cat_index = 0
+            }
+            categorySegment.selectedSegmentIndex = cat_index
+            datePicker.date = item.day
+            
+            let time_index: Int
+            switch item.time.type {
+            case "-":
+                time_index = 0
+            case "exact":
+                time_index = 1
+            case "interval":
+                time_index = 2
+            case "duration":
+                time_index = 3
+            default:
+                return
+            }
+            timeSegment.selectedSegmentIndex = time_index
+            
+            subtasks = item.subtasks
+        }
         
     }
     
@@ -280,15 +315,12 @@ class AddItemViewController: UIViewController {
     
     // SUBTASK
     @IBAction func addSubtaskBTN(_ sender: Any) {
-        
         guard let subtask = subtaskTF.text, !subtask.isEmpty else {
             return
         }
-        subtasks.append(subtask)
+        subtasks.append(Subtask(name: subtask, completed: false))
         subtaskTF.text = ""
         self.table.reloadData()
-        // this is too hard, might just do so in view details screen
-        // to do: no text field at beginning, add on when click on buttons
     }
     
     
@@ -328,7 +360,7 @@ extension AddItemViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SubtaskTableViewCell
 
         // put the strings from subtasks t subtask table
-        cell.subtaskLabel.text = subtasks[indexPath.row]
+        cell.subtaskLabel.text = subtasks[indexPath.row].name
         
         return cell
     }

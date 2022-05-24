@@ -915,6 +915,7 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="discardBTN:" destination="mk7-lH-cAP" eventType="touchUpInside" id="Z6D-ln-cbS"/>
+                                    <action selector="editBTN:" destination="84T-po-Ott" eventType="touchUpInside" id="S2Q-1C-fyH"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Mk-VK-aCa">

@@ -75,24 +75,6 @@ class TabScheduleViewController: UIViewController {
         }
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-    // DATE SELECTOR (NOT WORKING)
-    @IBAction func dateBTN(_ sender: Any) {
-        let picker : UIDatePicker = UIDatePicker()
-        picker.datePickerMode = .date
-        picker.addTarget(self, action: #selector(changeDate(sender:)), for: UIControl.Event.valueChanged)
-        picker.frame.size = CGSize(width: 0, height: 250)
-        //        dateBTN.setTitle("HELLO", for: .normal)
-        
-    }
-    
-    @objc func changeDate(sender: UIDatePicker) {
-    }
-    
-    
-    
-
-    
 }
 
 
@@ -111,21 +93,18 @@ extension TabScheduleViewController: UITableViewDelegate {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "details") as? ItemDetailsViewController  else {
             return
         }
-        
         vc.item = TabScheduleViewController.models[indexPath.row]
-        vc.completion = { journal in
+        vc.completion = { item in
             DispatchQueue.main.async {
                 self.navigationController?.popToRootViewController(animated: true)
-//                self.journalLabel.text = journal
+                TabScheduleViewController.models[indexPath.row] = item
+                self.table.reloadData()
             }
         }
         navigationController?.pushViewController(vc, animated: true)
     }
     
 }
-
-
-
 
 
 
@@ -159,7 +138,6 @@ extension TabScheduleViewController: UITableViewDataSource {
          } else {
             // show empty circle
          }
-        
         
         cell.checkView.tag = indexPath.row
         

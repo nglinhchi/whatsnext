@@ -14,7 +14,12 @@ struct Item {
     var day: Date
     var time: Time
     var notes: String
-    var subtasks: [String] // need to add boolean for completed
+    var subtasks: [Subtask] // need to add boolean for completed
     var completed: Bool  
 }
 
+
+struct Subtask {
+    var name: String
+    var completed: Bool
+}
