@@ -88,22 +88,31 @@ class AddItemViewController: UIViewController {
             }
             categorySegment.selectedSegmentIndex = cat_index
             datePicker.date = item.day
-            
             let time_index: Int
             switch item.time.type {
             case "-":
                 time_index = 0
             case "exact":
                 time_index = 1
-            case "interval":
+                clickExact(self)
+                timePicker.date = item.time.exact
+                self.changeTimePicker(self)
+            case "start-end":
                 time_index = 2
+                clickStart(self)
+                timePicker.date = item.time.interval.start
+                self.changeTimePicker(self)
+                clickEnd(self)
+                timePicker.date = item.time.interval.end
+                self.changeTimePicker(self)
             case "duration":
                 time_index = 3
+                durationTF.text = item.time.duration
             default:
-                return
+                time_index = 0
             }
             timeSegment.selectedSegmentIndex = time_index
-            
+            self.timeSegmentControl(self)
             subtasks = item.subtasks
         }
         
