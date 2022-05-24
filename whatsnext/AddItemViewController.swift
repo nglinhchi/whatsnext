@@ -72,7 +72,7 @@ class AddItemViewController: UIViewController {
         AddItemViewController.timeFormatter.dateFormat = "hh:mm a"
         
         
-        // for edit
+        // FOR EDIT TASK
         if let item = item {
             taskTF.text = item.name
             let cat_index: Int
@@ -113,6 +113,7 @@ class AddItemViewController: UIViewController {
             }
             timeSegment.selectedSegmentIndex = time_index
             self.timeSegmentControl(self)
+            notesTF.text = item.notes
             subtasks = item.subtasks
         }
         
