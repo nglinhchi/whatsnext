@@ -14,14 +14,14 @@ class TabScheduleViewController: UIViewController {
     // VARIABLES + CONSTANTS *******************************************
     static var models = [Item]()
     
+    static var filter = [Item]()
     
     
     // UI ELEMENTS *****************************************************
     @IBOutlet weak var table: UITableView!
-    @IBOutlet weak var dateBTN: UIButton!
     @IBOutlet weak var journalLabel: UILabel!
     
-    
+    @IBOutlet weak var dateFilter: UIDatePicker!
     
     // METHODS *********************************************************
     override func viewDidLoad() {
@@ -31,7 +31,6 @@ class TabScheduleViewController: UIViewController {
     }
 
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
@@ -40,6 +39,22 @@ class TabScheduleViewController: UIViewController {
     
     
     // BUTTONS *********************************************************
+    
+    @IBAction func dateChanged(_ sender: Any) {
+        TabScheduleViewController.filter = []
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        let choosen = dateFormatter.string(from: dateFilter.date)
+        for item in TabScheduleViewController.models {
+            if dateFormatter.string(from: item.day) == choosen {
+                TabScheduleViewController.filter.append(item)
+            }
+        }
+    }
+    
+    
+    
+    
     
     
     // BUTTON - NEW TASK
@@ -58,6 +73,9 @@ class TabScheduleViewController: UIViewController {
         }
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    
+    
     
     
     // BUTTON - JOURNAL
@@ -134,12 +152,12 @@ extension TabScheduleViewController: UITableViewDataSource {
         
         cell.checkView.tag = indexPath.row
         
-        
         TabScheduleViewController.models[indexPath.row].completed ?
         cell.checkView.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal) :
         cell.checkView.setImage(UIImage(systemName: "circle"), for: .normal)
         
         return cell
+        
     }
 
     

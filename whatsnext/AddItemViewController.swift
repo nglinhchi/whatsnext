@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddItemViewController: UIViewController {
+class AddItemViewController: UIViewController, UITextFieldDelegate {
 
     
     // VARIABLES + CONSTANTS *******************************************
@@ -116,6 +116,13 @@ class AddItemViewController: UIViewController {
             notesTF.text = item.notes
             subtasks = item.subtasks
         }
+        
+        
+        taskTF.delegate = self
+        notesTF.delegate = self
+        subtaskTF.delegate = self
+        
+        taskTF.becomeFirstResponder()
         
     }
     
@@ -262,6 +269,16 @@ class AddItemViewController: UIViewController {
         AddItemViewController.timeField = "duration"
     }
     
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            if textField == subtaskTF {
+                addSubtaskBTN(self)
+            } else {
+                self.view.endEditing(true)
+            }
+            return false
+        }
     
     // done time
     

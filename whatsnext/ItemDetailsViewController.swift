@@ -109,8 +109,13 @@ extension ItemDetailsViewController: UITableViewDataSource {
         cell.subtaskLabel.text = item?.subtasks[indexPath.row].name
         cell.accessoryType = item!.subtasks[indexPath.row].completed ? .checkmark : .none
         return cell
+        
+        // TODO ability to delete AND update subtask
     }
 
+    
+    
+    
 }
 
 
