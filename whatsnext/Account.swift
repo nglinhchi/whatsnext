@@ -11,9 +11,16 @@ import FirebaseFirestoreSwift
 class Account: NSObject, Encodable, Decodable {
     
     @DocumentID var id: String?
-    var username: String?
+    var username: String
     var password: String?
     var firstname: String?
     var lastname: String?
+    
+    init(username: String, password: String, firstname: String, lastname: String) {
+        self.username = username
+        self.password = password
+        self.firstname = firstname
+        self.lastname = lastname
+    }
     
 }

@@ -25,6 +25,7 @@
 		AF9F80E3283DE51E00E647DC /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F80E2283DE51E00E647DC /* Random.swift */; };
 		AF9F80E7283F120E00E647DC /* TabSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F80E6283F120E00E647DC /* TabSettingsTableViewController.swift */; };
 		AF9F80E9283F1D7500E647DC /* TabRoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F80E8283F1D7500E647DC /* TabRoutineViewController.swift */; };
+		AF9F80EB283F535C00E647DC /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F80EA283F535C00E647DC /* AccountViewController.swift */; };
 		AFDC9FB62819244700BB5C39 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDC9FB52819244700BB5C39 /* LogInViewController.swift */; };
 		AFDC9FB828192B1900BB5C39 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDC9FB728192B1900BB5C39 /* Account.swift */; };
 		AFDC9FBB281A520200BB5C39 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = AFDC9FBA281A520200BB5C39 /* FirebaseAuth */; };
@@ -80,6 +81,7 @@
 		AF9F80E2283DE51E00E647DC /* Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
 		AF9F80E6283F120E00E647DC /* TabSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSettingsTableViewController.swift; sourceTree = "<group>"; };
 		AF9F80E8283F1D7500E647DC /* TabRoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabRoutineViewController.swift; sourceTree = "<group>"; };
+		AF9F80EA283F535C00E647DC /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		AFDC9FB52819244700BB5C39 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		AFDC9FB728192B1900BB5C39 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		AFDC9FC0281A552100BB5C39 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				AF9F80E0283DD54000E647DC /* TabRandomViewController.swift */,
 				AF9F80E8283F1D7500E647DC /* TabRoutineViewController.swift */,
 				AF9F80E6283F120E00E647DC /* TabSettingsTableViewController.swift */,
+				AF9F80EA283F535C00E647DC /* AccountViewController.swift */,
 				AF2750452819174C00152BB1 /* Assets.xcassets */,
 				AF2750472819174C00152BB1 /* LaunchScreen.storyboard */,
 				AFDC9FC0281A552100BB5C39 /* GoogleService-Info.plist */,
@@ -340,6 +343,7 @@
 				AF6E0D2D282CF42500FAB86F /* Time.swift in Sources */,
 				AF9F80E1283DD54000E647DC /* TabRandomViewController.swift in Sources */,
 				AFDC9FC9281A896500BB5C39 /* UIViewController+displayMessage.swift in Sources */,
+				AF9F80EB283F535C00E647DC /* AccountViewController.swift in Sources */,
 				AFDC9FCD281A97D800BB5C39 /* LoadAccountsDelegate.swift in Sources */,
 				AF26B2752822580A00ACE8B9 /* AddItemViewController.swift in Sources */,
 				AF9F80E3283DE51E00E647DC /* Random.swift in Sources */,

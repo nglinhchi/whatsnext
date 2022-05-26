@@ -14,13 +14,14 @@ class TabScheduleViewController: UIViewController {
     // VARIABLES + CONSTANTS *******************************************
     static var models = [Item]()
     
-    static var filter = [Item]()
+    static var everything = [String : [Item]]() // store tasks based on day
+    let dateFormatter = DateFormatter()
+
     
     
     // UI ELEMENTS *****************************************************
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var journalLabel: UILabel!
-    
     @IBOutlet weak var dateFilter: UIDatePicker!
     
     // METHODS *********************************************************
@@ -28,6 +29,7 @@ class TabScheduleViewController: UIViewController {
         super.viewDidLoad()
         table.delegate = self
         table.dataSource = self
+        dateFormatter.dateFormat = "dd/MM/yyyy"
     }
 
     
@@ -40,20 +42,15 @@ class TabScheduleViewController: UIViewController {
     
     // BUTTONS *********************************************************
     
-    @IBAction func dateChanged(_ sender: Any) {
-        TabScheduleViewController.filter = []
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
-        let choosen = dateFormatter.string(from: dateFilter.date)
-        for item in TabScheduleViewController.models {
-            if dateFormatter.string(from: item.day) == choosen {
-                TabScheduleViewController.filter.append(item)
-            }
+    @IBAction func dateChanged(_ sender: Any) { // TODO AFTER CHANGE DATA STRUCTURE
+        if let filtered = TabScheduleViewController.everything[self.dateFormatter.string(from: self.dateFilter.date)] {
+            TabScheduleViewController.models = filtered
+        } else {
+            TabScheduleViewController.models = [Item]()
         }
+        self.table.reloadData()
     }
-    
-    
-    
+
     
     
     
@@ -66,9 +63,18 @@ class TabScheduleViewController: UIViewController {
         vc.completion = { item in
             DispatchQueue.main.async {
                 self.navigationController?.popToRootViewController(animated: true)
-                TabScheduleViewController.models.append(item)
-                print(item.subtasks)
-                self.table.reloadData()
+//                TabScheduleViewController.models.append(item)
+                
+                let date = self.dateFormatter.string(from: item.day)
+                if let _ = TabScheduleViewController.everything[date] {
+                    TabScheduleViewController.everything[date]?.append(item)
+                    print("old date")
+                } else {
+                    TabScheduleViewController.everything[date] = [item]
+                    print("new date")
+                }
+                
+                self.dateChanged(self)
             }
         }
         navigationController?.pushViewController(vc, animated: true)
@@ -94,9 +100,6 @@ class TabScheduleViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
 }
-
-
-
 
 
 
@@ -147,10 +150,11 @@ extension TabScheduleViewController: UITableViewDataSource {
         
         // category
         cell.categoryTagLabel?.text = TabScheduleViewController.models[indexPath.row].category
-        
+
         cell.timeTagLabel?.text = TabScheduleViewController.models[indexPath.row].time.getTime()
         
         cell.checkView.tag = indexPath.row
+//        cell.nameLabel.tag = self.dateFormatter.string(from: self.dateFilter.date)
         
         TabScheduleViewController.models[indexPath.row].completed ?
         cell.checkView.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal) :
@@ -159,9 +163,10 @@ extension TabScheduleViewController: UITableViewDataSource {
         return cell
         
     }
-
     
 }
+
+
 
 
 
@@ -178,23 +183,27 @@ class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var checkView: UIButton!
     
     @IBAction func checkBTN(_ sender: Any) {
-        // TODO change item's done to !done
-//        models[indexPath.row].done = !(models[indexPath.row].done)
-        
-        print("??")
-        
         if let button = sender as? UIButton {
-            TabScheduleViewController.models[button.tag].completed = !TabScheduleViewController.models[button.tag].completed
+//            TabScheduleViewController.everything[self.dateFormatter.string(from: self.dateFilter)
             
-            print("CLICKED for index \(button.tag)")
+            // TabScheduleViewController.models[button.tag].completed = !TabScheduleViewController.models[button.tag].completed
+//            print(TabScheduleViewController.models[button.tag].completed)
+//            print(button.tag)
             
-            print(TabScheduleViewController.models[button.tag].completed)
-            print(button.tag)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yyyy"
+            
+            let date = TabScheduleViewController.models[button.tag].day
+            let index = button.tag
+            
+            
+            TabScheduleViewController.everything[dateFormatter.string(from: date)]![index].completed = !TabScheduleViewController.everything[dateFormatter.string(from: date)]![index].completed
             
             // TODO keep changing the tag???
-            TabScheduleViewController.models[button.tag].completed ?
+            TabScheduleViewController.everything[dateFormatter.string(from: date)]![index].completed ?
             checkView.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal) :
             checkView.setImage(UIImage(systemName: "circle"), for: .normal)
+            
             
         }
         
