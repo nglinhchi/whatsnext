@@ -16,6 +16,7 @@ class Account: NSObject, Encodable, Decodable {
     var firstname: String?
     var lastname: String?
     
+    
     init(username: String, password: String, firstname: String, lastname: String) {
         self.username = username
         self.password = password

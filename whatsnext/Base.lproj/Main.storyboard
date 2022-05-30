@@ -433,8 +433,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <datePicker contentMode="center" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="Jnn-Fy-A0q">
-                                <rect key="frame" x="156" y="108" width="125" height="31"/>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="bottom" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="Jnn-Fy-A0q">
+                                <rect key="frame" x="147" y="108" width="120" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="1jx-78-F7e"/>
+                                </constraints>
                                 <locale key="locale" localeIdentifier="en_AU"/>
                                 <connections>
                                     <action selector="dateChanged:" destination="CIU-Lq-Jjn" eventType="valueChanged" id="LUp-BV-VKW"/>
@@ -717,14 +720,47 @@
         <!--Account-->
         <scene sceneID="RPR-MF-t3d">
             <objects>
-                <viewController id="f2P-Uo-Gah" sceneMemberID="viewController">
+                <viewController id="f2P-Uo-Gah" customClass="AccountViewController" customModule="whatsnext" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Krn-K8-YAw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Kd5-xo-RCS">
+                                <rect key="frame" x="157" y="288.5" width="100" height="99"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="ABv-v9-lmX"/>
+                                    <constraint firstAttribute="width" constant="100" id="UNr-W9-xqw"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CKn-Zi-vIX">
+                                <rect key="frame" x="179.5" y="408" width="55" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hW0-1W-hP7">
+                                <rect key="frame" x="175" y="437" width="64" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="9Pq-x8-A1N"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Kd5-xo-RCS" firstAttribute="centerX" secondItem="Krn-K8-YAw" secondAttribute="centerX" id="HXZ-1F-vJM"/>
+                            <constraint firstItem="Kd5-xo-RCS" firstAttribute="top" secondItem="9Pq-x8-A1N" secondAttribute="top" constant="200" id="MuB-Qn-1ik"/>
+                            <constraint firstItem="hW0-1W-hP7" firstAttribute="centerX" secondItem="Kd5-xo-RCS" secondAttribute="centerX" id="RKr-Jw-Qb3"/>
+                            <constraint firstItem="CKn-Zi-vIX" firstAttribute="centerX" secondItem="Kd5-xo-RCS" secondAttribute="centerX" id="Whc-lr-b8F"/>
+                            <constraint firstItem="CKn-Zi-vIX" firstAttribute="top" secondItem="Kd5-xo-RCS" secondAttribute="bottom" constant="20" id="gU8-5R-w56"/>
+                            <constraint firstItem="hW0-1W-hP7" firstAttribute="top" secondItem="CKn-Zi-vIX" secondAttribute="bottom" constant="5" id="xFQ-x2-tQS"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Account" id="Yca-9e-mIl"/>
+                    <connections>
+                        <outlet property="nameLabel" destination="CKn-Zi-vIX" id="eYp-ea-gd5"/>
+                        <outlet property="usernameLabel" destination="hW0-1W-hP7" id="nHo-xp-5ZK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c0Y-rZ-Sx5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -733,18 +769,73 @@
         <!--Journal log-->
         <scene sceneID="KXk-Tp-TgO">
             <objects>
-                <viewController id="e9L-WD-Trw" sceneMemberID="viewController">
+                <viewController id="e9L-WD-Trw" customClass="JournalLogsViewController" customModule="whatsnext" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sqg-tX-KQK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="3Ey-Eq-FdD">
+                                <rect key="frame" x="20" y="118" width="374" height="675"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="77" id="lIA-aP-quf" customClass="JournalTableViewCell" customModule="whatsnext" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.5" width="374" height="77"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lIA-aP-quf" id="Lx1-02-Tcf">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="77"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DATE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qsW-U1-pBe">
+                                                    <rect key="frame" x="20" y="11" width="334" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="sIh-i1-8s6"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="journal" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h2i-pO-alp">
+                                                    <rect key="frame" x="20" y="36" width="334" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="qsW-U1-pBe" secondAttribute="trailing" id="3eU-gp-m5K"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="h2i-pO-alp" secondAttribute="bottom" id="GKp-DH-mVt"/>
+                                                <constraint firstItem="qsW-U1-pBe" firstAttribute="leading" secondItem="Lx1-02-Tcf" secondAttribute="leadingMargin" id="TsM-lN-nVf"/>
+                                                <constraint firstItem="h2i-pO-alp" firstAttribute="leading" secondItem="Lx1-02-Tcf" secondAttribute="leadingMargin" id="aWU-lq-igh"/>
+                                                <constraint firstItem="qsW-U1-pBe" firstAttribute="top" secondItem="Lx1-02-Tcf" secondAttribute="topMargin" id="dHy-Wc-yaq"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="h2i-pO-alp" secondAttribute="trailing" id="nYK-PI-kIz"/>
+                                                <constraint firstItem="h2i-pO-alp" firstAttribute="top" secondItem="qsW-U1-pBe" secondAttribute="bottom" constant="5" id="rvO-xW-BUo"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dateLabel" destination="qsW-U1-pBe" id="RW3-zF-jdh"/>
+                                            <outlet property="journalLabel" destination="h2i-pO-alp" id="Ojd-gR-NK1"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="sge-AA-2fX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="sge-AA-2fX" firstAttribute="trailing" secondItem="3Ey-Eq-FdD" secondAttribute="trailing" constant="20" id="7ry-nN-yPT"/>
+                            <constraint firstItem="sge-AA-2fX" firstAttribute="bottom" secondItem="3Ey-Eq-FdD" secondAttribute="bottom" constant="20" id="ie6-Es-Set"/>
+                            <constraint firstItem="3Ey-Eq-FdD" firstAttribute="leading" secondItem="sqg-tX-KQK" secondAttribute="leading" constant="20" id="rhh-x5-KFi"/>
+                            <constraint firstItem="3Ey-Eq-FdD" firstAttribute="top" secondItem="sge-AA-2fX" secondAttribute="top" constant="30" id="wPZ-R3-U8D"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Journal log" id="8jU-cp-cfV"/>
+                    <connections>
+                        <outlet property="table" destination="3Ey-Eq-FdD" id="thI-D8-Qsk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="16a-hK-lgy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6687" y="1821"/>
+            <point key="canvasLocation" x="6686.9565217391309" y="1820.7589285714284"/>
         </scene>
         <!--Notification settings-->
         <scene sceneID="QEO-Lu-Y27">
@@ -1319,6 +1410,7 @@
         <image name="ellipses.bubble" catalog="system" width="128" height="110"/>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="lightbulb" catalog="system" width="113" height="128"/>
+        <image name="person.circle.fill" catalog="system" width="128" height="121"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="xmark" catalog="system" width="128" height="113"/>

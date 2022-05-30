@@ -67,6 +67,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         table.delegate = self
         table.dataSource = self
         
+        timePicker.locale = Locale(identifier: "en_US")
         
         AddItemViewController.timeFormatter.locale = Locale(identifier: "en_US")
         AddItemViewController.timeFormatter.dateFormat = "hh:mm a"
@@ -114,7 +115,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
             timeSegment.selectedSegmentIndex = time_index
             self.timeSegmentControl(self)
             notesTF.text = item.notes
-            subtasks = item.subtasks
+            self.subtasks = item.subtasks
         }
         
         
@@ -345,6 +346,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         guard let subtask = subtaskTF.text, !subtask.isEmpty else {
             return
         }
+        print("addeddddd")
         subtasks.append(Subtask(name: subtask, completed: false))
         subtaskTF.text = ""
         self.table.reloadData()
