@@ -20,9 +20,11 @@
 		AF6E0CED282B82A700FAB86F /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E0CEC282B82A700FAB86F /* ItemDetailsViewController.swift */; };
 		AF6E0D2B282CF3F600FAB86F /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E0D2A282CF3F600FAB86F /* Item.swift */; };
 		AF6E0D2D282CF42500FAB86F /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E0D2C282CF42500FAB86F /* Time.swift */; };
+		AF80AEFA2848B297000D670D /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AF80AEF82848B297000D670D /* DataModel.xcdatamodeld */; };
+		AF80AEFE2848CE5D000D670D /* Random+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF80AEFC2848CE5D000D670D /* Random+CoreDataClass.swift */; };
+		AF80AEFF2848CE5D000D670D /* Random+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF80AEFD2848CE5D000D670D /* Random+CoreDataProperties.swift */; };
 		AF9F80DF283C9F1D00E647DC /* EditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F80DE283C9F1D00E647DC /* EditItemViewController.swift */; };
 		AF9F80E1283DD54000E647DC /* TabRandomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F80E0283DD54000E647DC /* TabRandomViewController.swift */; };
-		AF9F80E3283DE51E00E647DC /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F80E2283DE51E00E647DC /* Random.swift */; };
 		AF9F80E7283F120E00E647DC /* TabSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F80E6283F120E00E647DC /* TabSettingsTableViewController.swift */; };
 		AF9F80E9283F1D7500E647DC /* TabRoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F80E8283F1D7500E647DC /* TabRoutineViewController.swift */; };
 		AF9F80EB283F535C00E647DC /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F80EA283F535C00E647DC /* AccountViewController.swift */; };
@@ -32,7 +34,7 @@
 		AFDC9FBD281A520200BB5C39 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = AFDC9FBC281A520200BB5C39 /* FirebaseFirestore */; };
 		AFDC9FBF281A520200BB5C39 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = AFDC9FBE281A520200BB5C39 /* FirebaseFirestoreSwift-Beta */; };
 		AFDC9FC1281A552100BB5C39 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AFDC9FC0281A552100BB5C39 /* GoogleService-Info.plist */; };
-		AFDC9FC3281A7A4F00BB5C39 /* FIrebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDC9FC2281A7A4F00BB5C39 /* FIrebaseController.swift */; };
+		AFDC9FC3281A7A4F00BB5C39 /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDC9FC2281A7A4F00BB5C39 /* FirebaseController.swift */; };
 		AFDC9FC5281A7A9000BB5C39 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDC9FC4281A7A9000BB5C39 /* DatabaseProtocol.swift */; };
 		AFDC9FC7281A7CC300BB5C39 /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDC9FC6281A7CC300BB5C39 /* MulticastDelegate.swift */; };
 		AFDC9FC9281A896500BB5C39 /* UIViewController+displayMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDC9FC8281A896500BB5C39 /* UIViewController+displayMessage.swift */; };
@@ -76,16 +78,18 @@
 		AF6E0CEC282B82A700FAB86F /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
 		AF6E0D2A282CF3F600FAB86F /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		AF6E0D2C282CF42500FAB86F /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
+		AF80AEF92848B297000D670D /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		AF80AEFC2848CE5D000D670D /* Random+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Random+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AF80AEFD2848CE5D000D670D /* Random+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Random+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AF9F80DE283C9F1D00E647DC /* EditItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemViewController.swift; sourceTree = "<group>"; };
 		AF9F80E0283DD54000E647DC /* TabRandomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabRandomViewController.swift; sourceTree = "<group>"; };
-		AF9F80E2283DE51E00E647DC /* Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
 		AF9F80E6283F120E00E647DC /* TabSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSettingsTableViewController.swift; sourceTree = "<group>"; };
 		AF9F80E8283F1D7500E647DC /* TabRoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabRoutineViewController.swift; sourceTree = "<group>"; };
 		AF9F80EA283F535C00E647DC /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		AFDC9FB52819244700BB5C39 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		AFDC9FB728192B1900BB5C39 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		AFDC9FC0281A552100BB5C39 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		AFDC9FC2281A7A4F00BB5C39 /* FIrebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIrebaseController.swift; sourceTree = "<group>"; };
+		AFDC9FC2281A7A4F00BB5C39 /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
 		AFDC9FC4281A7A9000BB5C39 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
 		AFDC9FC6281A7CC300BB5C39 /* MulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
 		AFDC9FC8281A896500BB5C39 /* UIViewController+displayMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+displayMessage.swift"; sourceTree = "<group>"; };
@@ -145,31 +149,15 @@
 		AF27503B2819174A00152BB1 /* whatsnext */ = {
 			isa = PBXGroup;
 			children = (
-				AF27503C2819174A00152BB1 /* AppDelegate.swift */,
-				AF27503E2819174A00152BB1 /* SceneDelegate.swift */,
-				AFDC9FC6281A7CC300BB5C39 /* MulticastDelegate.swift */,
-				AFDC9FCC281A97D800BB5C39 /* LoadAccountsDelegate.swift */,
-				AFDC9FC4281A7A9000BB5C39 /* DatabaseProtocol.swift */,
-				AFDC9FC2281A7A4F00BB5C39 /* FIrebaseController.swift */,
-				AFDC9FC8281A896500BB5C39 /* UIViewController+displayMessage.swift */,
-				AF2750422819174A00152BB1 /* Main.storyboard */,
-				AF6E0D2A282CF3F600FAB86F /* Item.swift */,
-				AF6E0D2C282CF42500FAB86F /* Time.swift */,
-				AF9F80E2283DE51E00E647DC /* Random.swift */,
-				AFDC9FB728192B1900BB5C39 /* Account.swift */,
-				AFDC9FB52819244700BB5C39 /* LogInViewController.swift */,
-				AFDC9FCA281A930A00BB5C39 /* SignUpViewController.swift */,
-				AF26B2722822317400ACE8B9 /* TabScheduleViewController.swift */,
-				AFF9BF322823AFD90082AC74 /* EditJournalViewController.swift */,
-				AF6E0CEC282B82A700FAB86F /* ItemDetailsViewController.swift */,
-				AF26B2742822580A00ACE8B9 /* AddItemViewController.swift */,
-				AF9F80DE283C9F1D00E647DC /* EditItemViewController.swift */,
-				AF9F80E0283DD54000E647DC /* TabRandomViewController.swift */,
-				AF9F80E8283F1D7500E647DC /* TabRoutineViewController.swift */,
-				AF9F80E6283F120E00E647DC /* TabSettingsTableViewController.swift */,
-				AF9F80EA283F535C00E647DC /* AccountViewController.swift */,
+				AF80AEFB2848B2AC000D670D /* Data */,
+				AF80AEF528483F7A000D670D /* Delegate */,
+				AF80AEF628483F88000D670D /* ViewController */,
+				AF80AEF728483FB7000D670D /* Object */,
 				AF2750452819174C00152BB1 /* Assets.xcassets */,
+				AF2750422819174A00152BB1 /* Main.storyboard */,
 				AF2750472819174C00152BB1 /* LaunchScreen.storyboard */,
+				AFDC9FC4281A7A9000BB5C39 /* DatabaseProtocol.swift */,
+				AFDC9FC2281A7A4F00BB5C39 /* FirebaseController.swift */,
 				AFDC9FC0281A552100BB5C39 /* GoogleService-Info.plist */,
 				AF27504A2819174C00152BB1 /* Info.plist */,
 			);
@@ -191,6 +179,56 @@
 				AF27505F2819174C00152BB1 /* whatsnextUITestsLaunchTests.swift */,
 			);
 			path = whatsnextUITests;
+			sourceTree = "<group>";
+		};
+		AF80AEF528483F7A000D670D /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				AF27503C2819174A00152BB1 /* AppDelegate.swift */,
+				AF27503E2819174A00152BB1 /* SceneDelegate.swift */,
+				AFDC9FC6281A7CC300BB5C39 /* MulticastDelegate.swift */,
+				AFDC9FCC281A97D800BB5C39 /* LoadAccountsDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
+		AF80AEF628483F88000D670D /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				AFDC9FC8281A896500BB5C39 /* UIViewController+displayMessage.swift */,
+				AFDC9FB52819244700BB5C39 /* LogInViewController.swift */,
+				AFDC9FCA281A930A00BB5C39 /* SignUpViewController.swift */,
+				AF26B2722822317400ACE8B9 /* TabScheduleViewController.swift */,
+				AFF9BF322823AFD90082AC74 /* EditJournalViewController.swift */,
+				AF6E0CEC282B82A700FAB86F /* ItemDetailsViewController.swift */,
+				AF26B2742822580A00ACE8B9 /* AddItemViewController.swift */,
+				AF9F80DE283C9F1D00E647DC /* EditItemViewController.swift */,
+				AF9F80E0283DD54000E647DC /* TabRandomViewController.swift */,
+				AF9F80E8283F1D7500E647DC /* TabRoutineViewController.swift */,
+				AF9F80E6283F120E00E647DC /* TabSettingsTableViewController.swift */,
+				AF9F80EA283F535C00E647DC /* AccountViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		AF80AEF728483FB7000D670D /* Object */ = {
+			isa = PBXGroup;
+			children = (
+				AF6E0D2A282CF3F600FAB86F /* Item.swift */,
+				AF6E0D2C282CF42500FAB86F /* Time.swift */,
+				AFDC9FB728192B1900BB5C39 /* Account.swift */,
+			);
+			path = Object;
+			sourceTree = "<group>";
+		};
+		AF80AEFB2848B2AC000D670D /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				AF80AEF82848B297000D670D /* DataModel.xcdatamodeld */,
+				AF80AEFC2848CE5D000D670D /* Random+CoreDataClass.swift */,
+				AF80AEFD2848CE5D000D670D /* Random+CoreDataProperties.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -342,16 +380,18 @@
 				AF9F80E9283F1D7500E647DC /* TabRoutineViewController.swift in Sources */,
 				AF6E0D2D282CF42500FAB86F /* Time.swift in Sources */,
 				AF9F80E1283DD54000E647DC /* TabRandomViewController.swift in Sources */,
+				AF80AEFA2848B297000D670D /* DataModel.xcdatamodeld in Sources */,
 				AFDC9FC9281A896500BB5C39 /* UIViewController+displayMessage.swift in Sources */,
 				AF9F80EB283F535C00E647DC /* AccountViewController.swift in Sources */,
 				AFDC9FCD281A97D800BB5C39 /* LoadAccountsDelegate.swift in Sources */,
 				AF26B2752822580A00ACE8B9 /* AddItemViewController.swift in Sources */,
-				AF9F80E3283DE51E00E647DC /* Random.swift in Sources */,
 				AFDC9FCB281A930A00BB5C39 /* SignUpViewController.swift in Sources */,
 				AF9F80E7283F120E00E647DC /* TabSettingsTableViewController.swift in Sources */,
 				AFDC9FC7281A7CC300BB5C39 /* MulticastDelegate.swift in Sources */,
+				AF80AEFE2848CE5D000D670D /* Random+CoreDataClass.swift in Sources */,
 				AF27503D2819174A00152BB1 /* AppDelegate.swift in Sources */,
-				AFDC9FC3281A7A4F00BB5C39 /* FIrebaseController.swift in Sources */,
+				AFDC9FC3281A7A4F00BB5C39 /* FirebaseController.swift in Sources */,
+				AF80AEFF2848CE5D000D670D /* Random+CoreDataProperties.swift in Sources */,
 				AF26B2732822317400ACE8B9 /* TabScheduleViewController.swift in Sources */,
 				AF27503F2819174A00152BB1 /* SceneDelegate.swift in Sources */,
 				AFDC9FC5281A7A9000BB5C39 /* DatabaseProtocol.swift in Sources */,
@@ -719,6 +759,19 @@
 			productName = "FirebaseFirestoreSwift-Beta";
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		AF80AEF82848B297000D670D /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AF80AEF92848B297000D670D /* DataModel.xcdatamodel */,
+			);
+			currentVersion = AF80AEF92848B297000D670D /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = AF2750312819174A00152BB1 /* Project object */;
 }
