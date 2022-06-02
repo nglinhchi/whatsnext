@@ -8,23 +8,15 @@
 import UIKit
 import UserNotifications
 
-
-struct ByDay {
-    var journal: String
-    var tasks: [Item]
-}
-
 class TabScheduleViewController: UIViewController {
 
      
     // VARIABLES + CONSTANTS *******************************************
     static var models = [Item]()
     
-    static var everything = [String : ByDay]() // store tasks based on day
+    static var everything = [String : [Item]]() // store tasks based on day
     let dateFormatter = DateFormatter()
 
-    // TODO fix the implementation of extracting journal later
-    
     
     
     // UI ELEMENTS *****************************************************
@@ -52,11 +44,9 @@ class TabScheduleViewController: UIViewController {
     
     @IBAction func dateChanged(_ sender: Any) { // TODO AFTER CHANGE DATA STRUCTURE
         if let filtered = TabScheduleViewController.everything[self.dateFormatter.string(from: self.dateFilter.date)] {
-            TabScheduleViewController.models = filtered.tasks
-            journalLabel.text = filtered.journal
+            TabScheduleViewController.models = filtered
         } else {
             TabScheduleViewController.models = [Item]()
-            journalLabel.text = ""
         }
         self.table.reloadData()
     }
@@ -76,13 +66,14 @@ class TabScheduleViewController: UIViewController {
 //                TabScheduleViewController.models.append(item)
                 
                 let date = self.dateFormatter.string(from: item.day)
-                if let _ = TabScheduleViewController.everything[date]?.tasks {
-                    TabScheduleViewController.everything[date]?.tasks.append(item)
+                if let _ = TabScheduleViewController.everything[date] {
+                    TabScheduleViewController.everything[date]?.append(item)
                     print("old date")
                 } else {
-                    TabScheduleViewController.everything[date] = ByDay(journal: "", tasks: [item])
+                    TabScheduleViewController.everything[date] = [item]
                     print("new date")
                 }
+                
                 self.dateChanged(self)
             }
         }
@@ -103,19 +94,7 @@ class TabScheduleViewController: UIViewController {
         vc.completion = {journal in
             DispatchQueue.main.async {
                 self.navigationController?.popToRootViewController(animated: true)
-                
-                let date = self.dateFormatter.string(from: self.dateFilter.date)
-                if let _ = TabScheduleViewController.everything[date]?.tasks {
-                    TabScheduleViewController.everything[self.dateFormatter.string(from: self.dateFilter.date)]!.journal = journal
-                    print("old date")
-                } else {
-                    TabScheduleViewController.everything[date] = ByDay(journal: journal, tasks: [Item]())
-                    print("new date")
-                }
-                self.dateChanged(self)
-                
                 self.journalLabel.text = journal
-                
             }
         }
         navigationController?.pushViewController(vc, animated: true)
@@ -218,10 +197,10 @@ class ItemTableViewCell: UITableViewCell {
             let index = button.tag
             
             
-            TabScheduleViewController.everything[dateFormatter.string(from: date)]!.tasks[index].completed = !TabScheduleViewController.everything[dateFormatter.string(from: date)]!.tasks[index].completed
+            TabScheduleViewController.everything[dateFormatter.string(from: date)]![index].completed = !TabScheduleViewController.everything[dateFormatter.string(from: date)]![index].completed
             
             // TODO keep changing the tag???
-            TabScheduleViewController.everything[dateFormatter.string(from: date)]!.tasks[index].completed ?
+            TabScheduleViewController.everything[dateFormatter.string(from: date)]![index].completed ?
             checkView.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal) :
             checkView.setImage(UIImage(systemName: "circle"), for: .normal)
             

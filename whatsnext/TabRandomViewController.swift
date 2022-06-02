@@ -19,8 +19,8 @@ class TabRandomViewController: UIViewController, UITextFieldDelegate {
     // METHODS ***********************************************************
     override func viewDidLoad() {
         super.viewDidLoad()
-//        TabRandomViewController.models.append(Random(name: "123"))
-//        TabRandomViewController.models.append(Random(name: "asd"))
+        TabRandomViewController.models.append(Random(name: "123"))
+        TabRandomViewController.models.append(Random(name: "asd"))
         table.delegate = self
         table.dataSource = self
     }
@@ -35,7 +35,7 @@ class TabRandomViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBAction func addBTN(_ sender: Any) {
-        if TabRandomViewController.models.count == 0 || !(TabRandomViewController.models[TabRandomViewController.models.count-1].name == "") {
+        if !(TabRandomViewController.models[TabRandomViewController.models.count-1].name == "") {
             TabRandomViewController.models.append(Random(name: ""))
             table.reloadData()
             let row = TabRandomViewController.models.count-1
@@ -103,11 +103,6 @@ extension TabRandomViewController: UITableViewDataSource {
             addBTN(self)
         }
         print(TabRandomViewController.models.count)
-        
-        for item in TabRandomViewController.models {
-            print("item: \(item.name) and completed: \(item.completed)")
-        }
-        
         return false
     }
     
@@ -136,5 +131,12 @@ class RandomTableViewCell: UITableViewCell, UITextFieldDelegate {
         TabRandomViewController.models[sender.tag].name = nameTF.text!
         print(TabRandomViewController.models[sender.tag].name)
     }
-
+    
+//    
+//    @IBAction func editingDidEnd(_ sender: UITextField) {
+//        print("did end")
+//        if let name = sender.text, name.isEmpty {
+//            TabRandomViewController.models.remove(at: sender.tag)
+//        }
+//    }
 }

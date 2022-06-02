@@ -64,7 +64,6 @@ class ItemDetailsViewController: UIViewController {
 //                self.navigationController?.popToRootViewController(animated: true)
                 self.navigationController?.popViewController(animated: true)
                 self.item = item
-                self.table.reloadData()
                 self.viewDidLoad()
             }
         }

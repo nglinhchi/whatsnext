@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF06AD1B283F6CBC008260B4 /* JournalLogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF06AD1A283F6CBC008260B4 /* JournalLogsViewController.swift */; };
-		AF06AD1F28447815008260B4 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AF06AD1D28447815008260B4 /* DataModel.xcdatamodeld */; };
 		AF26B2732822317400ACE8B9 /* TabScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF26B2722822317400ACE8B9 /* TabScheduleViewController.swift */; };
 		AF26B2752822580A00ACE8B9 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF26B2742822580A00ACE8B9 /* AddItemViewController.swift */; };
 		AF27503D2819174A00152BB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF27503C2819174A00152BB1 /* AppDelegate.swift */; };
@@ -61,8 +59,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AF06AD1A283F6CBC008260B4 /* JournalLogsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalLogsViewController.swift; sourceTree = "<group>"; };
-		AF06AD1E28447815008260B4 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		AF26B2722822317400ACE8B9 /* TabScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabScheduleViewController.swift; sourceTree = "<group>"; };
 		AF26B2742822580A00ACE8B9 /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 		AF2750392819174A00152BB1 /* whatsnext.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = whatsnext.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,23 +122,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AF06AD1C284477E1008260B4 /* DataModel */ = {
-			isa = PBXGroup;
-			children = (
-				AF06AD1D28447815008260B4 /* DataModel.xcdatamodeld */,
-			);
-			path = DataModel;
-			sourceTree = "<group>";
-		};
-		AF06AD20284480D5008260B4 /* NoCoreData */ = {
-			isa = PBXGroup;
-			children = (
-				AF6E0D2A282CF3F600FAB86F /* Item.swift */,
-				AF6E0D2C282CF42500FAB86F /* Time.swift */,
-			);
-			path = NoCoreData;
-			sourceTree = "<group>";
-		};
 		AF2750302819174A00152BB1 = {
 			isa = PBXGroup;
 			children = (
@@ -166,8 +145,6 @@
 		AF27503B2819174A00152BB1 /* whatsnext */ = {
 			isa = PBXGroup;
 			children = (
-				AF06AD20284480D5008260B4 /* NoCoreData */,
-				AF06AD1C284477E1008260B4 /* DataModel */,
 				AF27503C2819174A00152BB1 /* AppDelegate.swift */,
 				AF27503E2819174A00152BB1 /* SceneDelegate.swift */,
 				AFDC9FC6281A7CC300BB5C39 /* MulticastDelegate.swift */,
@@ -176,6 +153,8 @@
 				AFDC9FC2281A7A4F00BB5C39 /* FIrebaseController.swift */,
 				AFDC9FC8281A896500BB5C39 /* UIViewController+displayMessage.swift */,
 				AF2750422819174A00152BB1 /* Main.storyboard */,
+				AF6E0D2A282CF3F600FAB86F /* Item.swift */,
+				AF6E0D2C282CF42500FAB86F /* Time.swift */,
 				AF9F80E2283DE51E00E647DC /* Random.swift */,
 				AFDC9FB728192B1900BB5C39 /* Account.swift */,
 				AFDC9FB52819244700BB5C39 /* LogInViewController.swift */,
@@ -189,7 +168,6 @@
 				AF9F80E8283F1D7500E647DC /* TabRoutineViewController.swift */,
 				AF9F80E6283F120E00E647DC /* TabSettingsTableViewController.swift */,
 				AF9F80EA283F535C00E647DC /* AccountViewController.swift */,
-				AF06AD1A283F6CBC008260B4 /* JournalLogsViewController.swift */,
 				AF2750452819174C00152BB1 /* Assets.xcassets */,
 				AF2750472819174C00152BB1 /* LaunchScreen.storyboard */,
 				AFDC9FC0281A552100BB5C39 /* GoogleService-Info.plist */,
@@ -364,9 +342,7 @@
 				AF9F80E9283F1D7500E647DC /* TabRoutineViewController.swift in Sources */,
 				AF6E0D2D282CF42500FAB86F /* Time.swift in Sources */,
 				AF9F80E1283DD54000E647DC /* TabRandomViewController.swift in Sources */,
-				AF06AD1F28447815008260B4 /* DataModel.xcdatamodeld in Sources */,
 				AFDC9FC9281A896500BB5C39 /* UIViewController+displayMessage.swift in Sources */,
-				AF06AD1B283F6CBC008260B4 /* JournalLogsViewController.swift in Sources */,
 				AF9F80EB283F535C00E647DC /* AccountViewController.swift in Sources */,
 				AFDC9FCD281A97D800BB5C39 /* LoadAccountsDelegate.swift in Sources */,
 				AF26B2752822580A00ACE8B9 /* AddItemViewController.swift in Sources */,
@@ -743,19 +719,6 @@
 			productName = "FirebaseFirestoreSwift-Beta";
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		AF06AD1D28447815008260B4 /* DataModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				AF06AD1E28447815008260B4 /* DataModel.xcdatamodel */,
-			);
-			currentVersion = AF06AD1E28447815008260B4 /* DataModel.xcdatamodel */;
-			path = DataModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = AF2750312819174A00152BB1 /* Project object */;
 }
