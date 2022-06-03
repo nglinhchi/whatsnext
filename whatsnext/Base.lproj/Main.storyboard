@@ -333,7 +333,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g5U-RM-Saw">
-                                <rect key="frame" x="20" y="108" width="48.5" height="31"/>
+                                <rect key="frame" x="20" y="108" width="30" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="rML-12-cKg"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain">
                                     <imageReference key="image" image="ellipses.bubble" catalog="system" symbolScale="large"/>
@@ -343,7 +346,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oop-as-Ckc">
-                                <rect key="frame" x="350" y="108" width="44" height="31"/>
+                                <rect key="frame" x="364" y="108" width="30" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="ugD-vC-PFf"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain">
                                     <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
@@ -433,8 +439,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <datePicker contentMode="center" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="Jnn-Fy-A0q">
-                                <rect key="frame" x="156" y="108" width="125" height="31"/>
+                            <datePicker contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="Jnn-Fy-A0q">
+                                <rect key="frame" x="147" y="108" width="120" height="31"/>
                                 <locale key="locale" localeIdentifier="en_AU"/>
                                 <connections>
                                     <action selector="dateChanged:" destination="CIU-Lq-Jjn" eventType="valueChanged" id="LUp-BV-VKW"/>

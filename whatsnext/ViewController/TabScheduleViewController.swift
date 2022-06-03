@@ -15,6 +15,11 @@ class TabScheduleViewController: UIViewController {
     static var models = [Item]()
     
     static var everything = [String : [Item]]() // store tasks based on day
+    // store dictionary in core data
+    // store customised class in core data
+    // date as key? would it take all the components of date (incl. hour, minute, second) --> have many keys of same day
+    // git, revert to previous commit, make changes on that commit and cannot save/push it to remote now
+    
     let dateFormatter = DateFormatter()
 
     
