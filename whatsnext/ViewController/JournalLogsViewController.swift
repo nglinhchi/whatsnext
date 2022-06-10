@@ -22,7 +22,7 @@ class JournalLogsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dayFormatter.locale = Locale(identifier: "en_US")
-        dayFormatter.dateFormat = "EEEE dd/MM/yyyy"
+        dayFormatter.dateFormat = "EEEE, dd/MM/yyyy"
         table.delegate = self
         table.dataSource = self
         table.estimatedRowHeight = 600
@@ -33,6 +33,7 @@ class JournalLogsViewController: UIViewController {
     func fetchJournals() {
         do {
             journals = try context.fetch(Journal.fetchRequest())
+            journals = journals.sorted(by: { $0.day.compare($1.day) == .orderedDescending })
             table.reloadData()
         }
         catch { print(error)}
