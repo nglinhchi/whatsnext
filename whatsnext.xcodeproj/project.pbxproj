@@ -25,6 +25,7 @@
 		AF4D1BC02852CB0D00340A31 /* Time+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D1BBE2852CB0D00340A31 /* Time+CoreDataProperties.swift */; };
 		AF4D1BC32852FBDB00340A31 /* Journal+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D1BC12852FBDB00340A31 /* Journal+CoreDataClass.swift */; };
 		AF4D1BC42852FBDB00340A31 /* Journal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D1BC22852FBDB00340A31 /* Journal+CoreDataProperties.swift */; };
+		AF4D1BC62853099A00340A31 /* JournalLogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D1BC52853099A00340A31 /* JournalLogsViewController.swift */; };
 		AF6E0CED282B82A700FAB86F /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E0CEC282B82A700FAB86F /* ItemDetailsViewController.swift */; };
 		AF80AEFA2848B297000D670D /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AF80AEF82848B297000D670D /* DataModel.xcdatamodeld */; };
 		AF80AEFE2848CE5D000D670D /* Random+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF80AEFC2848CE5D000D670D /* Random+CoreDataClass.swift */; };
@@ -89,6 +90,7 @@
 		AF4D1BBE2852CB0D00340A31 /* Time+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Time+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AF4D1BC12852FBDB00340A31 /* Journal+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Journal+CoreDataClass.swift"; sourceTree = "<group>"; };
 		AF4D1BC22852FBDB00340A31 /* Journal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Journal+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AF4D1BC52853099A00340A31 /* JournalLogsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalLogsViewController.swift; sourceTree = "<group>"; };
 		AF6E0CEC282B82A700FAB86F /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
 		AF80AEF92848B297000D670D /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		AF80AEFC2848CE5D000D670D /* Random+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Random+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				AF9F80E8283F1D7500E647DC /* TabRoutineViewController.swift */,
 				AF9F80E6283F120E00E647DC /* TabSettingsTableViewController.swift */,
 				AF9F80EA283F535C00E647DC /* AccountViewController.swift */,
+				AF4D1BC52853099A00340A31 /* JournalLogsViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 				AF27503D2819174A00152BB1 /* AppDelegate.swift in Sources */,
 				AF4D1BC02852CB0D00340A31 /* Time+CoreDataProperties.swift in Sources */,
 				AFDC9FC3281A7A4F00BB5C39 /* FirebaseController.swift in Sources */,
+				AF4D1BC62853099A00340A31 /* JournalLogsViewController.swift in Sources */,
 				AF80AEFF2848CE5D000D670D /* Random+CoreDataProperties.swift in Sources */,
 				AF26B2732822317400ACE8B9 /* TabScheduleViewController.swift in Sources */,
 				AF27503F2819174A00152BB1 /* SceneDelegate.swift in Sources */,

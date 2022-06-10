@@ -61,7 +61,6 @@ class TabScheduleViewController: UIViewController {
             }
         }
         catch { print(error)}
-        
     }
     
     // CRUD - THINGS ----------------------------------------------------------------------------------
@@ -180,10 +179,6 @@ class TabScheduleViewController: UIViewController {
 }
 
 
-
-
-
-
 extension TabScheduleViewController: UITableViewDelegate {
     
     // SELECT A THING --> SEE ITS DETAILS
@@ -196,14 +191,14 @@ extension TabScheduleViewController: UITableViewDelegate {
         vc.completion = { message in
             DispatchQueue.main.async {
                 self.navigationController?.popToRootViewController(animated: true)
-//                TabScheduleViewController.things[indexPath.row] = thing
-                self.table.reloadData()
+                self.fetchThings()
             }
         }
         navigationController?.pushViewController(vc, animated: true)
     }
     
 }
+
 
 extension TabScheduleViewController: UITableViewDataSource {
     
@@ -222,7 +217,7 @@ extension TabScheduleViewController: UITableViewDataSource {
         cell.categoryTagLabel?.text = TabScheduleViewController.things[indexPath.row].category
         cell.timeTagLabel?.text = TabScheduleViewController.things[indexPath.row].time.getTime()
         cell.checkView.tag = indexPath.row
-//        cell.nameLabel.tag = self.dateFormatter.string(from: self.dateFilter.date)
+        //  cell.nameLabel.tag = self.dateFormatter.string(from: self.dateFilter.date)
         TabScheduleViewController.things[indexPath.row].completed ?
         cell.checkView.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal) :
         cell.checkView.setImage(UIImage(systemName: "circle"), for: .normal)

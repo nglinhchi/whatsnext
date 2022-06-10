@@ -173,7 +173,6 @@ class RandomTableViewCell: UITableViewCell, UITextFieldDelegate {
     @IBOutlet weak var checkView: UIButton!
     @IBOutlet weak var nameTF: UITextField!
     
-    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     // TOGGLE RANDOM.COMPLETED

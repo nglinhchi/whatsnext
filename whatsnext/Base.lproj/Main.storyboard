@@ -739,7 +739,7 @@
         <!--Journal log-->
         <scene sceneID="KXk-Tp-TgO">
             <objects>
-                <viewController id="e9L-WD-Trw" sceneMemberID="viewController">
+                <viewController id="e9L-WD-Trw" customClass="JournalLogsViewController" customModule="whatsnext" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sqg-tX-KQK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -748,32 +748,43 @@
                                 <rect key="frame" x="0.0" y="118" width="414" height="695"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="Y25-gM-Epw" customClass="RandomTableViewCell" customModule="whatsnext" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="70" id="Y25-gM-Epw" customClass="JournalLogsTableViewCell" customModule="whatsnext" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Y25-gM-Epw" id="rG6-Ua-o9L">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZCS-z1-bSc">
-                                                    <rect key="frame" x="20" y="0.0" width="36" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZCS-z1-bSc">
+                                                    <rect key="frame" x="20" y="5" width="374" height="24"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Journal" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dF-gs-6X9">
+                                                    <rect key="frame" x="20" y="34" width="374" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ZCS-z1-bSc" firstAttribute="leading" secondItem="rG6-Ua-o9L" secondAttribute="leading" constant="20" id="BXb-Fq-IyV"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="4dF-gs-6X9" secondAttribute="bottom" id="PAF-mN-gS2"/>
+                                                <constraint firstItem="4dF-gs-6X9" firstAttribute="trailing" secondItem="ZCS-z1-bSc" secondAttribute="trailing" id="Tsn-ni-mv2"/>
+                                                <constraint firstItem="ZCS-z1-bSc" firstAttribute="top" secondItem="rG6-Ua-o9L" secondAttribute="top" constant="5" id="ZyS-8T-54W"/>
+                                                <constraint firstItem="4dF-gs-6X9" firstAttribute="leading" secondItem="ZCS-z1-bSc" secondAttribute="leading" id="ddX-Nv-xVx"/>
+                                                <constraint firstItem="4dF-gs-6X9" firstAttribute="top" secondItem="ZCS-z1-bSc" secondAttribute="bottom" constant="5" id="jd0-RP-Syl"/>
+                                                <constraint firstAttribute="trailing" secondItem="ZCS-z1-bSc" secondAttribute="trailing" constant="20" id="thc-Lj-Sue"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dateLabel" destination="ZCS-z1-bSc" id="0i6-cc-ZhY"/>
+                                            <outlet property="diaryLabel" destination="4dF-gs-6X9" id="4HX-qy-80q"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Diary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dF-gs-6X9">
-                                <rect key="frame" x="20" y="191" width="40" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sge-AA-2fX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -785,6 +796,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Journal log" id="8jU-cp-cfV"/>
+                    <connections>
+                        <outlet property="table" destination="cX0-9k-sMZ" id="m0q-nC-XjM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="16a-hK-lgy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -992,6 +1006,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="9RC-3t-GLa"/>
                                         </constraints>
+                                        <locale key="locale" localeIdentifier="en_AU"/>
                                         <connections>
                                             <action selector="changeTimePicker:" destination="mk7-lH-cAP" eventType="valueChanged" id="Hcn-bB-jmb"/>
                                         </connections>

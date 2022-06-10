@@ -11,56 +11,38 @@ import CoreData
 class AddItemViewController: UIViewController, UITextFieldDelegate {
 
     
-    // VARIABLES + CONSTANTS *******************************************
+    // VARIABLES -------------------------------------------------------------------------------------
+    var item: Thing?
+    var subtasks = [String]()
+    var subtaskOldCount: Int = 0
+    
+    // UTILS -----------------------------------------------------------------------------------------
+    static var timeFormatter = DateFormatter()
+    static var timeField = ""
     public var completion: ((String) -> Void)?
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    static var timeFormatter = DateFormatter()
-    static var timeField = ""
-    
-    var item: Thing?
-    
-    // UI ELEMENTS *****************************************************
-    
-    // task name
+    // UI ELEMENTS -----------------------------------------------------------------------------------
     @IBOutlet weak var taskTF: UITextField!
-    
-    // category
     @IBOutlet weak var categorySegment: UISegmentedControl!
-    
-    // date
     @IBOutlet weak var datePicker: UIDatePicker!
-    
-    // time
     @IBOutlet weak var timeSegment: UISegmentedControl!
     @IBOutlet weak var exactTF: UITextField!
     @IBOutlet weak var startTF: UITextField!
     @IBOutlet weak var endTF: UITextField!
     @IBOutlet weak var durationTF: UITextField!
-    
-    // notes
     @IBOutlet weak var notesTF: UITextField!
-    
-    // subtask TO ADD
-    
     @IBOutlet weak var table: UITableView!
-    
     @IBOutlet weak var subtaskTF: UITextField!
-    
-    var subtasks = [String]()
-    var subtaskOldCount: Int = 0
-    
-    
-    // time picker
     @IBOutlet weak var timePicker: UIDatePicker!
     
+    // GENERAL METHODS -------------------------------------------------------------------------------
     
-    
-    // METHODS *********************************************************
-    
+    // VIEWDIDLOAD
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
         exactTF.isHidden = true
         startTF.isHidden = true
         endTF.isHidden = true
@@ -70,12 +52,10 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         table.delegate = self
         table.dataSource = self
         
-        
         AddItemViewController.timeFormatter.locale = Locale(identifier: "en_US")
         AddItemViewController.timeFormatter.dateFormat = "hh:mm a"
         
-        
-        // FOR EDIT TASK
+        // FOR EDIT TASK - prefill detail
         if let item = item {
             taskTF.text = item.name
             let cat_index: Int
@@ -118,7 +98,6 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
             self.timeSegmentControl(self)
             notesTF.text = item.notes
             
-            
             do {
                 let request = Subtask.fetchRequest() as NSFetchRequest<Subtask>
                 let pred = NSPredicate(format: "%K == %@", "thingID", item.id as CVarArg)
@@ -132,24 +111,16 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
             }
             catch { print(error) }
             
-//            subtasks = item.subtasks
         }
-        
         
         taskTF.delegate = self
         notesTF.delegate = self
         subtaskTF.delegate = self
-        
         taskTF.becomeFirstResponder()
         
     }
     
-    
-    
-    
-    // BUTTONS *********************************************************
-    
-    // SAVE BUTTON
+    // ADD/UPDATE THING -----------------------------------------------------------------------------
     @IBAction func saveBTN(_ sender: Any) {
         
         /* acceptance criteria
@@ -225,9 +196,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         let notes = notesTF.text ?? ""
         
         
-        // for update item
-        
-        if let item = item {
+        // UPDATE OR CREATE NEW ITEM
+        if let item = item { // update
             if subtasks.count > subtaskOldCount {
                 for i in subtaskOldCount...subtasks.count-1 {
                     let coreSubtask = Subtask(context: context)
@@ -236,7 +206,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
                     coreSubtask.completed = false
                 }
             }
-        } else {
+        } else { // create
             item = Thing(context: context)
             item!.id = UUID()
             for subtask in subtasks {
@@ -245,26 +215,25 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
                 coreSubtask.name = subtask
                 coreSubtask.completed = false
             }
-        }
+        } // both
         item!.name = name
         item!.category = category
         item!.day = day
         item!.time = time
         item!.notes = notes
-        
         do { try context.save() }
         catch { print(error) }
-        completion?("added new thing")
+        completion?("done")
     }
     
+    // UI UNDERLYING MECHANISM ----------------------------------------------------------------------
     
-    // DISCARD BUTTON
+    // CANCEL CREATE/UPDATE THING
     @IBAction func discardBTN(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
-    
-    // TIME SEGMENT - SHOW WHAT TEXT FIELDS
+    // SELECT TIME SEGMENT -> DECIDE WHICH TEXT FIELDS TO SHOW
     @IBAction func timeSegmentControl(_ sender: Any) {
         timePicker.isHidden     = true
         exactTF.isHidden        = true
@@ -284,8 +253,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    
-    // might put repetitive code into 1 single methods, connect all text fields to it
+    // START EDITING TIME TEXTFIELDS
     @IBAction func clickExact(_ sender: Any) {
         timePicker.datePickerMode = .time
         timePicker.isHidden = false
@@ -309,64 +277,15 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         timePicker.isHidden = false
         AddItemViewController.timeField = "duration"
     }
-    // **********************************************************************************
     
-    
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            if textField == subtaskTF {
-                addSubtaskBTN(self)
-            } else {
-                self.view.endEditing(true)
-            }
-            return false
-        }
-    
-    // done time
-    
-    // with animation
-    /*
-     UIView.transition(with: button, duration: 0.4,
-                       options: .transitionCrossDissolve,
-                       animations: {
-                      button.hidden = false
-                   })
-     */
-    
-    
-    @IBAction func doneExact(_ sender: Any) {
-        timePicker.isHidden = true
-    }
-    
-    
-    @IBAction func doneStart(_ sender: Any) {
-        timePicker.isHidden = true
-    }
-    
-    
-    @IBAction func doneEnd(_ sender: Any) {
-        timePicker.isHidden = true
-    }
-    
-    
-    @IBAction func doneDuration(_ sender: Any) {
-        timePicker.isHidden = true
-    }
-    
-    
-    
+    // DECIDE TIME PICKER MODE
     @IBAction func changeTimePicker(_ sender: Any) {
-        
-        // check all types not just start end anymore, esp duration!!!!!
-        
         let time = AddItemViewController.timeFormatter.string(from: timePicker.date)
-        
         let hour = Calendar.current.component(.hour, from: timePicker.date)
         let minute = Calendar.current.component(.minute, from: timePicker.date)
         let hours = hour>0 ? "\(hour)hr" : ""
         let minutes = minute>0 ? "\(minute)min" : ""
         let duration = "\(hours) \(minutes)"
-        
         switch AddItemViewController.timeField {
         case "exact":
             exactTF.text = time
@@ -381,6 +300,32 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // END EDITING TIME TEXTFIELDS
+    @IBAction func doneExact(_ sender: Any) {
+        timePicker.isHidden = true
+    }
+    
+    @IBAction func doneStart(_ sender: Any) {
+        timePicker.isHidden = true
+    }
+    
+    @IBAction func doneEnd(_ sender: Any) {
+        timePicker.isHidden = true
+    }
+    
+    @IBAction func doneDuration(_ sender: Any) {
+        timePicker.isHidden = true
+    }
+    
+    // HIDE KEYBOARD ON RETURN KEY
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            if textField == subtaskTF {
+                addSubtaskBTN(self)
+            } else {
+                self.view.endEditing(true)
+            }
+            return false
+        }
     
     // ADD SUBTASK
     @IBAction func addSubtaskBTN(_ sender: Any) {
@@ -391,7 +336,6 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         subtaskTF.text = ""
         self.table.reloadData()
     }
-    
     
 }
 
