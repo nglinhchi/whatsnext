@@ -31,10 +31,10 @@
         <relationship name="thing" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Thing" inverseName="time" inverseEntity="Thing"/>
     </entity>
     <elements>
+        <element name="Journal" positionX="351" positionY="162" width="128" height="59"/>
         <element name="Random" positionX="211.1171875" positionY="2.828125" width="128" height="59"/>
         <element name="Subtask" positionX="369" positionY="180" width="128" height="74"/>
         <element name="Thing" positionX="288" positionY="171" width="128" height="134"/>
         <element name="Time" positionX="497.8515625" positionY="297.1484375" width="128" height="119"/>
-        <element name="Journal" positionX="351" positionY="162" width="128" height="59"/>
     </elements>
 </model>

@@ -8,9 +8,9 @@
 import UIKit
 import UserNotifications
 import CoreData
+import Firebase
 
 class TabScheduleViewController: UIViewController {
-
      
     // VARIABLES -------------------------------------------------------------------------------------
     static var things = [Thing]() // TODO - switch to non-static later
@@ -19,6 +19,9 @@ class TabScheduleViewController: UIViewController {
     // UTILS -----------------------------------------------------------------------------------------
     let dateFormatter = DateFormatter()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+//    var usersReference = Firestore.firestore().collection("users")
+//    var storageReference = Storage.storage().reference()
+    
     
     // UI ELEMENTS -----------------------------------------------------------------------------------
     @IBOutlet weak var table: UITableView!

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class TabSettingsTableViewController: UITableViewController {
 
@@ -25,7 +26,8 @@ class TabSettingsTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -40,14 +42,34 @@ class TabSettingsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if tableView.cellForRow(at: indexPath) == darkmodeCell || tableView.cellForRow(at: indexPath) == logoutCell  {
+        if tableView.cellForRow(at: indexPath) == darkmodeCell {
             tableView.cellForRow(at: indexPath)!.selectionStyle = .none
         }
             tableView.deselectRow(at: indexPath, animated: true)
         
         if tableView.cellForRow(at: indexPath) == logoutCell {
             // TODO log out - log in screen?
+            signOut()
         }
+    }
+    
+    func signOut() {
+//        Task{
+            do {
+                try Auth.auth().signOut()
+            }
+            catch {
+                print("Log out error: \(error.localizedDescription)")
+            }
+//            self.navigationController?.popToRootViewController(animated: true)
+            navigationController?.popViewController(animated: true)
+        print("hello world")
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "login") as? LogInViewController else {
+                return
+        }
+        navigationController?.pushViewController(vc, animated: true)
+        print("here")
+//        }
     }
     
     /*

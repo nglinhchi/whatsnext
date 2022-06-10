@@ -7,6 +7,9 @@
 
 import UIKit
 import CoreData
+import Firebase
+import FirebaseFirestore
+import FirebaseStorage
 
 class AddItemViewController: UIViewController, UITextFieldDelegate {
 
@@ -15,6 +18,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     var item: Thing?
     var subtasks = [String]()
     var subtaskOldCount: Int = 0
+    var usersReference = Firestore.firestore().collection("users")
+    var storageReference = Storage.storage().reference()
     
     // UTILS -----------------------------------------------------------------------------------------
     static var timeFormatter = DateFormatter()
@@ -226,6 +231,17 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         item!.notes = notes
         do { try self.context.save() }
         catch { print(error) }
+        
+        
+        guard let userID = Auth.auth().currentUser?.uid else {
+            displayMessage(title: "Error", message: "No user logged in!")
+            return
+        }
+        
+//        let thingRef = storageReference.child("\(userID)/\(item!.id)")
+        
+        
+        
         completion?("done")
     }
     

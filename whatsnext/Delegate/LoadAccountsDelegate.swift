@@ -9,6 +9,6 @@ import Foundation
 
 protocol LoadAccountsDelegate: AnyObject {
     
-    func loadAccounts (_ accounts: [Account]) -> Bool
+//    func loadAccounts (_ accounts: [Account]) -> Bool
 
 }

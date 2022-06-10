@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>987521895711-7p0538eqqg7s6le2vfsb9p2emfotrnqj.apps.googleusercontent.com</string>
+	<string>324250546370-e8iib4sua46go1ek4op6f3jirjj0ciii.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.987521895711-7p0538eqqg7s6le2vfsb9p2emfotrnqj</string>
+	<string>com.googleusercontent.apps.324250546370-e8iib4sua46go1ek4op6f3jirjj0ciii</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBtc2DU0lOqhTyaOw4HT4wAmHMW2Bn4qYk</string>
+	<string>AIzaSyDfEVCcjOL017NtUKyCvR0Y2sykCdXwm5Y</string>
 	<key>GCM_SENDER_ID</key>
-	<string>987521895711</string>
+	<string>324250546370</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>monash.edu.whatsnext</string>
 	<key>PROJECT_ID</key>
-	<string>fit3178-whatsnext</string>
+	<string>whatsnext-d6557</string>
 	<key>STORAGE_BUCKET</key>
-	<string>fit3178-whatsnext.appspot.com</string>
+	<string>whatsnext-d6557.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:987521895711:ios:598f4fe83cb7c837aab42a</string>
+	<string>1:324250546370:ios:b1a854a0873d5b37ce8b5b</string>
 </dict>
 </plist>
