@@ -11,14 +11,20 @@ import Firebase
 
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
+    var window: UIWindow?
     var databaseController: DatabaseProtocol?
-    
+    var databaseFirebase: FirebaseProtocol?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        FirebaseApp.configure()
-//        databaseController = FirebaseController()
+        databaseFirebase = FirebaseController()
+        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.badge,.sound]){
+            (granted,error) in if granted{
+                print("user gave permission for notification")
+            }
+        }
         return true
     }
 

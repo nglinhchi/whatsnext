@@ -14,7 +14,7 @@ class SignUpViewController: UIViewController {
 //    var accounts: [Account] = []
 //    weak var databaseController: DatabaseProtocol?
     var authHandle: AuthStateDidChangeListenerHandle?
-    var currentUser: User?
+    var currentUser: FirebaseAuth.User?
     
     @IBOutlet weak var firstnameTF: UITextField!
     @IBOutlet weak var lastnameTF: UITextField!

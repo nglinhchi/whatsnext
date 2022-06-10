@@ -15,7 +15,7 @@ class LogInViewController: UIViewController {
 //    @IBOutlet weak var appLogo: UIView!
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
-    
+    weak var databaseController: FirebaseProtocol?
     
     // VARIABLES
 //    var accounts: [Account] = []
@@ -46,6 +46,7 @@ class LogInViewController: UIViewController {
             }
 
         })
+        
 
         
         
@@ -68,8 +69,8 @@ class LogInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-//        databaseController = appDelegate?.databaseController
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseFirebase
         self.tabBarController?.tabBar.isHidden = true
         emailTF.becomeFirstResponder()
     }

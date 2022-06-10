@@ -9,8 +9,16 @@ import UIKit
 import UserNotifications
 import CoreData
 import Firebase
+import FirebaseAuth
+import FirebaseStorage
+import FirebaseFirestoreSwift
 
-class TabScheduleViewController: UIViewController {
+class TabScheduleViewController: UIViewController, DatabaseListener {
+    
+    
+   
+    
+    
      
     // VARIABLES -------------------------------------------------------------------------------------
     static var things = [Thing]() // TODO - switch to non-static later
@@ -27,26 +35,77 @@ class TabScheduleViewController: UIViewController {
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var journalLabel: UILabel!
     @IBOutlet weak var dateFilter: UIDatePicker!
+    weak var databaseController: FirebaseProtocol?
     
     // GENERAL METHODS -------------------------------------------------------------------------------
+    
+    
+    var randomAll = [FBRandom()]
+    var userRandom = [FBRandom()]
+    var listenerType: ListenerType = .random
+    
+    
+    func onThingChange(change: DatabaseChange, things: [FBThing]) {
+//
+    }
+    
+    func onTimeChange(change: DatabaseChange, times: [FBTime]) {
+//
+    }
+    
+    func onSubClassChange(change: DatabaseChange, subClasses: [FBSubClass]) {
+//
+    }
+    func onJournalChange(change: DatabaseChange, journals: [FBJournal]) {
+//
+    }
+    
+    func onRandomChange(change: DatabaseChange, randoms: [FBRandom]) {
+        print(randoms)
+        for random in randoms{
+            if random.userID == Auth.auth().currentUser?.uid{
+                userRandom.append(random)
+            }
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        databaseController?.removeListener(listener: self)
+        navigationController?.navigationBar.isHidden = true
+    }
+    override func viewWillAppear(_ animated: Bool){
+        super.viewWillAppear(animated)
+        databaseController?.addListener(listener: self)
+    }
+    
+    
+    
+    
     
     // VIEWDIDLOAD
     override func viewDidLoad() {
         super.viewDidLoad()
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseFirebase
+        databaseController?.addRandom(name: "Minh", completed: true)
+        databaseController?.addJournal(date: "12/12/12", diary: "Hello world")
+        databaseController?.addSubClass(completed: true, name: "asd", thingID:"123")
+        databaseController?.addTime(duaration: "asd", end: "123", exact: "123", start: "123", type: "123", thingID: "123")
+        databaseController?.addThing(category: "123", completed: false, date: "123", name: "123", note: "123")
         table.delegate = self
         table.dataSource = self
         dateFormatter.dateFormat = "dd/MM/yyyy"
 //        testItems()
         fetchThings()
         fetchJournal()
-        
     }
     
     // HIDE TITLE
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = true
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//
+//    }
     
     // CRUD - JOURNAL ---------------------------------------------------------------------------------
     func fetchJournal() {
