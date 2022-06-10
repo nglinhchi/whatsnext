@@ -10,7 +10,7 @@ import FirebaseAuth
 
 class TabSettingsTableViewController: UITableViewController {
 
-    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     @IBOutlet weak var darkmodeCell: UITableViewCell!
     @IBOutlet weak var logoutCell: UITableViewCell!
@@ -61,15 +61,68 @@ class TabSettingsTableViewController: UITableViewController {
             catch {
                 print("Log out error: \(error.localizedDescription)")
             }
-//            self.navigationController?.popToRootViewController(animated: true)
             navigationController?.popViewController(animated: true)
-        print("hello world")
+        // clear coredata
+        clearCoreData()
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "login") as? LogInViewController else {
                 return
         }
         navigationController?.pushViewController(vc, animated: true)
-        print("here")
 //        }
+    }
+    
+    func clearCoreData() {
+        
+        // time
+        do {
+            let all = try context.fetch(Time.fetchRequest())
+            for each in all {
+                context.delete(each)
+            }
+        }
+        catch { print(error) }
+        
+        // subtask
+        do {
+            let all = try context.fetch(Subtask.fetchRequest())
+            for each in all {
+                context.delete(each)
+            }
+        }
+        catch { print(error) }
+        
+        // thing
+        do {
+            let all = try context.fetch(Thing.fetchRequest())
+            for each in all {
+                context.delete(each)
+            }
+        }
+        catch { print(error) }
+        
+        // random
+        do {
+            let all = try context.fetch(Random.fetchRequest())
+            for each in all {
+                context.delete(each)
+            }
+        }
+        catch { print(error) }
+        
+        // journal
+        do {
+            let all = try context.fetch(Journal.fetchRequest())
+            for each in all {
+                context.delete(each)
+            }
+        }
+        catch { print(error) }
+        
+        // save
+        do {
+            try context.save()
+        }
+        catch { print(error) }
     }
     
     /*
