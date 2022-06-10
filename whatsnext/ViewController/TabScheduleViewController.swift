@@ -14,57 +14,42 @@ import FirebaseStorage
 import FirebaseFirestoreSwift
 
 class TabScheduleViewController: UIViewController, DatabaseListener {
-    
-    
-   
-    
-    
      
     // VARIABLES -------------------------------------------------------------------------------------
     static var things = [Thing]() // TODO - switch to non-static later
     var journal: Journal?
+//    var allRandom = [FBRandom()]
+    var userRandom = [FBRandom()]
+    var listenerType: ListenerType = .random
     
     // UTILS -----------------------------------------------------------------------------------------
     let dateFormatter = DateFormatter()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    weak var databaseController: FirebaseProtocol?
     
     // UI ELEMENTS -----------------------------------------------------------------------------------
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var journalLabel: UILabel!
     @IBOutlet weak var dateFilter: UIDatePicker!
-    weak var databaseController: FirebaseProtocol?
+    
     
     // GENERAL METHODS -------------------------------------------------------------------------------
     
     // VIEWDIDLOAD
     override func viewDidLoad() {
         super.viewDidLoad()
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseFirebase
-        databaseController?.addRandom(name: "Minh", completed: true)
-        databaseController?.addJournal(date: "12/12/12", diary: "Hello world")
-        databaseController?.addSubClass(completed: true, name: "asd", thingID:"123")
-        databaseController?.addTime(duaration: "asd", end: "123", exact: "123", start: "123", type: "123", thingID: "123")
-        databaseController?.addThing(category: "123", completed: false, date: "123", name: "123", note: "123")
+        dateFormatter.dateFormat = "dd/MM/yyyy"
         table.delegate = self
         table.dataSource = self
-        dateFormatter.dateFormat = "dd/MM/yyyy"
-//        testItems()
+//        firebaseTestItems()
+//        coredataTestItems()
         fetchThings()
         fetchJournal()
     }
     
-    // HIDE TITLE
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//
-//    }
-    
     // FIREBASE ---------------------------------------------------------------------------------------
-    
-    var randomAll = [FBRandom()]
-    var userRandom = [FBRandom()]
-    var listenerType: ListenerType = .random
     
     func onThingChange(change: DatabaseChange, things: [FBThing]) {
 //
@@ -205,7 +190,7 @@ class TabScheduleViewController: UIViewController, DatabaseListener {
     }
     
     // TESTING -----------------------------------------------------------------------------------------------
-    func testItems() {
+    func coredataTestItems() {
         // create new ITEM
         let time = Time(context: self.context)
         time.type = "-"
@@ -230,6 +215,14 @@ class TabScheduleViewController: UIViewController, DatabaseListener {
         catch { print(error) }
         // reload data
          self.fetchThings()
+    }
+    
+    func firebaseTestItems() {
+        databaseController?.addRandom(name: "Minh", completed: true)
+        databaseController?.addJournal(date: "12/12/12", diary: "Hello world")
+        databaseController?.addSubClass(completed: true, name: "asd", thingID:"123")
+        databaseController?.addTime(duaration: "asd", end: "123", exact: "123", start: "123", type: "123", thingID: "123")
+        databaseController?.addThing(category: "123", completed: false, date: "123", name: "123", note: "123")
     }
     
 }

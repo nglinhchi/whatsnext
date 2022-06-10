@@ -7,38 +7,44 @@
 
 import UIKit
 
-class EditJournalViewController: UIViewController {
+class EditJournalViewController: UIViewController, DatabaseListener {
 
     
-    // VARIABLES + CONSTANTS *******************************************
-    public var completion: ((String) -> Void)?
+    // VARIABLES -------------------------------------------------------------------------------------
     var currentJournal: Journal?
     var currentDate: Date?
     
+    // UTILS -----------------------------------------------------------------------------------------
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    public var completion: ((String) -> Void)?
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    weak var databaseController: FirebaseProtocol?
     
-    
+    // UI ELEMENTS -----------------------------------------------------------------------------------
     @IBOutlet weak var journalTV: UITextView!
     
+    // GENERAL METHODS -------------------------------------------------------------------------------
     
-    
-    
+    // VIEWDIDLOAD
     override func viewDidLoad() {
         super.viewDidLoad()
         journalTV.text = currentJournal?.diary ?? ""
         journalTV.layer.cornerRadius = 10
         journalTV.layer.borderWidth = 1
         journalTV.layer.borderColor = .init(genericCMYKCyan: 0, magenta: 255, yellow: 0, black: 255, alpha: 1)
-
-        // Do any additional setup after loading the view.
     }
     
     
+    
+    
+    // JOURNAL - CRUD -------------------------------------------------------------------------------
+    
+    // CANCEL CREATE/EDIT JOURNAL
     @IBAction func discardBTN(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
-    
+    // CREATE/EDIT JOURNAL
     @IBAction func saveBTN(_ sender: Any) {
         if let journal = journalTV.text, !journal.isEmpty {
             if currentJournal == nil {
@@ -57,6 +63,5 @@ class EditJournalViewController: UIViewController {
         }
         completion?("done editing")
     }
-    
     
 }
