@@ -12,17 +12,14 @@ class TabScheduleViewController: UIViewController {
 
      
     // VARIABLES + CONSTANTS *******************************************
-    static var models = [Item]()
+    static var models = [Thing]()
     
-    static var everything = [String : [Item]]() // store tasks based on day
-    // store dictionary in core data
-    // store customised class in core data
-    // date as key? would it take all the components of date (incl. hour, minute, second) --> have many keys of same day
-    // git, revert to previous commit, make changes on that commit and cannot save/push it to remote now
+    static var everything = [String : [Thing]]() // store tasks based on day
     
     let dateFormatter = DateFormatter()
-
     
+    // reference to managed object context
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     // UI ELEMENTS *****************************************************
     @IBOutlet weak var table: UITableView!
@@ -35,6 +32,120 @@ class TabScheduleViewController: UIViewController {
         table.delegate = self
         table.dataSource = self
         dateFormatter.dateFormat = "dd/MM/yyyy"
+//        testItems()
+        fetchAll()
+        
+    }
+    
+    
+    
+    
+    
+    func testItems() {
+        
+        // fetch data
+        do {
+            let everything = try context.fetch(Thing.fetchRequest())
+        }
+        catch {
+            print(error)
+        }
+        
+        // create new ITEM
+        let time = Time(context: self.context)
+        time.type = "-"
+        
+        let item = Thing(context: self.context)
+        item.name = "get grocceries"
+        item.category = "home"
+        item.completed = false
+        item.day = dateFormatter.date(from: "10/06/2022")
+        item.time = time
+        item.notes = "eat healthy baby"
+        item.id = UUID()
+        
+        let subtask = Subtask(context: self.context)
+        subtask.name = "task 1"
+        subtask.completed = false
+        subtask.thingID = item.id
+        
+        let subtask2 = Subtask(context: self.context)
+        subtask2.name = "task 2"
+        subtask2.completed = false
+        subtask2.thingID = item.id
+        
+        // save the data
+        do {
+            try context.save()
+//            try deleteItem(item: item)
+        }
+        catch {
+            print(error)
+        }
+        // reload data
+         self.fetchAll()
+         
+        
+    }
+    
+    
+    func fetchAll() {
+        // things
+        do {
+            TabScheduleViewController.models = try context.fetch(Thing.fetchRequest())
+            
+            print("there are \(TabScheduleViewController.models.count) items")
+            for item in TabScheduleViewController.models {
+                print(item.name!)
+                print(item.category!)
+                print(item.completed)
+                print(item.day!)
+                print((item.time?.type!)!) // what about other attributes of time?
+                print(item.notes!)
+//                deleteItem(item: item)
+            }
+        }
+        catch {
+            print(error)
+        }
+        
+        // subtasks
+        do {
+            let subtasks = try context.fetch(Subtask.fetchRequest())
+            print("there are \(subtasks.count) subtasks")
+            for subtask in subtasks {
+                print(subtask.thingID!)
+                print(subtask.name!)
+                print(subtask.completed)
+//                deleteSubtask(subtask: subtask)
+            }
+            
+        }
+        catch {
+            print(error)
+        }
+        
+    }
+    
+    
+    func deleteItem(item: Thing) {
+        self.context.delete(item)
+        do {
+            try context.save()
+        }
+        catch {
+            print(error)
+        }
+    }
+    
+    func deleteSubtask(subtask: Subtask) {
+        self.context.delete(subtask)
+        do {
+            try context.save()
+        }
+        catch {
+            print(error)
+        }
     }
 
     
@@ -51,7 +162,7 @@ class TabScheduleViewController: UIViewController {
         if let filtered = TabScheduleViewController.everything[self.dateFormatter.string(from: self.dateFilter.date)] {
             TabScheduleViewController.models = filtered
         } else {
-            TabScheduleViewController.models = [Item]()
+            TabScheduleViewController.models = [Thing]()
         }
         self.table.reloadData()
     }
@@ -70,6 +181,7 @@ class TabScheduleViewController: UIViewController {
                 self.navigationController?.popToRootViewController(animated: true)
 //                TabScheduleViewController.models.append(item)
                 
+                /*
                 let date = self.dateFormatter.string(from: item.day)
                 if let _ = TabScheduleViewController.everything[date] {
                     TabScheduleViewController.everything[date]?.append(item)
@@ -80,6 +192,7 @@ class TabScheduleViewController: UIViewController {
                 }
                 
                 self.dateChanged(self)
+                 */
             }
         }
         navigationController?.pushViewController(vc, animated: true)
@@ -156,7 +269,7 @@ extension TabScheduleViewController: UITableViewDataSource {
         // category
         cell.categoryTagLabel?.text = TabScheduleViewController.models[indexPath.row].category
 
-        cell.timeTagLabel?.text = TabScheduleViewController.models[indexPath.row].time.getTime()
+//        cell.timeTagLabel?.text = TabScheduleViewController.models[indexPath.row].time.getTime()
         
         cell.checkView.tag = indexPath.row
 //        cell.nameLabel.tag = self.dateFormatter.string(from: self.dateFilter.date)
@@ -189,26 +302,20 @@ class ItemTableViewCell: UITableViewCell {
     
     @IBAction func checkBTN(_ sender: Any) {
         if let button = sender as? UIButton {
-//            TabScheduleViewController.everything[self.dateFormatter.string(from: self.dateFilter)
-            
-            // TabScheduleViewController.models[button.tag].completed = !TabScheduleViewController.models[button.tag].completed
-//            print(TabScheduleViewController.models[button.tag].completed)
-//            print(button.tag)
             
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd/MM/yyyy"
             
             let date = TabScheduleViewController.models[button.tag].day
             let index = button.tag
-            
-            
+            /*
             TabScheduleViewController.everything[dateFormatter.string(from: date)]![index].completed = !TabScheduleViewController.everything[dateFormatter.string(from: date)]![index].completed
             
             // TODO keep changing the tag???
             TabScheduleViewController.everything[dateFormatter.string(from: date)]![index].completed ?
             checkView.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal) :
             checkView.setImage(UIImage(systemName: "circle"), for: .normal)
-            
+            */
             
         }
         

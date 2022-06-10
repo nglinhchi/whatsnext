@@ -18,9 +18,9 @@ class ItemDetailsViewController: UIViewController {
     @IBOutlet weak var notesLabel: UILabel!
     
     
-    var item: Item?
+    var item: Thing?
     
-    public var completion: ((Item) -> Void)?
+    public var completion: ((Thing) -> Void)?
     
     
     override func viewDidLoad() {
@@ -30,9 +30,9 @@ class ItemDetailsViewController: UIViewController {
         dateFormatter.dateFormat = "dd/MM/yyyy"
         
         taskNameLabel.text = item!.name
-        dateLabel.text = dateFormatter.string(from: item!.day)
+//        dateLabel.text = dateFormatter.string(from: item!.day)
         categoryTag.text = item!.category
-        timeTag.text = item!.time.getTime()
+//        timeTag.text = item!.time.getTime()
         notesLabel.text = item!.notes
         
         table.delegate = self
@@ -85,7 +85,7 @@ extension ItemDetailsViewController: UITableViewDelegate {
     // SELECT A TASK --> SEE ITS DETAILS
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        item!.subtasks[indexPath.row].completed = !item!.subtasks[indexPath.row].completed
+//        item!.subtasks[indexPath.row].completed = !item!.subtasks[indexPath.row].completed
         self.table.reloadData()
     }
     
@@ -99,15 +99,16 @@ extension ItemDetailsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return item?.subtasks.count ?? 0
+//        return item?.subtasks!.count ?? 0
+        return 0
     }
     
     // LOAD DATA INTO THE ROW
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SubtaskTableViewCell
         // put the strings from subtasks t subtask table
-        cell.subtaskLabel.text = item?.subtasks[indexPath.row].name
-        cell.accessoryType = item!.subtasks[indexPath.row].completed ? .checkmark : .none
+//        cell.subtaskLabel.text = item?.subtasks[indexPath.row].name
+//        cell.accessoryType = item!.subtasks[indexPath.row].completed ? .checkmark : .none
         return cell
         
         // TODO ability to delete AND update subtask

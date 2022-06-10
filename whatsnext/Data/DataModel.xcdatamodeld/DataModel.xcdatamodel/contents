@@ -4,7 +4,31 @@
         <attribute name="completed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="Subtask" representedClassName="Subtask" syncable="YES" codeGenerationType="class">
+        <attribute name="completed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="thingID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="Thing" representedClassName="Thing" syncable="YES" codeGenerationType="class">
+        <attribute name="category" optional="YES" attributeType="String"/>
+        <attribute name="completed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="day" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <relationship name="time" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Time" inverseName="thing" inverseEntity="Time"/>
+    </entity>
+    <entity name="Time" representedClassName="Time" syncable="YES" codeGenerationType="class">
+        <attribute name="duration" optional="YES" attributeType="String"/>
+        <attribute name="exact" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="interval" optional="YES" attributeType="Transformable" customClassName="DateInterval"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <relationship name="thing" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Thing" inverseName="time" inverseEntity="Thing"/>
+    </entity>
     <elements>
-        <element name="Random" positionX="-63" positionY="-18" width="128" height="59"/>
+        <element name="Random" positionX="211.1171875" positionY="2.828125" width="128" height="59"/>
+        <element name="Subtask" positionX="369" positionY="180" width="128" height="74"/>
+        <element name="Thing" positionX="288" positionY="171" width="128" height="134"/>
+        <element name="Time" positionX="497.8515625" positionY="297.1484375" width="128" height="118"/>
     </elements>
 </model>

@@ -11,12 +11,13 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
 
     
     // VARIABLES + CONSTANTS *******************************************
-    public var completion: ((Item) -> Void)?
+    public var completion: ((Thing) -> Void)?
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     static var timeFormatter = DateFormatter()
     static var timeField = ""
     
-    var item: Item?
+    var item: Thing?
     
     // UI ELEMENTS *****************************************************
     
@@ -87,34 +88,34 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
                 cat_index = 0
             }
             categorySegment.selectedSegmentIndex = cat_index
-            datePicker.date = item.day
+            datePicker.date = item.day!
             let time_index: Int
-            switch item.time.type {
+            switch item.time!.type {
             case "-":
                 time_index = 0
             case "exact":
                 time_index = 1
                 clickExact(self)
-                timePicker.date = item.time.exact
+                timePicker.date = item.time!.exact!
                 self.changeTimePicker(self)
             case "start-end":
                 time_index = 2
                 clickStart(self)
-                timePicker.date = item.time.interval.start
+                timePicker.date = item.time!.interval!.start
                 self.changeTimePicker(self)
                 clickEnd(self)
-                timePicker.date = item.time.interval.end
+                timePicker.date = item.time!.interval!.end
                 self.changeTimePicker(self)
             case "duration":
                 time_index = 3
-                durationTF.text = item.time.duration
+//                durationTF.text = item.time!.duration // change date - string
             default:
                 time_index = 0
             }
             timeSegment.selectedSegmentIndex = time_index
             self.timeSegmentControl(self)
             notesTF.text = item.notes
-            subtasks = item.subtasks
+//            subtasks = item.subtasks
         }
         
         
@@ -150,7 +151,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         
         let timeIndex = timeSegment.selectedSegmentIndex
         let timeType = timeSegment.titleForSegment(at: timeIndex)!
-        let time: Time
+        
+        let time = Time(context: self.context)
         
         let fullFormatter = DateFormatter()
         fullFormatter.locale = Locale(identifier: "en_US")
@@ -171,8 +173,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
             }
             let stringExact = "\(date) \(stringTime)"
             let exact = fullFormatter.date(from: stringExact)!
-            time = Time(type: timeType, exact: exact)
-            
+            time.type = timeType
+            time.exact = exact
         case 2:
             // AC start filled, end filled, start > end
             guard let stringTimeStart = startTF.text, !stringTimeStart.isEmpty,
@@ -188,7 +190,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
                 displayMessage(title: "Invalid Task", message: "End time cannot be earlier than start time.")
                 return
             }
-            time = Time(type: timeType, interval: DateInterval(start: start, end: end))
+            time.type = timeType
+            time.interval = DateInterval(start: start, end: end)
             
         case 3:
             // AC duration filled
@@ -196,20 +199,31 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
                 displayMessage(title: "Invalid Task", message: "Please fill in the duration.")
                 return
             }
-            time = Time(type: timeType, duration: duration)
+            time.type = timeType
+            time.duration = duration
         default:
-            time = Time(type: timeType)
+            time.type = timeType
         }
         
         let category = categorySegment.titleForSegment(at: categorySegment.selectedSegmentIndex) ?? ""
         let day = datePicker.date
         let notes = notesTF.text ?? ""
-        let item = Item(name: name, category: category,
-                        day: day, time: time,
-                        notes: notes, subtasks: self.subtasks,
-                        completed: false)
-        completion?(item)
+        let item = Thing(context: context)
+        item.name = name
+        item.category = category
+        item.day = day
+        item.time = time
+        item.notes = notes
+//        item.subtasks = self.subtasks // prob won't work
+        item.completed = false
         
+        do {
+            try context.save()
+        }
+        catch {
+            print(error)
+        }
+        // how to comeback to previous screen?
     }
     
     
@@ -241,20 +255,17 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     
     
     // might put repetitive code into 1 single methods, connect all text fields to it
-    
     @IBAction func clickExact(_ sender: Any) {
         timePicker.datePickerMode = .time
         timePicker.isHidden = false
         AddItemViewController.timeField = "exact"
     }
 
-    
     @IBAction func clickStart(_ sender: Any) {
         timePicker.datePickerMode = .time
         timePicker.isHidden = false
         AddItemViewController.timeField = "start"
     }
-    
     
     @IBAction func clickEnd(_ sender: Any) {
         timePicker.datePickerMode = .time
@@ -262,12 +273,12 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         AddItemViewController.timeField = "end"
     }
     
-   
     @IBAction func clickDuration(_ sender: Any) {
         timePicker.datePickerMode = .countDownTimer
         timePicker.isHidden = false
         AddItemViewController.timeField = "duration"
     }
+    // **********************************************************************************
     
     
     
@@ -345,7 +356,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         guard let subtask = subtaskTF.text, !subtask.isEmpty else {
             return
         }
-        subtasks.append(Subtask(name: subtask, completed: false))
+//        subtasks.append(Subtask(name: subtask, completed: false))
         subtaskTF.text = ""
         self.table.reloadData()
     }

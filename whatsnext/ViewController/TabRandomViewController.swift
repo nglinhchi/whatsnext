@@ -32,6 +32,7 @@ class TabRandomViewController: UIViewController, UITextFieldDelegate {
     }
     
     
+    
     func fetchRandom() {
         // fetch fata from core data to display in tableview
         do {

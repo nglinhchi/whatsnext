@@ -18,8 +18,6 @@
 		AF27505E2819174C00152BB1 /* whatsnextUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF27505D2819174C00152BB1 /* whatsnextUITests.swift */; };
 		AF2750602819174C00152BB1 /* whatsnextUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF27505F2819174C00152BB1 /* whatsnextUITestsLaunchTests.swift */; };
 		AF6E0CED282B82A700FAB86F /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E0CEC282B82A700FAB86F /* ItemDetailsViewController.swift */; };
-		AF6E0D2B282CF3F600FAB86F /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E0D2A282CF3F600FAB86F /* Item.swift */; };
-		AF6E0D2D282CF42500FAB86F /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E0D2C282CF42500FAB86F /* Time.swift */; };
 		AF80AEFA2848B297000D670D /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AF80AEF82848B297000D670D /* DataModel.xcdatamodeld */; };
 		AF80AEFE2848CE5D000D670D /* Random+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF80AEFC2848CE5D000D670D /* Random+CoreDataClass.swift */; };
 		AF80AEFF2848CE5D000D670D /* Random+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF80AEFD2848CE5D000D670D /* Random+CoreDataProperties.swift */; };
@@ -76,8 +74,6 @@
 		AF27505D2819174C00152BB1 /* whatsnextUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = whatsnextUITests.swift; sourceTree = "<group>"; };
 		AF27505F2819174C00152BB1 /* whatsnextUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = whatsnextUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		AF6E0CEC282B82A700FAB86F /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
-		AF6E0D2A282CF3F600FAB86F /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		AF6E0D2C282CF42500FAB86F /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		AF80AEF92848B297000D670D /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		AF80AEFC2848CE5D000D670D /* Random+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Random+CoreDataClass.swift"; sourceTree = "<group>"; };
 		AF80AEFD2848CE5D000D670D /* Random+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Random+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -214,8 +210,6 @@
 		AF80AEF728483FB7000D670D /* Object */ = {
 			isa = PBXGroup;
 			children = (
-				AF6E0D2A282CF3F600FAB86F /* Item.swift */,
-				AF6E0D2C282CF42500FAB86F /* Time.swift */,
 				AFDC9FB728192B1900BB5C39 /* Account.swift */,
 			);
 			path = Object;
@@ -376,9 +370,7 @@
 				AFDC9FB62819244700BB5C39 /* LogInViewController.swift in Sources */,
 				AF6E0CED282B82A700FAB86F /* ItemDetailsViewController.swift in Sources */,
 				AFF9BF332823AFD90082AC74 /* EditJournalViewController.swift in Sources */,
-				AF6E0D2B282CF3F600FAB86F /* Item.swift in Sources */,
 				AF9F80E9283F1D7500E647DC /* TabRoutineViewController.swift in Sources */,
-				AF6E0D2D282CF42500FAB86F /* Time.swift in Sources */,
 				AF9F80E1283DD54000E647DC /* TabRandomViewController.swift in Sources */,
 				AF80AEFA2848B297000D670D /* DataModel.xcdatamodeld in Sources */,
 				AFDC9FC9281A896500BB5C39 /* UIViewController+displayMessage.swift in Sources */,
