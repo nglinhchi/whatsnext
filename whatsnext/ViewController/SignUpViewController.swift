@@ -10,9 +10,6 @@ import FirebaseAuth
 
 class SignUpViewController: UIViewController {
 
-    
-//    var accounts: [Account] = []
-//    weak var databaseController: DatabaseProtocol?
     var authHandle: AuthStateDidChangeListenerHandle?
     var currentUser: FirebaseAuth.User?
     
@@ -25,7 +22,6 @@ class SignUpViewController: UIViewController {
     
     @IBAction func signupButton(_ sender: Any) {
         
-        
         guard let email = emailTF.text, let password = passwordTF.text,
               let firstname = firstnameTF.text, let lastname = lastnameTF.text,
               let retype = retypeTF.text else {
@@ -33,20 +29,16 @@ class SignUpViewController: UIViewController {
             return
         }
         
+        if email.isEmpty || password.isEmpty || firstname.isEmpty || lastname.isEmpty || retype.isEmpty {
+            displayMessage(title: "Invalid", message: "Please fill in all fields.")
+            return
+        }
+        
         guard password.count > 8 else {
             displayMessage(title: "Error", message: "Password must be at least 8 characters")
             return
         }
-//        if email.isEmpty || password.isEmpty || firstname.isEmpty || lastname.isEmpty || retype.isEmpty {
-//            displayMessage(title: "Invalid", message: "Please fill in all fields.")
-//            return
-//        }
-//        for i in accounts {
-//            if username == i.username {
-//                displayMessage(title: "Invalid", message: "Username already exist")
-//                return
-//            }
-//        }
+
         if password != retype {
             displayMessage(title: "Error", message: "Password doesn't match, please try again")
             return
@@ -68,8 +60,6 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.modalPresentationStyle = .pageSheet
-        // Do any additional setup after loading the view.
     }
     
     
