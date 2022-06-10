@@ -10,50 +10,43 @@ import CoreData
 
 class TabRandomViewController: UIViewController, UITextFieldDelegate {
     
-    // VARIABLES + CONSTANTS *******************************************
+    // VARIABLES -------------------------------------------------------------------------------------
     static var models = [Random]()
     
-    // reference to managed object context
+    // UTILS -----------------------------------------------------------------------------------------
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    
-    // UI ELEMENTS *******************************************************
+    // UI ELEMENTS -----------------------------------------------------------------------------------
     @IBOutlet weak var table: UITableView!
     
-    // METHODS ***********************************************************
+    // GENERAL METHODS -------------------------------------------------------------------------------
+    
+    // VIEWDIDLOAD
     override func viewDidLoad() {
         super.viewDidLoad()
         table.delegate = self
         table.dataSource = self
         fetchRandom()
-        print(TabRandomViewController.models.count)
-        
-        
     }
     
-    
-    
-    func fetchRandom() {
-        // fetch fata from core data to display in tableview
-        do {
-            TabRandomViewController.models = try context.fetch(Random.fetchRequest())
-            self.table.reloadData()
-        }
-        catch {
-            print(error)
-        }
-    }
-    
-    
+    // HIDE TITLE
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
     }
+
+    // CRUD - RANDOM ----------------------------------------------------------------------------------
     
+    // FETCH RANDOMS INTO VIEW
+    func fetchRandom() {
+        do {
+            TabRandomViewController.models = try context.fetch(Random.fetchRequest())
+            self.table.reloadData()
+        }
+        catch { print(error) }
+    }
     
-    // BUTTONS **********************************************************
-    
-    
+    // CREATE RANDOM
     @IBAction func addBTN(_ sender: Any) {
         if TabRandomViewController.models.count == 0 || !(TabRandomViewController.models[TabRandomViewController.models.count-1].name == "") {
             
@@ -88,12 +81,12 @@ class TabRandomViewController: UIViewController, UITextFieldDelegate {
 
 extension TabRandomViewController: UITableViewDelegate {
     
-    // SELECT A TASK --> SEE ITS DETAILS
+    // DO NOTHING
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    // delete action
+    // DELETE RANDOM
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             let random = TabRandomViewController.models[indexPath.row]
@@ -109,7 +102,6 @@ extension TabRandomViewController: UITableViewDelegate {
         return UISwipeActionsConfiguration(actions: [action])
     }
     
-    
 }
 
 
@@ -124,7 +116,7 @@ extension TabRandomViewController: UITableViewDataSource {
         return TabRandomViewController.models.count
     }
     
-    // LOAD DATA INTO THE ROW
+    // DISPLAY RANDOMS
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! RandomTableViewCell
@@ -145,6 +137,7 @@ extension TabRandomViewController: UITableViewDataSource {
         return cell
     }
     
+    // AUTO-ADD FEATURE
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         if let name = textField.text, name.isEmpty {
@@ -183,21 +176,16 @@ class RandomTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    // TOGGLE RANDOM.COMPLETED
     @IBAction func checkBTN(_ sender: Any) {
         if let button = sender as? UIButton {
-            
-            let it = TabRandomViewController.models[button.tag]
-            print("name: \(it.name!) completed: \(it.completed)")
-            
+            // toggle completed
             TabRandomViewController.models[button.tag].completed = !TabRandomViewController.models[button.tag].completed
             fetchRandom()
-            
+            // change tick view acccordingly
             TabRandomViewController.models[button.tag].completed ?
             checkView.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal) :
             checkView.setImage(UIImage(systemName: "circle"), for: .normal)
-            
-            print("name: \(it.name!) completed: \(it.completed)")
-            
         }
     }
     
@@ -214,7 +202,6 @@ class RandomTableViewCell: UITableViewCell, UITextFieldDelegate {
     @IBAction func nameBTN(_ sender: UITextField) {
         TabRandomViewController.models[sender.tag].name = nameTF.text!
         fetchRandom()
-//        print(TabRandomViewController.models[sender.tag].name!)
     }
     
 }

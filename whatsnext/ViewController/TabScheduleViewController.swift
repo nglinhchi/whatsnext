@@ -7,216 +7,176 @@
 
 import UIKit
 import UserNotifications
+import CoreData
 
 class TabScheduleViewController: UIViewController {
 
      
-    // VARIABLES + CONSTANTS *******************************************
-    static var models = [Thing]()
+    // VARIABLES -------------------------------------------------------------------------------------
+    static var things = [Thing]() // TODO - switch to non-static later
+    var journal: Journal?
     
-    static var everything = [String : [Thing]]() // store tasks based on day
-    
+    // UTILS -----------------------------------------------------------------------------------------
     let dateFormatter = DateFormatter()
-    
-    // reference to managed object context
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    // UI ELEMENTS *****************************************************
+    // UI ELEMENTS -----------------------------------------------------------------------------------
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var journalLabel: UILabel!
     @IBOutlet weak var dateFilter: UIDatePicker!
     
-    // METHODS *********************************************************
+    // GENERAL METHODS -------------------------------------------------------------------------------
+    
+    // VIEWDIDLOAD
     override func viewDidLoad() {
         super.viewDidLoad()
         table.delegate = self
         table.dataSource = self
         dateFormatter.dateFormat = "dd/MM/yyyy"
 //        testItems()
-        fetchAll()
+        fetchThings()
+        fetchJournal()
         
     }
     
-    
-    
-    
-    
-    func testItems() {
-        
-        // fetch data
-        do {
-            let everything = try context.fetch(Thing.fetchRequest())
-        }
-        catch {
-            print(error)
-        }
-        
-        // create new ITEM
-        let time = Time(context: self.context)
-        time.type = "-"
-        
-        let item = Thing(context: self.context)
-        item.name = "get grocceries"
-        item.category = "home"
-        item.completed = false
-        item.day = dateFormatter.date(from: "10/06/2022")
-        item.time = time
-        item.notes = "eat healthy baby"
-        item.id = UUID()
-        
-        let subtask = Subtask(context: self.context)
-        subtask.name = "task 1"
-        subtask.completed = false
-        subtask.thingID = item.id
-        
-        let subtask2 = Subtask(context: self.context)
-        subtask2.name = "task 2"
-        subtask2.completed = false
-        subtask2.thingID = item.id
-        
-        // save the data
-        do {
-            try context.save()
-//            try deleteItem(item: item)
-        }
-        catch {
-            print(error)
-        }
-        // reload data
-         self.fetchAll()
-         
-        
-    }
-    
-    
-    func fetchAll() {
-        // things
-        do {
-            TabScheduleViewController.models = try context.fetch(Thing.fetchRequest())
-            
-            print("there are \(TabScheduleViewController.models.count) items")
-            for item in TabScheduleViewController.models {
-                print(item.name!)
-                print(item.category!)
-                print(item.completed)
-                print(item.day!)
-                print((item.time?.type!)!) // what about other attributes of time?
-                print(item.notes!)
-//                deleteItem(item: item)
-            }
-        }
-        catch {
-            print(error)
-        }
-        
-        // subtasks
-        do {
-            let subtasks = try context.fetch(Subtask.fetchRequest())
-            print("there are \(subtasks.count) subtasks")
-            for subtask in subtasks {
-                print(subtask.thingID!)
-                print(subtask.name!)
-                print(subtask.completed)
-//                deleteSubtask(subtask: subtask)
-            }
-            
-        }
-        catch {
-            print(error)
-        }
-        
-    }
-    
-    
-    func deleteItem(item: Thing) {
-        self.context.delete(item)
-        do {
-            try context.save()
-        }
-        catch {
-            print(error)
-        }
-    }
-    
-    func deleteSubtask(subtask: Subtask) {
-        self.context.delete(subtask)
-        do {
-            try context.save()
-        }
-        catch {
-            print(error)
-        }
-    }
-
-    
+    // HIDE TITLE
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
     }
     
-    
-    
-    // BUTTONS *********************************************************
-    
-    @IBAction func dateChanged(_ sender: Any) { // TODO AFTER CHANGE DATA STRUCTURE
-        if let filtered = TabScheduleViewController.everything[self.dateFormatter.string(from: self.dateFilter.date)] {
-            TabScheduleViewController.models = filtered
-        } else {
-            TabScheduleViewController.models = [Thing]()
+    // CRUD - JOURNAL ---------------------------------------------------------------------------------
+    func fetchJournal() {
+        journalLabel.text = ""
+        do {
+            let journals = try context.fetch(Journal.fetchRequest())
+            print(journals.count)
+            self.journal = nil
+            for journal in journals {
+                print(journal.day)
+                if dateFormatter.string(from: journal.day) == dateFormatter.string(from: dateFilter.date) {
+                    self.journal = journal
+                    journalLabel.text = self.journal!.diary
+                }
+            }
         }
-        self.table.reloadData()
+        catch { print(error)}
+        
     }
-
     
+    // CRUD - THINGS ----------------------------------------------------------------------------------
     
+    // FETCH THINGS INTO VIEW
+    func fetchThings() {
+        do {
+            let all = try context.fetch(Thing.fetchRequest())
+            TabScheduleViewController.things = [Thing]()
+            for thing in all {
+                if dateFormatter.string(from: thing.day) == dateFormatter.string(from: dateFilter.date) {
+                    TabScheduleViewController.things.append(thing)
+                }
+            }
+//            TabScheduleViewController.things = try context.fetch(Thing.fetchRequest())
+            self.table.reloadData()
+        }
+        catch { print(error) }
+    }
     
-    // BUTTON - NEW TASK
+    // FILTER THINGS BASED ON DAY
+    @IBAction func dateChanged(_ sender: Any) {
+        fetchJournal()
+        fetchThings()
+    }
+    
+    // CREATE THING
     @IBAction func addTaskBTN(_ sender: Any) {
         // show add task VC
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "add") as? AddItemViewController else {
             return
         }
-        vc.completion = { item in
+        vc.completion = { message in
             DispatchQueue.main.async {
                 self.navigationController?.popToRootViewController(animated: true)
-//                TabScheduleViewController.models.append(item)
-                
-                /*
-                let date = self.dateFormatter.string(from: item.day)
-                if let _ = TabScheduleViewController.everything[date] {
-                    TabScheduleViewController.everything[date]?.append(item)
-                    print("old date")
-                } else {
-                    TabScheduleViewController.everything[date] = [item]
-                    print("new date")
-                }
-                
-                self.dateChanged(self)
-                 */
+                self.fetchThings()
             }
         }
         navigationController?.pushViewController(vc, animated: true)
     }
+
     
+    // DELETE THING
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
+            let thing = TabScheduleViewController.things[indexPath.row]
+            // delete subtasks
+            do {
+                let request = Subtask.fetchRequest() as NSFetchRequest<Subtask>
+                let pred = NSPredicate(format: "%K == %@", "thingID", thing.id as CVarArg)
+                request.predicate = pred
+                let subtasks = try self.context.fetch(request)
+                for subtask in subtasks {
+                    self.context.delete(subtask)
+                }
+            }
+            catch { print(error) }
+            // delete things
+            self.context.delete(thing)
+            // save
+            do { try self.context.save() }
+            catch { print(error) }
+            self.fetchThings()
+        }
+        return UISwipeActionsConfiguration(actions: [action])
+    }
     
+    // CRUD - JOURNAL ----------------------------------------------------------------------------------------
     
-    
-    
-    // BUTTON - JOURNAL
+    // CREATE/UPDATE JOURNAL
     @IBAction func editDiaryBTN(_ sender: Any) {
         // show edit diary VC
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "journal") as? EditJournalViewController  else {
             return
         }
-        vc.currentJournal = journalLabel.text
-        vc.completion = {journal in
+        if self.journal != nil { vc.currentJournal = self.journal }
+        vc.currentDate = self.dateFilter.date
+        vc.completion = {message in
             DispatchQueue.main.async {
                 self.navigationController?.popToRootViewController(animated: true)
-                self.journalLabel.text = journal
+//                self.journalLabel.text = journal
+                self.fetchJournal()
             }
         }
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    // TESTING -----------------------------------------------------------------------------------------------
+    func testItems() {
+        // create new ITEM
+        let time = Time(context: self.context)
+        time.type = "-"
+        let item = Thing(context: self.context)
+        item.name = "get grocceries"
+        item.category = "home"
+        item.completed = false
+        item.day = dateFormatter.date(from: "10/06/2022")!
+        item.time = time
+        item.notes = "eat healthy baby"
+        item.id = UUID()
+        let subtask = Subtask(context: self.context)
+        subtask.name = "task 1"
+        subtask.completed = false
+        subtask.thingID = item.id
+        let subtask2 = Subtask(context: self.context)
+        subtask2.name = "task 2"
+        subtask2.completed = false
+        subtask2.thingID = item.id
+        // save the data
+        do { try context.save() }
+        catch { print(error) }
+        // reload data
+         self.fetchThings()
+    }
+    
 }
 
 
@@ -226,17 +186,17 @@ class TabScheduleViewController: UIViewController {
 
 extension TabScheduleViewController: UITableViewDelegate {
     
-    // SELECT A TASK --> SEE ITS DETAILS
+    // SELECT A THING --> SEE ITS DETAILS
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "details") as? ItemDetailsViewController  else {
             return
         }
-        vc.item = TabScheduleViewController.models[indexPath.row]
-        vc.completion = { item in
+        vc.thing = TabScheduleViewController.things[indexPath.row]
+        vc.completion = { message in
             DispatchQueue.main.async {
                 self.navigationController?.popToRootViewController(animated: true)
-                TabScheduleViewController.models[indexPath.row] = item
+//                TabScheduleViewController.things[indexPath.row] = thing
                 self.table.reloadData()
             }
         }
@@ -245,9 +205,6 @@ extension TabScheduleViewController: UITableViewDelegate {
     
 }
 
-
-
-
 extension TabScheduleViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -255,72 +212,43 @@ extension TabScheduleViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return TabScheduleViewController.models.count
+        return TabScheduleViewController.things.count
     }
     
-    // LOAD DATA INTO THE ROW
+    // DISPLAY FILTERED THINGS
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ItemTableViewCell
-        
-        // name
-        cell.nameLabel?.text = TabScheduleViewController.models[indexPath.row].name
-        
-        // category
-        cell.categoryTagLabel?.text = TabScheduleViewController.models[indexPath.row].category
-
-//        cell.timeTagLabel?.text = TabScheduleViewController.models[indexPath.row].time.getTime()
-        
+        cell.nameLabel?.text = TabScheduleViewController.things[indexPath.row].name
+        cell.categoryTagLabel?.text = TabScheduleViewController.things[indexPath.row].category
+        cell.timeTagLabel?.text = TabScheduleViewController.things[indexPath.row].time.getTime()
         cell.checkView.tag = indexPath.row
 //        cell.nameLabel.tag = self.dateFormatter.string(from: self.dateFilter.date)
-        
-        TabScheduleViewController.models[indexPath.row].completed ?
+        TabScheduleViewController.things[indexPath.row].completed ?
         cell.checkView.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal) :
         cell.checkView.setImage(UIImage(systemName: "circle"), for: .normal)
-        
         return cell
-        
     }
     
 }
-
-
-
-
-
-
-
-
 
 class ItemTableViewCell: UITableViewCell {
     
     @IBOutlet weak var categoryTagLabel: UILabel!
     @IBOutlet weak var timeTagLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
-    
     @IBOutlet weak var checkView: UIButton!
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     @IBAction func checkBTN(_ sender: Any) {
         if let button = sender as? UIButton {
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd/MM/yyyy"
-            
-            let date = TabScheduleViewController.models[button.tag].day
-            let index = button.tag
-            /*
-            TabScheduleViewController.everything[dateFormatter.string(from: date)]![index].completed = !TabScheduleViewController.everything[dateFormatter.string(from: date)]![index].completed
-            
-            // TODO keep changing the tag???
-            TabScheduleViewController.everything[dateFormatter.string(from: date)]![index].completed ?
+            TabScheduleViewController.things[button.tag].completed = !TabScheduleViewController.things[button.tag].completed
+            do { try context.save()}
+            catch { print(error) }
+            TabScheduleViewController.things[button.tag].completed ?
             checkView.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal) :
             checkView.setImage(UIImage(systemName: "circle"), for: .normal)
-            */
-            
         }
-        
-        
-        
     }
     
 }

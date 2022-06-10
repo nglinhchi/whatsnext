@@ -16,7 +16,7 @@ extension Random {
         return NSFetchRequest<Random>(entityName: "Random")
     }
 
-    @NSManaged public var name: String?
+    @NSManaged public var name: String
     @NSManaged public var completed: Bool
 
 }

@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import CoreData
 
 class AddItemViewController: UIViewController, UITextFieldDelegate {
 
     
     // VARIABLES + CONSTANTS *******************************************
-    public var completion: ((Thing) -> Void)?
+    public var completion: ((String) -> Void)?
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     static var timeFormatter = DateFormatter()
@@ -46,7 +47,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var subtaskTF: UITextField!
     
-    var subtasks = [Subtask]()
+    var subtasks = [String]()
+    var subtaskOldCount: Int = 0
     
     
     // time picker
@@ -88,33 +90,48 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
                 cat_index = 0
             }
             categorySegment.selectedSegmentIndex = cat_index
-            datePicker.date = item.day!
+            datePicker.date = item.day
             let time_index: Int
-            switch item.time!.type {
+            switch item.time.type {
             case "-":
                 time_index = 0
             case "exact":
                 time_index = 1
                 clickExact(self)
-                timePicker.date = item.time!.exact!
+                timePicker.date = item.time.exact!
                 self.changeTimePicker(self)
             case "start-end":
                 time_index = 2
                 clickStart(self)
-                timePicker.date = item.time!.interval!.start
+                timePicker.date = item.time.start!
                 self.changeTimePicker(self)
                 clickEnd(self)
-                timePicker.date = item.time!.interval!.end
+                timePicker.date = item.time.end!
                 self.changeTimePicker(self)
             case "duration":
                 time_index = 3
-//                durationTF.text = item.time!.duration // change date - string
+                durationTF.text = item.time.duration
             default:
                 time_index = 0
             }
             timeSegment.selectedSegmentIndex = time_index
             self.timeSegmentControl(self)
             notesTF.text = item.notes
+            
+            
+            do {
+                let request = Subtask.fetchRequest() as NSFetchRequest<Subtask>
+                let pred = NSPredicate(format: "%K == %@", "thingID", item.id as CVarArg)
+                request.predicate = pred
+                let s = try context.fetch(request)
+                for subtask in s {
+                    subtasks.append(subtask.name)
+                }
+                subtaskOldCount = subtasks.count
+                table.reloadData()
+            }
+            catch { print(error) }
+            
 //            subtasks = item.subtasks
         }
         
@@ -134,7 +151,6 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     
     // SAVE BUTTON
     @IBAction func saveBTN(_ sender: Any) {
-        
         
         /* acceptance criteria
          * name filled
@@ -164,7 +180,6 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         let date = dateFormatter.string(from: datePicker.date)
         
         switch timeIndex {
-        
         case 1:
             // AC exact time filled
             guard let stringTime = exactTF.text, !stringTime.isEmpty else {
@@ -191,8 +206,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
                 return
             }
             time.type = timeType
-            time.interval = DateInterval(start: start, end: end)
-            
+            time.start = start
+            time.end = end
         case 3:
             // AC duration filled
             guard let duration = durationTF.text, !duration.isEmpty else {
@@ -208,22 +223,38 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         let category = categorySegment.titleForSegment(at: categorySegment.selectedSegmentIndex) ?? ""
         let day = datePicker.date
         let notes = notesTF.text ?? ""
-        let item = Thing(context: context)
-        item.name = name
-        item.category = category
-        item.day = day
-        item.time = time
-        item.notes = notes
-//        item.subtasks = self.subtasks // prob won't work
-        item.completed = false
         
-        do {
-            try context.save()
+        
+        // for update item
+        
+        if let item = item {
+            if subtasks.count > subtaskOldCount {
+                for i in subtaskOldCount...subtasks.count-1 {
+                    let coreSubtask = Subtask(context: context)
+                    coreSubtask.thingID = item.id
+                    coreSubtask.name = subtasks[i]
+                    coreSubtask.completed = false
+                }
+            }
+        } else {
+            item = Thing(context: context)
+            item!.id = UUID()
+            for subtask in subtasks {
+                let coreSubtask = Subtask(context: context)
+                coreSubtask.thingID = item!.id
+                coreSubtask.name = subtask
+                coreSubtask.completed = false
+            }
         }
-        catch {
-            print(error)
-        }
-        // how to comeback to previous screen?
+        item!.name = name
+        item!.category = category
+        item!.day = day
+        item!.time = time
+        item!.notes = notes
+        
+        do { try context.save() }
+        catch { print(error) }
+        completion?("added new thing")
     }
     
     
@@ -351,12 +382,12 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    // SUBTASK
+    // ADD SUBTASK
     @IBAction func addSubtaskBTN(_ sender: Any) {
         guard let subtask = subtaskTF.text, !subtask.isEmpty else {
             return
         }
-//        subtasks.append(Subtask(name: subtask, completed: false))
+        subtasks.append(subtask)
         subtaskTF.text = ""
         self.table.reloadData()
     }
@@ -398,7 +429,7 @@ extension AddItemViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SubtaskTableViewCell
 
         // put the strings from subtasks t subtask table
-        cell.subtaskLabel.text = subtasks[indexPath.row].name
+        cell.subtaskLabel.text = subtasks[indexPath.row]
         
         return cell
     }
