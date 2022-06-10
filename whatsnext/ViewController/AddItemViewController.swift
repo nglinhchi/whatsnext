@@ -197,18 +197,21 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         
         
         // UPDATE OR CREATE NEW ITEM
-        if let item = item { // update
+        if item != nil { // update
+            print("not nil - update thing")
             if subtasks.count > subtaskOldCount {
                 for i in subtaskOldCount...subtasks.count-1 {
                     let coreSubtask = Subtask(context: context)
-                    coreSubtask.thingID = item.id
+                    coreSubtask.thingID = item!.id
                     coreSubtask.name = subtasks[i]
                     coreSubtask.completed = false
                 }
             }
         } else { // create
+            print("nil - create thing")
             item = Thing(context: context)
             item!.id = UUID()
+            item!.completed = false
             for subtask in subtasks {
                 let coreSubtask = Subtask(context: context)
                 coreSubtask.thingID = item!.id
@@ -221,7 +224,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         item!.day = day
         item!.time = time
         item!.notes = notes
-        do { try context.save() }
+        do { try self.context.save() }
         catch { print(error) }
         completion?("done")
     }

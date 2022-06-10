@@ -33,7 +33,7 @@ class JournalLogsViewController: UIViewController {
     func fetchJournals() {
         do {
             journals = try context.fetch(Journal.fetchRequest())
-            journals = journals.sorted(by: { $0.day.compare($1.day) == .orderedDescending })
+            journals.sort(by: { $0.day.compare($1.day) == .orderedDescending })
             table.reloadData()
         }
         catch { print(error)}
