@@ -149,19 +149,25 @@ class TabScheduleViewController: UIViewController, DatabaseListener {
             let thing = TabScheduleViewController.things[indexPath.row]
             // delete subtasks
             do {
-                let request = Subtask.fetchRequest() as NSFetchRequest<Subtask>
-//                let pred = NSPredicate(format: "%K == %@", "thingID", thing.id as CVarArg)
-//                request.predicate = pred
-                let subtasks = try self.context.fetch(request)
-                for subtask in subtasks {
-                    self.context.delete(subtask)
+                let allSubtasks = try self.context.fetch(Subtask.fetchRequest())
+                for each in allSubtasks {
+                    if each.thingID == thing.id {
+                        self.databaseController?.deleteSubClass(id: each.id!) // firebase delete subtask
+                        self.context.delete(each) // coredata delete subtask
+                    }
                 }
+                
+                let allTimes = try self.context.fetch(Time.fetchRequest())
+                for each in allTimes {
+                    if each.thing == thing {
+                        self.databaseController?.deleteTime(id: each.id!) // firebase delete time
+                        self.context.delete(each) // coredata delete time
+                    }
+                }
+                self.databaseController?.deleteThing(id: thing.id!) // firebase delete thing
+                self.context.delete(thing) // coredata delete thing
+                try self.context.save()
             }
-            catch { print(error) }
-            // delete things
-            self.context.delete(thing)
-            // save
-            do { try self.context.save() }
             catch { print(error) }
             self.fetchThings()
         }
@@ -285,7 +291,8 @@ class ItemTableViewCell: UITableViewCell {
     
     @IBAction func checkBTN(_ sender: Any) {
         if let button = sender as? UIButton {
-            TabScheduleViewController.things[button.tag].completed = !TabScheduleViewController.things[button.tag].completed
+            
+            TabScheduleViewController.things[button.tag].completed = !TabScheduleViewController.things[button.tag].completed // coredata edit thing's completed
             do { try context.save()}
             catch { print(error) }
             TabScheduleViewController.things[button.tag].completed ?

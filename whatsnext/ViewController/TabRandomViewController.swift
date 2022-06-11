@@ -104,12 +104,12 @@ class TabRandomViewController: UIViewController, UITextFieldDelegate, DatabaseLi
     }
     
     func onRandomChange(change: DatabaseChange, randoms: [FBRandom]) {
-        userRandom = []
-        for random in randoms{
-            if random.userID == Auth.auth().currentUser?.uid{
-                userRandom.append(random)
-            }
-        }
+//        userRandom = []
+//        for random in randoms{
+//            if random.userID == Auth.auth().currentUser?.uid{
+//                userRandom.append(random)
+//            }
+//        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -74,25 +74,25 @@ class LogInViewController: UIViewController {
 //    }
     
     
-    func loadEverything() {
-        databaseController = appDelegate?.databaseFirebase
-        databaseController?.getAllRandom()
-        for each in LogInViewController.firebaseRandom {
-            let id = each.id
-            let name = each.name
-            let completed = each.completed
-    
-            
-            let coreRandom = Random(context: context)
-            coreRandom.id = id
-            coreRandom.name = name!
-            coreRandom.completed = completed!
-        }
-        do { try context.save() }
-        catch { print(error) }
-        
-        
-    }
+//    func loadEverything() {
+//        databaseController = appDelegate?.databaseFirebase
+//        databaseController?.getAllRandom()
+//        for each in LogInViewController.firebaseRandom {
+//            let id = each.id
+//            let name = each.name
+//            let completed = each.completed
+//
+//
+//            let coreRandom = Random(context: context)
+//            coreRandom.id = id
+//            coreRandom.name = name!
+//            coreRandom.completed = completed!
+//        }
+//        do { try context.save() }
+//        catch { print(error) }
+//
+//
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

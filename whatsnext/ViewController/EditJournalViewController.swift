@@ -34,6 +34,7 @@ class EditJournalViewController: UIViewController {
         journalTV.layer.cornerRadius = 10
         journalTV.layer.borderWidth = 1
         journalTV.layer.borderColor = .init(genericCMYKCyan: 0, magenta: 255, yellow: 0, black: 255, alpha: 1)
+        databaseController = appDelegate?.databaseFirebase
     }
     
     
@@ -48,22 +49,22 @@ class EditJournalViewController: UIViewController {
     
     // CREATE/EDIT JOURNAL
     @IBAction func saveBTN(_ sender: Any) {
-        if let journal = journalTV.text, !journal.isEmpty {
-            if currentJournal == nil { // create journal
-                currentJournal!.id = databaseController?.addJournal(date: dateFormatter.string(from: currentDate!), diary: journal).id // firebase
-                currentJournal = Journal(context: context)
+        if let journal = journalTV.text, !journal.isEmpty { // contain text
+            if currentJournal == nil { // the day doesn't have journal yet --> create journal
+                currentJournal = Journal(context: context) // coredata add
                 currentJournal!.day = currentDate!
                 currentJournal!.diary = journal
+                currentJournal!.id = databaseController?.addJournal(date: dateFormatter.string(from: currentDate!), diary: journal).id // firebase add
             } else { // edit journal's diary
-                // TODO update in firebase --> get ref and change diary
-                currentJournal!.diary = journal
+                databaseController?.editJournal(id: currentJournal!.id!, diary: journal) // firebase edit
+                currentJournal!.diary = journal // coredata edit
             }
             do { try context.save()}
             catch { print(error)}
         } else { // delete journal
             if currentJournal != nil {
-                // TODO delete in firebase --> get ref and delete record
-                context.delete(currentJournal!)
+                databaseController?.deleteJournal(id: currentJournal!.id!) // firebase delete
+                context.delete(currentJournal!) // coredata delete
                 do { try context.save()}
                 catch { print(error)}
             }

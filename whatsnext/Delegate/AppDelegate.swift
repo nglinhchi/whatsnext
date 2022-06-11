@@ -32,8 +32,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
         }
         print("hello")
-        databaseFirebase?.getAllRandom()
         databaseFirebase?.getAllThing()
+        databaseFirebase?.getAllTime()
+        databaseFirebase?.getAllSubClass()
+        databaseFirebase?.getAllRandom()
+        databaseFirebase?.getAllJournal()
         return true
     }
 

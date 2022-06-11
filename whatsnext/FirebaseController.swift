@@ -86,7 +86,7 @@ class FirebaseController: NSObject, FirebaseProtocol {
     }
     
     
-    // Random Firebase set up ----------------------------------------------------------------------------------
+    // RANDOM Firebase set up ----------------------------------------------------------------------------------
     func editRandom(id: String, completed: Bool, name: String) {
         var newRandom = FBRandom()
         for random in randoms {
@@ -195,8 +195,22 @@ class FirebaseController: NSObject, FirebaseProtocol {
     }
     
     
-    // Journal Firebase set up ----------------------------------------------------------------------------------
-    
+    // JOURNAL Firebase set up ----------------------------------------------------------------------------------
+    func editJournal(id: String, diary: String) {
+        var newJournal = FBJournal()
+        for journal in journals {
+            if journal.id == id{
+                newJournal = journal
+                newJournal.diary = diary
+                do{
+                    try journalRef?.document(newJournal.id!).setData(from: newJournal)
+                }
+                catch{
+                    print(error)
+                }
+            }
+        }
+    }
     
     func getAllJournal() {
         LogInViewController.firebaseDiary = []
@@ -259,12 +273,12 @@ class FirebaseController: NSObject, FirebaseProtocol {
         }
     }
     
+    
     func addJournal(date: String, diary: String) -> FBJournal {
         let journal = FBJournal()
         journal.date = date
         journal.diary = diary
         journal.userID = Auth.auth().currentUser?.uid
-        print(Auth.auth().currentUser?.uid)
         let journalDictionary = [
             "date": journal.date,
             "diary": journal.diary,
@@ -276,20 +290,54 @@ class FirebaseController: NSObject, FirebaseProtocol {
                 journal.id = journalRef.documentID
             }
         }catch{
-            print("cannot serialize random")
+            print("cannot serialize journal")
         }
         return journal
     }
     
-    func deleteJournal(journal: FBJournal) {
-        if let journalID = journal.id{
-            journalRef?.document(journalID).delete()
-        }
+    func deleteJournal(id: String) {
+//        if let journalID = journal.id{
+            journalRef?.document(id).delete()
+//        }
     }
     
     
-    // Thing Firebase set up ----------------------------------------------------------------------------------
+    // THING Firebase set up ----------------------------------------------------------------------------------
     
+    func toggleThing(id: String, completed: Bool) {
+        var newThing = FBThing()
+        for thing in things {
+            if thing.id == id{
+                newThing = thing
+                newThing.completed = completed
+                do{
+                    try thingRef?.document(newThing.id!).setData(from: newThing)
+                }
+                catch{
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    func editThing(id: String, name: String, date: String, category: String, notes: String) {
+        var newThing = FBThing()
+        for each in things {
+            if each.id == id{
+                newThing = each
+                newThing.name = name
+                newThing.date = date
+                newThing.category = category
+                newThing.note = notes
+                do{
+                    try thingRef?.document(newThing.id!).setData(from: newThing)
+                }
+                catch{
+                    print(error)
+                }
+            }
+        }
+    }
     
     func setupThingListener() {
         thingRef = database.collection("thing")
@@ -304,8 +352,7 @@ class FirebaseController: NSObject, FirebaseProtocol {
     }
     
     
-    func getAllThing()->[FBThing] {
-        var all = [FBThing]()
+    func getAllThing() {
         thingRef?.getDocuments() { (querySnapshot, err) in // .whereField("userID", isEqualTo: userID)
             if let err = err {
                 print("Error getting documents: \(err)")
@@ -318,7 +365,6 @@ class FirebaseController: NSObject, FirebaseProtocol {
                 }
             }
         }
-        return all
     }
     
     func parseThingSnapshot(snapshot: QuerySnapshot) {
@@ -381,14 +427,12 @@ class FirebaseController: NSObject, FirebaseProtocol {
         return thing
     }
     
-    func deleteThing(thing: FBThing) {
-        if let thingID = thing.id{
-            thingRef?.document(thingID).delete()
-        }
+    func deleteThing(id: String) {
+            thingRef?.document(id).delete()
     }
     
 
-    // subClass Firebase set up ----------------------------------------------------------------------------------
+    // SUBCLASS Firebase set up ----------------------------------------------------------------------------------
     
     func getAllSubClass() {
         LogInViewController.firebaseSubClass = []
@@ -406,7 +450,21 @@ class FirebaseController: NSObject, FirebaseProtocol {
     }
     
     
-    
+    func editSubClass(id: String, completed: Bool) {
+        var newSubclass = FBSubClass()
+        for subclass in subClasses {
+            if subclass.id == id{
+                newSubclass = subclass
+                newSubclass.completed = completed
+                do{
+                    try subClassRef?.document(newSubclass.id!).setData(from: newSubclass)
+                }
+                catch{
+                    print(error)
+                }
+            }
+        }
+    }
     
     func setUpSubClassListener() {
         subClassRef = database.collection("subClass")
@@ -474,13 +532,13 @@ class FirebaseController: NSObject, FirebaseProtocol {
         return subClass
     }
     
-    func deleteSubClass(subClass: FBSubClass) {
-        if let subClassID = subClass.id{
-            subClassRef?.document(subClassID).delete()
-        }
+    func deleteSubClass(id: String) {
+//        if let subClassID = subClass.id{
+            subClassRef?.document(id).delete()
+//        }
     }
         
-    // Time firebase set up ----------------------------------------------------------------------------------
+    // TIME firebase set up ----------------------------------------------------------------------------------
     
     func getAllTime() {
         LogInViewController.firebaseTime = []
@@ -496,8 +554,31 @@ class FirebaseController: NSObject, FirebaseProtocol {
             }
         }
     }
+
+    func editTime(id: String, duaration: String, end: String, exact: String, start: String, type: String) {
+        var newTime = FBTime()
+        for each in times {
+            if each.thingID == id{
+                newTime = each
+                newTime.exact = exact
+                newTime.start = start
+                newTime.end = end
+                newTime.duaration = duaration
+                newTime.type = type
+                do{
+                    try timeRef?.document(newTime.id!).setData(from: newTime)
+                }
+                catch{
+                    print(error)
+                }
+            }
+        }
+    }
     
     
+    func deleteTime(id: String) {
+            timeRef?.document(id).delete()
+    }
     
     func setUpTimeListener() {
         timeRef = database.collection("time")

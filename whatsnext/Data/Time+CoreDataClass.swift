@@ -41,5 +41,12 @@ public class Time: NSManagedObject {
             timeFormatter.dateFormat = "h:mm a"
             return timeFormatter.string(from: date)
         }
+    
+    
+    func fullformater(date: Date) -> String {
+        let fullFormatter = DateFormatter()
+        fullFormatter.dateFormat = "dd/MM/yyyy hh:mm a"
+        return fullFormatter.string(from: date)
+    }
 
 }

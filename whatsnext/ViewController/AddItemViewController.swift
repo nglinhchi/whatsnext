@@ -11,7 +11,7 @@ import Firebase
 import FirebaseFirestore
 import FirebaseStorage
 
-class AddItemViewController: UIViewController, UITextFieldDelegate, DatabaseListener {
+class AddItemViewController: UIViewController, UITextFieldDelegate {
 
     
     // VARIABLES -------------------------------------------------------------------------------------
@@ -27,7 +27,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, DatabaseList
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     weak var databaseController: FirebaseProtocol?
-    var listenerType: ListenerType = .thing // not sure?????
+//    var listenerType: ListenerType = .thing // not sure?????
     
     // UI ELEMENTS -----------------------------------------------------------------------------------
     @IBOutlet weak var taskTF: UITextField!
@@ -111,8 +111,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, DatabaseList
             
             do {
                 let request = Subtask.fetchRequest() as NSFetchRequest<Subtask>
-//                let pred = NSPredicate(format: "%K == %@", "thingID", item.id as CVarArg)
-//                request.predicate = pred
+                let pred = NSPredicate(format: "%K == %@", "thingID", item.id! as CVarArg)
+                request.predicate = pred
                 let s = try context.fetch(request)
                 for subtask in s {
                     subtasks.append(subtask.name)
@@ -134,33 +134,10 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, DatabaseList
     
     // FIREBASE ---------------------------------------------------------------------------------------
     
-    func onThingChange(change: DatabaseChange, things: [FBThing]) {
-//
-    }
-    
-    func onTimeChange(change: DatabaseChange, times: [FBTime]) {
-//
-    }
-    
-    func onSubClassChange(change: DatabaseChange, subClasses: [FBSubClass]) {
-//
-    }
-    func onJournalChange(change: DatabaseChange, journals: [FBJournal]) {
-//
-    }
-    
-    func onRandomChange(change: DatabaseChange, randoms: [FBRandom]) {
-        //
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        databaseController?.removeListener(listener: self)
-    }
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
-        databaseController?.addListener(listener: self)
+//        databaseController?.addListener(listener: self)
     }
     
     
@@ -250,44 +227,62 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, DatabaseList
         
         
         // UPDATE OR CREATE NEW ITEM
-        if item != nil { // update
-            print("not nil - update thing")
-            if subtasks.count > subtaskOldCount {
-                for i in subtaskOldCount...subtasks.count-1 {
-                    let coreSubtask = Subtask(context: context)
-                    coreSubtask.thingID = item!.id
-                    coreSubtask.name = subtasks[i]
-                    coreSubtask.completed = false
-                }
-            }
-        } else { // create
+        
+        if item == nil {
             print("nil - create thing")
-            item = Thing(context: context)
+            item = Thing(context: context) // coredata add thing
             item!.completed = false
-            item!.id = (databaseController?.addThing(category: category, completed: false, date: dateFormatter.string(from: day), name: name, note: notes).id)! // firebase
+            print("before add item")
+            item!.id = (databaseController?.addThing(category: category, completed: false, date: dateFormatter.string(from: day), name: name, note: notes).id)! // firebase add thing
+            time.id = databaseController?.addTime(
+                duaration: fbDuration,
+                end: fbEnd,
+                exact: fbExact,
+                start: fbStart,
+                type: time.type,
+                thingID: item!.id!).id // firebase add time
+            print("after add item")
             for subtask in subtasks {
                 let coreSubtask = Subtask(context: context)
                 coreSubtask.thingID = item!.id
                 coreSubtask.name = subtask
                 coreSubtask.completed = false
-                coreSubtask.id = (databaseController?.addSubClass(completed: coreSubtask.completed, name: coreSubtask.name, thingID: coreSubtask.thingID!).id)! // firebase
-                time.id = databaseController?.addTime(
-                    duaration: fbDuration,
-                    end: fbEnd,
-                    exact: fbExact,
-                    start: fbStart,
-                    type: time.type,
-                    thingID: (time.thing?.id)!).id
+                coreSubtask.id = (databaseController?.addSubClass(completed: coreSubtask.completed, name: coreSubtask.name, thingID: item!.id!).id)! // firebase add subtask
             }
-        } // both
-        item!.name = name
-        item!.category = category
-        item!.day = day
-        item!.time = time
-        item!.notes = notes
+            
+            item!.name = name
+            item!.category = category
+            item!.day = day
+            item!.time = time
+            item!.notes = notes
+            
+            
+            
+        } else {
+            print("not nil - update thing")
+            
+            item!.name = name
+            item!.category = category
+            item!.day = day
+            item!.time = time
+            item!.notes = notes
+            
+            if subtasks.count > subtaskOldCount {
+                for i in subtaskOldCount...subtasks.count-1 {
+                    let coreSubtask = Subtask(context: context)
+                    coreSubtask.thingID = item!.id
+                    coreSubtask.name = subtasks[i]
+                    coreSubtask.completed = false // coredata add subtask
+                    coreSubtask.id = (databaseController?.addSubClass(completed: coreSubtask.completed, name: coreSubtask.name, thingID: item!.id!).id)! // firebase add subtask
+                }
+            }
+            databaseController?.editTime(id: item!.id!, duaration: fbDuration, end: fbEnd, exact: fbExact, start: fbStart, type: time.type) // firebase edit time
+            databaseController?.editThing(id: item!.id!, name: name, date: dateFormatter.string(from: day), category: category, notes: notes) // firebase edit thing
+        }
+        
         do { try self.context.save() }
         catch { print(error) }
-                
+        
         //  let thingRef = storageReference.child("\(userID)/\(item!.id)")
 
         

@@ -49,16 +49,25 @@ protocol FirebaseProtocol: AnyObject{
     func deleteRandom(id: String)
     func editRandom(id: String, completed: Bool, name: String)
     
+     func getAllJournal()
     func addJournal(date: String, diary: String) -> FBJournal
-    func deleteJournal(journal: FBJournal)
+    func deleteJournal(id: String)
+    func editJournal(id: String, diary: String)
     
-    func getAllThing() -> [FBThing]
+    func getAllThing()
     func addThing(category: String, completed: Bool, date: String, name: String, note: String) -> FBThing
-    func deleteThing(thing: FBThing)
+    func deleteThing(id: String)
+    func toggleThing(id: String, completed: Bool)
+    func editThing(id: String, name: String, date: String, category: String, notes: String)
     
+    func getAllTime()
     func addTime(duaration: String, end: String, exact: String, start: String, type: String, thingID: String) -> FBTime
+    func deleteTime(id: String)
+    func editTime(id: String, duaration: String, end: String, exact: String, start: String, type: String)
  
+    func getAllSubClass()
     func addSubClass(completed: Bool, name: String, thingID: String) -> FBSubClass
-    func deleteSubClass(subClass: FBSubClass)
+    func deleteSubClass(id: String)
+    func editSubClass(id: String, completed: Bool)
     
 }

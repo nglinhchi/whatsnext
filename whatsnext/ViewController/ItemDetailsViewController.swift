@@ -17,6 +17,8 @@ class ItemDetailsViewController: UIViewController {
     // UTILS -----------------------------------------------------------------------------------------
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     public var completion: ((String) -> Void)?
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    weak var databaseController: FirebaseProtocol?
     
     // UI ELEMENTS -----------------------------------------------------------------------------------
     @IBOutlet weak var taskNameLabel: UILabel!
@@ -31,6 +33,8 @@ class ItemDetailsViewController: UIViewController {
     // VIEWDIDLOAD
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        databaseController = appDelegate?.databaseFirebase
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
@@ -57,8 +61,8 @@ class ItemDetailsViewController: UIViewController {
     func fetchSubtasks() {
         do {
             let request = Subtask.fetchRequest() as NSFetchRequest<Subtask>
-//            let pred = NSPredicate(format: "%K == %@", "thingID", thing.id as CVarArg)
-//            request.predicate = pred
+            let pred = NSPredicate(format: "%K == %@", "thingID", thing.id! as CVarArg)
+            request.predicate = pred
             subtasks = try context.fetch(request)
             table.reloadData()
         }
@@ -92,6 +96,7 @@ class ItemDetailsViewController: UIViewController {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             let subtask = self.subtasks[indexPath.row]
+            self.databaseController?.deleteSubClass(id: subtask.id!)
             self.context.delete(subtask)
             do { try self.context.save() }
             catch { print(error) }
@@ -110,7 +115,9 @@ extension ItemDetailsViewController: UITableViewDelegate {
     // SUBTASK - TOGGLE COMPLETED
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        subtasks[indexPath.row].completed = !subtasks[indexPath.row].completed
+        let itemChanged = subtasks[indexPath.row]
+        databaseController?.editSubClass(id: itemChanged.id!, completed: !itemChanged.completed) // firebase update subtask
+        subtasks[indexPath.row].completed = !subtasks[indexPath.row].completed // coredata update subtask
         do { try context.save() }
         catch { print(error) }
         fetchSubtasks()
@@ -120,6 +127,8 @@ extension ItemDetailsViewController: UITableViewDelegate {
 
 
 extension ItemDetailsViewController: UITableViewDataSource {
+    
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
