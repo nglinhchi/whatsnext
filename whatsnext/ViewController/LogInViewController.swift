@@ -53,23 +53,25 @@ class LogInViewController: UIViewController {
     
     @IBAction func loginButton(_ sender: Any) {
     
+        // CHECK password filled
         guard let password = passwordTextField.text, !password.isEmpty else {
             displayMessage(title: "Error", message: "Please enter a password")
             return
         }
         
+        // CHECK email filled
         guard let email = emailTextField.text, !email.isEmpty else {
             displayMessage(title: "Error", message: "Please enter an email")
             return
         }
         
+        // CHECK authentication
         let authDataResult = Auth.auth().signIn(withEmail: email, password: password, completion: { result, error in
             guard error == nil else {
                 // error message
                 self.displayMessage(title: "Error", message: "Wrong email/password combination, please try again")
                 return
             }
-
         })
         
     }

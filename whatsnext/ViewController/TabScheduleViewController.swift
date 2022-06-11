@@ -17,23 +17,22 @@ class TabScheduleViewController: UIViewController, DatabaseListener {
      
     // VARIABLES -------------------------------------------------------------------------------------
     static var things = [Thing]()
-    var journals = [Journal]()
     var journal: Journal?
-    var userJournal = [FBJournal()]
-    var userThing = [FBThing()]
-    var listenerType: ListenerType = .all
     
     // UTILS -----------------------------------------------------------------------------------------
     let dateFormatter = DateFormatter()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     weak var databaseController: FirebaseProtocol?
+    var listenerType: ListenerType = .all
+    var journals = [Journal]()
+    var userJournal = [FBJournal()]
+    var userThing = [FBThing()]
     
     // UI ELEMENTS -----------------------------------------------------------------------------------
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var journalLabel: UILabel!
     @IBOutlet weak var dateFilter: UIDatePicker!
-    
     
     // GENERAL METHODS -------------------------------------------------------------------------------
     

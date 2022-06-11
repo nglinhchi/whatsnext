@@ -196,11 +196,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="Sign Up" id="PUC-BW-dGU"/>
                     <connections>
-                        <outlet property="emailTF" destination="wwi-WH-8jc" id="lXW-Wl-mbn"/>
-                        <outlet property="firstnameTF" destination="sgh-Zo-d0A" id="nL6-yx-5uh"/>
-                        <outlet property="lastnameTF" destination="gl9-1M-iXR" id="dUr-kq-RuE"/>
-                        <outlet property="passwordTF" destination="tZ7-w1-K1u" id="RrS-Yg-zwq"/>
-                        <outlet property="retypeTF" destination="eBf-FR-YcG" id="aqq-qZ-A6a"/>
+                        <outlet property="emailTextField" destination="wwi-WH-8jc" id="lXW-Wl-mbn"/>
+                        <outlet property="firstnameTextField" destination="sgh-Zo-d0A" id="nL6-yx-5uh"/>
+                        <outlet property="lastnameTextField" destination="gl9-1M-iXR" id="dUr-kq-RuE"/>
+                        <outlet property="passwordTextField" destination="tZ7-w1-K1u" id="RrS-Yg-zwq"/>
+                        <outlet property="retypeTextField" destination="eBf-FR-YcG" id="aqq-qZ-A6a"/>
                         <segue destination="kAr-19-UIX" kind="show" identifier="signedupSegue" id="e7p-sb-aG3"/>
                     </connections>
                 </viewController>
