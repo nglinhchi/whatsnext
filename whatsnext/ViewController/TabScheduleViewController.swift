@@ -54,7 +54,7 @@ class TabScheduleViewController: UIViewController, DatabaseListener {
     
     func loadAllJournal() {
         userJournal = []
-         for journal in LogInViewController.firebaseDiary{
+         for journal in LogInViewController.firebaseJournal{
             if( Auth.auth().currentUser?.uid == journal.userID){
                 userJournal.append(journal)
             }
@@ -139,7 +139,7 @@ class TabScheduleViewController: UIViewController, DatabaseListener {
         LogInViewController.firebaseSubClass = subClasses
     }
     func onJournalChange(change: DatabaseChange, journals: [FBJournal]) {
-        LogInViewController.firebaseDiary = journals
+        LogInViewController.firebaseJournal = journals
     }
     
     func onRandomChange(change: DatabaseChange, randoms: [FBRandom]) {

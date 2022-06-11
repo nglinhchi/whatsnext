@@ -213,14 +213,14 @@ class FirebaseController: NSObject, FirebaseProtocol {
     }
     
     func getAllJournal() {
-        LogInViewController.firebaseDiary = []
+        LogInViewController.firebaseJournal = []
         journalRef?.getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
                 for document in querySnapshot!.documents {
                     let journal = try! document.data(as: FBJournal.self)
-                    LogInViewController.firebaseDiary.append(journal)
+                    LogInViewController.firebaseJournal.append(journal)
                 }
 
             }
