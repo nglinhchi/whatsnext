@@ -264,7 +264,12 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
             item!.name = name
             item!.category = category
             item!.day = day
-            item!.time = time
+            
+            item!.time.end = time.end
+            item!.time.start = time.start
+            item!.time.duration = time.duration
+            item!.time.exact = time.exact
+            item!.time.type = time.type
             item!.notes = notes
             
             if subtasks.count > subtaskOldCount {

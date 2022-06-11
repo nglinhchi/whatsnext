@@ -237,7 +237,7 @@ class TabScheduleViewController: UIViewController, DatabaseListener {
                 
                 let allTimes = try self.context.fetch(Time.fetchRequest())
                 for each in allTimes {
-                    if each.thing == thing {
+                    if each.thing?.id == thing.id {
                         self.databaseController?.deleteTime(id: each.id!) // firebase delete time
                         self.context.delete(each) // coredata delete time
                     }
