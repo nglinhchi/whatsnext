@@ -63,7 +63,7 @@ class ItemDetailsViewController: UIViewController {
             }
         }
         fetchSubtasks()
-        if TabRandomViewController.randoms.isEmpty{
+        if subtasks.isEmpty{
             for each in userSubstask {
                 let coreSubtask = Subtask(context: context)
                 coreSubtask.id = each.id

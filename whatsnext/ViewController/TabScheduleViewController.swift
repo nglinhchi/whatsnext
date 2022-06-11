@@ -92,7 +92,6 @@ class TabScheduleViewController: UIViewController, DatabaseListener {
                 let name = each.name!
                 let notes = each.note!
                 let coreTime = Time(context: context)
-                
                 for time in LogInViewController.firebaseTime{
                     if time.thingID == each.id {
                         coreTime.type = time.type!
