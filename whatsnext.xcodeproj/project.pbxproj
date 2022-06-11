@@ -17,19 +17,19 @@
 		AF2750542819174C00152BB1 /* whatsnextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2750532819174C00152BB1 /* whatsnextTests.swift */; };
 		AF27505E2819174C00152BB1 /* whatsnextUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF27505D2819174C00152BB1 /* whatsnextUITests.swift */; };
 		AF2750602819174C00152BB1 /* whatsnextUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF27505F2819174C00152BB1 /* whatsnextUITestsLaunchTests.swift */; };
-		AF4D1BB72852C8CA00340A31 /* Subtask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D1BB12852C8CA00340A31 /* Subtask+CoreDataClass.swift */; };
-		AF4D1BB82852C8CA00340A31 /* Subtask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D1BB22852C8CA00340A31 /* Subtask+CoreDataProperties.swift */; };
 		AF4D1BB92852C8CA00340A31 /* Thing+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D1BB32852C8CA00340A31 /* Thing+CoreDataClass.swift */; };
 		AF4D1BBA2852C8CA00340A31 /* Thing+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D1BB42852C8CA00340A31 /* Thing+CoreDataProperties.swift */; };
-		AF4D1BBF2852CB0D00340A31 /* Time+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D1BBD2852CB0D00340A31 /* Time+CoreDataClass.swift */; };
-		AF4D1BC02852CB0D00340A31 /* Time+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D1BBE2852CB0D00340A31 /* Time+CoreDataProperties.swift */; };
-		AF4D1BC32852FBDB00340A31 /* Journal+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D1BC12852FBDB00340A31 /* Journal+CoreDataClass.swift */; };
-		AF4D1BC42852FBDB00340A31 /* Journal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D1BC22852FBDB00340A31 /* Journal+CoreDataProperties.swift */; };
 		AF4D1BC62853099A00340A31 /* JournalLogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D1BC52853099A00340A31 /* JournalLogsViewController.swift */; };
 		AF6E0CED282B82A700FAB86F /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E0CEC282B82A700FAB86F /* ItemDetailsViewController.swift */; };
 		AF80AEFA2848B297000D670D /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AF80AEF82848B297000D670D /* DataModel.xcdatamodeld */; };
-		AF80AEFE2848CE5D000D670D /* Random+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF80AEFC2848CE5D000D670D /* Random+CoreDataClass.swift */; };
-		AF80AEFF2848CE5D000D670D /* Random+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF80AEFD2848CE5D000D670D /* Random+CoreDataProperties.swift */; };
+		AF8AB91828540EAD006DA2E4 /* Random+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8AB91028540EAD006DA2E4 /* Random+CoreDataClass.swift */; };
+		AF8AB91928540EAD006DA2E4 /* Random+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8AB91128540EAD006DA2E4 /* Random+CoreDataProperties.swift */; };
+		AF8AB91A28540EAD006DA2E4 /* Time+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8AB91228540EAD006DA2E4 /* Time+CoreDataClass.swift */; };
+		AF8AB91B28540EAD006DA2E4 /* Time+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8AB91328540EAD006DA2E4 /* Time+CoreDataProperties.swift */; };
+		AF8AB91C28540EAD006DA2E4 /* Journal+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8AB91428540EAD006DA2E4 /* Journal+CoreDataClass.swift */; };
+		AF8AB91D28540EAD006DA2E4 /* Journal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8AB91528540EAD006DA2E4 /* Journal+CoreDataProperties.swift */; };
+		AF8AB91E28540EAD006DA2E4 /* Subtask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8AB91628540EAD006DA2E4 /* Subtask+CoreDataClass.swift */; };
+		AF8AB91F28540EAD006DA2E4 /* Subtask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8AB91728540EAD006DA2E4 /* Subtask+CoreDataProperties.swift */; };
 		AF9F80DF283C9F1D00E647DC /* EditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F80DE283C9F1D00E647DC /* EditItemViewController.swift */; };
 		AF9F80E1283DD54000E647DC /* TabRandomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F80E0283DD54000E647DC /* TabRandomViewController.swift */; };
 		AF9F80E7283F120E00E647DC /* TabSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F80E6283F120E00E647DC /* TabSettingsTableViewController.swift */; };
@@ -84,19 +84,19 @@
 		AF2750592819174C00152BB1 /* whatsnextUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = whatsnextUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF27505D2819174C00152BB1 /* whatsnextUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = whatsnextUITests.swift; sourceTree = "<group>"; };
 		AF27505F2819174C00152BB1 /* whatsnextUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = whatsnextUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		AF4D1BB12852C8CA00340A31 /* Subtask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subtask+CoreDataClass.swift"; sourceTree = "<group>"; };
-		AF4D1BB22852C8CA00340A31 /* Subtask+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subtask+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AF4D1BB32852C8CA00340A31 /* Thing+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Thing+CoreDataClass.swift"; sourceTree = "<group>"; };
 		AF4D1BB42852C8CA00340A31 /* Thing+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Thing+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		AF4D1BBD2852CB0D00340A31 /* Time+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Time+CoreDataClass.swift"; sourceTree = "<group>"; };
-		AF4D1BBE2852CB0D00340A31 /* Time+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Time+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		AF4D1BC12852FBDB00340A31 /* Journal+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Journal+CoreDataClass.swift"; sourceTree = "<group>"; };
-		AF4D1BC22852FBDB00340A31 /* Journal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Journal+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AF4D1BC52853099A00340A31 /* JournalLogsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalLogsViewController.swift; sourceTree = "<group>"; };
 		AF6E0CEC282B82A700FAB86F /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
 		AF80AEF92848B297000D670D /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
-		AF80AEFC2848CE5D000D670D /* Random+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Random+CoreDataClass.swift"; sourceTree = "<group>"; };
-		AF80AEFD2848CE5D000D670D /* Random+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Random+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AF8AB91028540EAD006DA2E4 /* Random+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Random+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AF8AB91128540EAD006DA2E4 /* Random+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Random+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AF8AB91228540EAD006DA2E4 /* Time+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Time+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AF8AB91328540EAD006DA2E4 /* Time+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Time+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AF8AB91428540EAD006DA2E4 /* Journal+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Journal+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AF8AB91528540EAD006DA2E4 /* Journal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Journal+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AF8AB91628540EAD006DA2E4 /* Subtask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subtask+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AF8AB91728540EAD006DA2E4 /* Subtask+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subtask+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AF9F80DE283C9F1D00E647DC /* EditItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemViewController.swift; sourceTree = "<group>"; };
 		AF9F80E0283DD54000E647DC /* TabRandomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabRandomViewController.swift; sourceTree = "<group>"; };
 		AF9F80E6283F120E00E647DC /* TabSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -241,16 +241,16 @@
 			isa = PBXGroup;
 			children = (
 				AF80AEF82848B297000D670D /* DataModel.xcdatamodeld */,
-				AF80AEFC2848CE5D000D670D /* Random+CoreDataClass.swift */,
-				AF80AEFD2848CE5D000D670D /* Random+CoreDataProperties.swift */,
-				AF4D1BB12852C8CA00340A31 /* Subtask+CoreDataClass.swift */,
-				AF4D1BB22852C8CA00340A31 /* Subtask+CoreDataProperties.swift */,
+				AF8AB91428540EAD006DA2E4 /* Journal+CoreDataClass.swift */,
+				AF8AB91528540EAD006DA2E4 /* Journal+CoreDataProperties.swift */,
+				AF8AB91028540EAD006DA2E4 /* Random+CoreDataClass.swift */,
+				AF8AB91128540EAD006DA2E4 /* Random+CoreDataProperties.swift */,
 				AF4D1BB32852C8CA00340A31 /* Thing+CoreDataClass.swift */,
 				AF4D1BB42852C8CA00340A31 /* Thing+CoreDataProperties.swift */,
-				AF4D1BBD2852CB0D00340A31 /* Time+CoreDataClass.swift */,
-				AF4D1BBE2852CB0D00340A31 /* Time+CoreDataProperties.swift */,
-				AF4D1BC12852FBDB00340A31 /* Journal+CoreDataClass.swift */,
-				AF4D1BC22852FBDB00340A31 /* Journal+CoreDataProperties.swift */,
+				AF8AB91228540EAD006DA2E4 /* Time+CoreDataClass.swift */,
+				AF8AB91328540EAD006DA2E4 /* Time+CoreDataProperties.swift */,
+				AF8AB91628540EAD006DA2E4 /* Subtask+CoreDataClass.swift */,
+				AF8AB91728540EAD006DA2E4 /* Subtask+CoreDataProperties.swift */,
 				AFDB5B7728538C1300608D5F /* FBObject.swift */,
 			);
 			path = Data;
@@ -400,34 +400,34 @@
 			files = (
 				AF9F80DF283C9F1D00E647DC /* EditItemViewController.swift in Sources */,
 				AFDC9FB62819244700BB5C39 /* LogInViewController.swift in Sources */,
+				AF8AB91F28540EAD006DA2E4 /* Subtask+CoreDataProperties.swift in Sources */,
 				AF6E0CED282B82A700FAB86F /* ItemDetailsViewController.swift in Sources */,
 				AFDB5B7828538C1300608D5F /* FBObject.swift in Sources */,
 				AFF9BF332823AFD90082AC74 /* EditJournalViewController.swift in Sources */,
 				AF9F80E9283F1D7500E647DC /* TabRoutineViewController.swift in Sources */,
 				AF4D1BBA2852C8CA00340A31 /* Thing+CoreDataProperties.swift in Sources */,
-				AF4D1BC32852FBDB00340A31 /* Journal+CoreDataClass.swift in Sources */,
 				AFDB5B7C28538D9400608D5F /* FirebaseController.swift in Sources */,
 				AF9F80E1283DD54000E647DC /* TabRandomViewController.swift in Sources */,
+				AF8AB91E28540EAD006DA2E4 /* Subtask+CoreDataClass.swift in Sources */,
 				AF4D1BB92852C8CA00340A31 /* Thing+CoreDataClass.swift in Sources */,
-				AF4D1BB72852C8CA00340A31 /* Subtask+CoreDataClass.swift in Sources */,
 				AF80AEFA2848B297000D670D /* DataModel.xcdatamodeld in Sources */,
 				AFDC9FC9281A896500BB5C39 /* UIViewController+displayMessage.swift in Sources */,
 				AF9F80EB283F535C00E647DC /* AccountViewController.swift in Sources */,
+				AF8AB91C28540EAD006DA2E4 /* Journal+CoreDataClass.swift in Sources */,
+				AF8AB91D28540EAD006DA2E4 /* Journal+CoreDataProperties.swift in Sources */,
 				AFDC9FCD281A97D800BB5C39 /* LoadAccountsDelegate.swift in Sources */,
 				AF26B2752822580A00ACE8B9 /* AddItemViewController.swift in Sources */,
 				AFDC9FCB281A930A00BB5C39 /* SignUpViewController.swift in Sources */,
-				AF4D1BB82852C8CA00340A31 /* Subtask+CoreDataProperties.swift in Sources */,
 				AF9F80E7283F120E00E647DC /* TabSettingsTableViewController.swift in Sources */,
 				AFDC9FC7281A7CC300BB5C39 /* MulticastDelegate.swift in Sources */,
-				AF80AEFE2848CE5D000D670D /* Random+CoreDataClass.swift in Sources */,
-				AF4D1BBF2852CB0D00340A31 /* Time+CoreDataClass.swift in Sources */,
-				AF4D1BC42852FBDB00340A31 /* Journal+CoreDataProperties.swift in Sources */,
+				AF8AB91828540EAD006DA2E4 /* Random+CoreDataClass.swift in Sources */,
 				AF27503D2819174A00152BB1 /* AppDelegate.swift in Sources */,
-				AF4D1BC02852CB0D00340A31 /* Time+CoreDataProperties.swift in Sources */,
 				AF4D1BC62853099A00340A31 /* JournalLogsViewController.swift in Sources */,
-				AF80AEFF2848CE5D000D670D /* Random+CoreDataProperties.swift in Sources */,
+				AF8AB91928540EAD006DA2E4 /* Random+CoreDataProperties.swift in Sources */,
+				AF8AB91B28540EAD006DA2E4 /* Time+CoreDataProperties.swift in Sources */,
 				AF26B2732822317400ACE8B9 /* TabScheduleViewController.swift in Sources */,
 				AF27503F2819174A00152BB1 /* SceneDelegate.swift in Sources */,
+				AF8AB91A28540EAD006DA2E4 /* Time+CoreDataClass.swift in Sources */,
 				AFDC9FC5281A7A9000BB5C39 /* DatabaseProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

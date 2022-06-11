@@ -18,7 +18,6 @@ class TabScheduleViewController: UIViewController, DatabaseListener {
     // VARIABLES -------------------------------------------------------------------------------------
     static var things = [Thing]() // TODO - switch to non-static later
     var journal: Journal?
-//    var allRandom = [FBRandom()]
     var userRandom = [FBRandom()]
     var listenerType: ListenerType = .random
     
@@ -78,10 +77,10 @@ class TabScheduleViewController: UIViewController, DatabaseListener {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         databaseController?.removeListener(listener: self)
-        navigationController?.navigationBar.isHidden = true
     }
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
         databaseController?.addListener(listener: self)
     }
     
@@ -151,8 +150,8 @@ class TabScheduleViewController: UIViewController, DatabaseListener {
             // delete subtasks
             do {
                 let request = Subtask.fetchRequest() as NSFetchRequest<Subtask>
-                let pred = NSPredicate(format: "%K == %@", "thingID", thing.id as CVarArg)
-                request.predicate = pred
+//                let pred = NSPredicate(format: "%K == %@", "thingID", thing.id as CVarArg)
+//                request.predicate = pred
                 let subtasks = try self.context.fetch(request)
                 for subtask in subtasks {
                     self.context.delete(subtask)
@@ -201,7 +200,7 @@ class TabScheduleViewController: UIViewController, DatabaseListener {
         item.day = dateFormatter.date(from: "10/06/2022")!
         item.time = time
         item.notes = "eat healthy baby"
-        item.id = UUID()
+        item.id = (databaseController?.addThing(category: item.category, completed: item.completed, date: dateFormatter.string(from: item.day), name: item.name, note: item.notes).id)!
         let subtask = Subtask(context: self.context)
         subtask.name = "task 1"
         subtask.completed = false

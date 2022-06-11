@@ -17,14 +17,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var databaseController: DatabaseProtocol?
     var databaseFirebase: FirebaseProtocol?
 
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        print("ACTIVE")
+        
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         databaseFirebase = FirebaseController()
+//        databaseFirebase?.getAllRandom() 
         UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.badge,.sound]){
             (granted,error) in if granted{
                 print("user gave permission for notification")
             }
         }
+        print("hello")
+        databaseFirebase?.getAllRandom()
+        databaseFirebase?.getAllThing()
         return true
     }
 

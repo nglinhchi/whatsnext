@@ -11,21 +11,23 @@ import Firebase
 import FirebaseFirestore
 import FirebaseStorage
 
-class AddItemViewController: UIViewController, UITextFieldDelegate {
+class AddItemViewController: UIViewController, UITextFieldDelegate, DatabaseListener {
 
     
     // VARIABLES -------------------------------------------------------------------------------------
     var item: Thing?
     var subtasks = [String]()
     var subtaskOldCount: Int = 0
-    var usersReference = Firestore.firestore().collection("users")
-    var storageReference = Storage.storage().reference()
     
     // UTILS -----------------------------------------------------------------------------------------
     static var timeFormatter = DateFormatter()
+    let dateFormatter = DateFormatter()
     static var timeField = ""
     public var completion: ((String) -> Void)?
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    weak var databaseController: FirebaseProtocol?
+    var listenerType: ListenerType = .thing // not sure?????
     
     // UI ELEMENTS -----------------------------------------------------------------------------------
     @IBOutlet weak var taskTF: UITextField!
@@ -48,6 +50,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         
         super.viewDidLoad()
         
+        databaseController = appDelegate?.databaseFirebase
+        
         exactTF.isHidden = true
         startTF.isHidden = true
         endTF.isHidden = true
@@ -56,6 +60,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         
         table.delegate = self
         table.dataSource = self
+        
+        dateFormatter.dateFormat = "dd/MM/yyyy"
         
         AddItemViewController.timeFormatter.locale = Locale(identifier: "en_US")
         AddItemViewController.timeFormatter.dateFormat = "hh:mm a"
@@ -105,8 +111,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
             
             do {
                 let request = Subtask.fetchRequest() as NSFetchRequest<Subtask>
-                let pred = NSPredicate(format: "%K == %@", "thingID", item.id as CVarArg)
-                request.predicate = pred
+//                let pred = NSPredicate(format: "%K == %@", "thingID", item.id as CVarArg)
+//                request.predicate = pred
                 let s = try context.fetch(request)
                 for subtask in s {
                     subtasks.append(subtask.name)
@@ -124,6 +130,39 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         taskTF.becomeFirstResponder()
         
     }
+    
+    
+    // FIREBASE ---------------------------------------------------------------------------------------
+    
+    func onThingChange(change: DatabaseChange, things: [FBThing]) {
+//
+    }
+    
+    func onTimeChange(change: DatabaseChange, times: [FBTime]) {
+//
+    }
+    
+    func onSubClassChange(change: DatabaseChange, subClasses: [FBSubClass]) {
+//
+    }
+    func onJournalChange(change: DatabaseChange, journals: [FBJournal]) {
+//
+    }
+    
+    func onRandomChange(change: DatabaseChange, randoms: [FBRandom]) {
+        //
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        databaseController?.removeListener(listener: self)
+    }
+    override func viewWillAppear(_ animated: Bool){
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+        databaseController?.addListener(listener: self)
+    }
+    
     
     // ADD/UPDATE THING -----------------------------------------------------------------------------
     @IBAction func saveBTN(_ sender: Any) {
@@ -155,6 +194,11 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         dateFormatter.dateFormat = "dd/MM/yyyy"
         let date = dateFormatter.string(from: datePicker.date)
         
+        var fbDuration = ""
+        var fbStart = ""
+        var fbEnd = ""
+        var fbExact = ""
+        
         switch timeIndex {
         case 1:
             // AC exact time filled
@@ -166,6 +210,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
             let exact = fullFormatter.date(from: stringExact)!
             time.type = timeType
             time.exact = exact
+            fbExact = AddItemViewController.timeFormatter.string(from: time.exact!)
         case 2:
             // AC start filled, end filled, start > end
             guard let stringTimeStart = startTF.text, !stringTimeStart.isEmpty,
@@ -184,6 +229,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
             time.type = timeType
             time.start = start
             time.end = end
+            fbStart = AddItemViewController.timeFormatter.string(from: time.start!)
+            fbEnd = AddItemViewController.timeFormatter.string(from: time.end!)
         case 3:
             // AC duration filled
             guard let duration = durationTF.text, !duration.isEmpty else {
@@ -192,6 +239,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
             }
             time.type = timeType
             time.duration = duration
+            fbDuration = time.duration!
         default:
             time.type = timeType
         }
@@ -215,13 +263,21 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         } else { // create
             print("nil - create thing")
             item = Thing(context: context)
-            item!.id = UUID()
             item!.completed = false
+            item!.id = (databaseController?.addThing(category: category, completed: false, date: dateFormatter.string(from: day), name: name, note: notes).id)! // firebase
             for subtask in subtasks {
                 let coreSubtask = Subtask(context: context)
                 coreSubtask.thingID = item!.id
                 coreSubtask.name = subtask
                 coreSubtask.completed = false
+                coreSubtask.id = (databaseController?.addSubClass(completed: coreSubtask.completed, name: coreSubtask.name, thingID: coreSubtask.thingID!).id)! // firebase
+                time.id = databaseController?.addTime(
+                    duaration: fbDuration,
+                    end: fbEnd,
+                    exact: fbExact,
+                    start: fbStart,
+                    type: time.type,
+                    thingID: (time.thing?.id)!).id
             }
         } // both
         item!.name = name
@@ -231,16 +287,9 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         item!.notes = notes
         do { try self.context.save() }
         catch { print(error) }
-        
-        
-        guard let userID = Auth.auth().currentUser?.uid else {
-            displayMessage(title: "Error", message: "No user logged in!")
-            return
-        }
-        
-//        let thingRef = storageReference.child("\(userID)/\(item!.id)")
-        
-        
+                
+        //  let thingRef = storageReference.child("\(userID)/\(item!.id)")
+
         
         completion?("done")
     }

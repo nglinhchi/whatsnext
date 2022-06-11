@@ -44,12 +44,15 @@ protocol FirebaseProtocol: AnyObject{
     func addListener(listener: DatabaseListener)
     func removeListener(listener: DatabaseListener)
 
+    func getAllRandom()
     func addRandom(name: String, completed: Bool) -> FBRandom
-    func deleteRandom(random: FBRandom)
+    func deleteRandom(id: String)
+    func editRandom(id: String, completed: Bool, name: String)
     
     func addJournal(date: String, diary: String) -> FBJournal
     func deleteJournal(journal: FBJournal)
     
+    func getAllThing() -> [FBThing]
     func addThing(category: String, completed: Bool, date: String, name: String, note: String) -> FBThing
     func deleteThing(thing: FBThing)
     

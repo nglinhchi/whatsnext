@@ -2,7 +2,7 @@
 //  Time+CoreDataProperties.swift
 //  whatsnext
 //
-//  Created by Nguyen Linh Chi on 10/6/2022.
+//  Created by Nguyen Linh Chi on 11/6/2022.
 //
 //
 
@@ -17,10 +17,11 @@ extension Time {
     }
 
     @NSManaged public var duration: String?
+    @NSManaged public var end: Date?
     @NSManaged public var exact: Date?
     @NSManaged public var start: Date?
-    @NSManaged public var type: String?
-    @NSManaged public var end: Date?
+    @NSManaged public var type: String
+    @NSManaged public var id: String?
     @NSManaged public var thing: Thing?
 
 }

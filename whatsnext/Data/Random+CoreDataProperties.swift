@@ -2,7 +2,7 @@
 //  Random+CoreDataProperties.swift
 //  whatsnext
 //
-//  Created by Nguyen Linh Chi on 2/6/2022.
+//  Created by Nguyen Linh Chi on 11/6/2022.
 //
 //
 
@@ -16,8 +16,9 @@ extension Random {
         return NSFetchRequest<Random>(entityName: "Random")
     }
 
-    @NSManaged public var name: String
     @NSManaged public var completed: Bool
+    @NSManaged public var name: String
+    @NSManaged public var id: String?
 
 }
 

@@ -104,8 +104,10 @@ class TabSettingsTableViewController: UITableViewController {
         do {
             let all = try context.fetch(Random.fetchRequest())
             for each in all {
+//                print(each)
                 context.delete(each)
             }
+//            print(try context.fetch(Random.fetchRequest()))
         }
         catch { print(error) }
         

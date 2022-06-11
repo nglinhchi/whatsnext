@@ -11,6 +11,7 @@ import FirebaseAuth
 import FirebaseFirestoreSwift
 import FirebaseFirestore
 import AVFoundation
+import SwiftUI
 
 class FirebaseController: NSObject, FirebaseProtocol {
     
@@ -18,6 +19,7 @@ class FirebaseController: NSObject, FirebaseProtocol {
     var authController: Auth
     var database: Firestore
     var currentUser: FirebaseAuth.User?
+    var userID: String
     var randoms: [FBRandom]
     var randomRef: CollectionReference?
     var journals: [FBJournal]
@@ -38,12 +40,20 @@ class FirebaseController: NSObject, FirebaseProtocol {
         things = [FBThing]()
         subClasses = [FBSubClass]()
         times = [FBTime]()
+//        guard let _ = Auth.auth().currentUser?.uid else {
+//            return
+//        }
+        userID = Auth.auth().currentUser?.uid ?? ""
         super.init()
         
-        guard let userID = Auth.auth().currentUser?.uid else {
-            return
-        }
-        print(userID)
+        
+        
+//        guard let currentUser = Auth.auth().currentUser else {
+//            return
+//        }
+//        self.currentUser = Auth.auth().currentUser
+//        currentUserID = currentUser.uid
+//        print(currentUserID)
         
         self.setupRandomListener()
         self.setupJournalListener()
@@ -77,6 +87,24 @@ class FirebaseController: NSObject, FirebaseProtocol {
     
     
     // Random Firebase set up ----------------------------------------------------------------------------------
+    func editRandom(id: String, completed: Bool, name: String) {
+        var newRandom = FBRandom()
+        for random in randoms {
+            if random.id == id{
+                newRandom = random
+                newRandom.completed = completed
+                newRandom.name = name
+                do{
+                    try randomRef?.document(newRandom.id!).setData(from: newRandom)
+                }
+                catch{
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    
     func setupRandomListener() {
         randomRef = database.collection("random")
         randomRef?.addSnapshotListener() {
@@ -88,6 +116,24 @@ class FirebaseController: NSObject, FirebaseProtocol {
             self.parseRandomSnapshot(snapshot: querySnapshot)
         }
     }
+    
+    func getAllRandom() {
+        LogInViewController.firebaseRandom = []
+        randomRef?.getDocuments() { (querySnapshot, err) in // .whereField("userID", isEqualTo: userID)
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                print(Auth.auth().currentUser?.uid ?? "asdasdadsas")
+                for document in querySnapshot!.documents {
+                    let random = try! document.data(as: FBRandom.self)
+                    LogInViewController.firebaseRandom.append(random)
+                }
+                print("All user randoms")
+                print(LogInViewController.firebaseRandom)
+            }
+        }
+    }
+    
     
     func parseRandomSnapshot(snapshot: QuerySnapshot) {
         snapshot.documentChanges.forEach { (change) in
@@ -126,14 +172,12 @@ class FirebaseController: NSObject, FirebaseProtocol {
         random.name = name
         random.completed = completed
         random.userID = Auth.auth().currentUser?.uid
-        print(Auth.auth().currentUser?.uid)
         let randomDictionary = [
             "name": random.name,
             "completed": random.completed,
             "userID": random.userID
         ] as [String : Any]
         
-        print(randomRef)
         do  {
             if let randomRef = try randomRef?.addDocument(data: randomDictionary){
                 random.id = randomRef.documentID
@@ -143,14 +187,33 @@ class FirebaseController: NSObject, FirebaseProtocol {
         }
         return random
     }
-    func deleteRandom(random: FBRandom) {
-        if let randomID = random.id{
-            randomRef?.document(randomID).delete()
-        }
+    
+    func deleteRandom(id: String) {
+//        if let randomID = id {
+            randomRef?.document(id).delete()
+//        }
     }
     
     
     // Journal Firebase set up ----------------------------------------------------------------------------------
+    
+    
+    func getAllJournal() {
+        LogInViewController.firebaseDiary = []
+        journalRef?.getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    let journal = try! document.data(as: FBJournal.self)
+                    LogInViewController.firebaseDiary.append(journal)
+                }
+
+            }
+        }
+    }
+    
+    
     
     func setupJournalListener() {
         journalRef = database.collection("journal")
@@ -226,6 +289,8 @@ class FirebaseController: NSObject, FirebaseProtocol {
     
     
     // Thing Firebase set up ----------------------------------------------------------------------------------
+    
+    
     func setupThingListener() {
         thingRef = database.collection("thing")
         thingRef?.addSnapshotListener() {
@@ -236,6 +301,24 @@ class FirebaseController: NSObject, FirebaseProtocol {
             }
             self.parseThingSnapshot(snapshot: querySnapshot)
         }
+    }
+    
+    
+    func getAllThing()->[FBThing] {
+        var all = [FBThing]()
+        thingRef?.getDocuments() { (querySnapshot, err) in // .whereField("userID", isEqualTo: userID)
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    let thing = try! document.data(as: FBThing.self)
+//                    if self.userID == thing.userID! {
+                    LogInViewController.firebaseThing.append(thing)
+//                    }
+                }
+            }
+        }
+        return all
     }
     
     func parseThingSnapshot(snapshot: QuerySnapshot) {
@@ -306,6 +389,25 @@ class FirebaseController: NSObject, FirebaseProtocol {
     
 
     // subClass Firebase set up ----------------------------------------------------------------------------------
+    
+    func getAllSubClass() {
+        LogInViewController.firebaseSubClass = []
+        subClassRef?.getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    let subClass = try! document.data(as: FBSubClass.self)
+                    LogInViewController.firebaseSubClass.append(subClass)
+                }
+
+            }
+        }
+    }
+    
+    
+    
+    
     func setUpSubClassListener() {
         subClassRef = database.collection("subClass")
         subClassRef?.addSnapshotListener() {
@@ -379,6 +481,24 @@ class FirebaseController: NSObject, FirebaseProtocol {
     }
         
     // Time firebase set up ----------------------------------------------------------------------------------
+    
+    func getAllTime() {
+        LogInViewController.firebaseTime = []
+        timeRef?.getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    let time = try! document.data(as: FBTime.self)
+                    LogInViewController.firebaseTime.append(time)
+                }
+
+            }
+        }
+    }
+    
+    
+    
     func setUpTimeListener() {
         timeRef = database.collection("time")
         timeRef?.addSnapshotListener() {

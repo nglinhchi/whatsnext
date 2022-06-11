@@ -2,7 +2,7 @@
 //  Journal+CoreDataProperties.swift
 //  whatsnext
 //
-//  Created by Nguyen Linh Chi on 10/6/2022.
+//  Created by Nguyen Linh Chi on 11/6/2022.
 //
 //
 
@@ -18,6 +18,7 @@ extension Journal {
 
     @NSManaged public var day: Date
     @NSManaged public var diary: String
+    @NSManaged public var id: String?
 
 }
 

@@ -16,10 +16,10 @@ extension Thing {
         return NSFetchRequest<Thing>(entityName: "Thing")
     }
 
+    @NSManaged public var id: String?
     @NSManaged public var category: String
     @NSManaged public var completed: Bool
     @NSManaged public var day: Date
-    @NSManaged public var id: UUID
     @NSManaged public var name: String
     @NSManaged public var notes: String
     @NSManaged public var time: Time

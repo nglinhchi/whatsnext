@@ -57,8 +57,8 @@ class ItemDetailsViewController: UIViewController {
     func fetchSubtasks() {
         do {
             let request = Subtask.fetchRequest() as NSFetchRequest<Subtask>
-            let pred = NSPredicate(format: "%K == %@", "thingID", thing.id as CVarArg)
-            request.predicate = pred
+//            let pred = NSPredicate(format: "%K == %@", "thingID", thing.id as CVarArg)
+//            request.predicate = pred
             subtasks = try context.fetch(request)
             table.reloadData()
         }

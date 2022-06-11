@@ -15,14 +15,21 @@ class LogInViewController: UIViewController {
 //    @IBOutlet weak var appLogo: UIView!
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
     weak var databaseController: FirebaseProtocol?
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     // VARIABLES
-//    var accounts: [Account] = []
-//    weak var databaseController: DatabaseProtocol?
-//    var listenerType: ListenerType = .account
     var authHandle: AuthStateDidChangeListenerHandle?
     var currentUser: User?
+    
+    
+    // FIREBASE
+    static var firebaseRandom: [FBRandom] = []
+    static var firebaseThing: [FBThing] = []
+    static var firebaseDiary: [FBJournal] = []
+    static var firebaseTime: [FBTime] = []
+    static var firebaseSubClass: [FBSubClass] = []
     
     
     @IBAction func loginButton(_ sender: Any) {
@@ -47,9 +54,6 @@ class LogInViewController: UIViewController {
 
         })
         
-
-        
-        
 //        Task{
 //            do{
 //                let authDataResult = try await Auth.auth().signIn(withEmail: email, password: password)
@@ -60,12 +64,35 @@ class LogInViewController: UIViewController {
 ////            displayMessage(title: "Error", message: "Firebase Authentication Failed with Error:\(String(describing: error))")
 //            }
 //        }
+
+//        loadEverything()
+        
     }
     
 //    func onAccountChange(change: DatabaseChange, accounts: [Account]) {
 //        self.accounts = accounts
 //    }
     
+    
+    func loadEverything() {
+        databaseController = appDelegate?.databaseFirebase
+        databaseController?.getAllRandom()
+        for each in LogInViewController.firebaseRandom {
+            let id = each.id
+            let name = each.name
+            let completed = each.completed
+    
+            
+            let coreRandom = Random(context: context)
+            coreRandom.id = id
+            coreRandom.name = name!
+            coreRandom.completed = completed!
+        }
+        do { try context.save() }
+        catch { print(error) }
+        
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,7 +112,6 @@ class LogInViewController: UIViewController {
         }
     }
     
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 //        databaseController?.removeListener(listener: self)
@@ -93,15 +119,12 @@ class LogInViewController: UIViewController {
         Auth.auth().removeStateDidChangeListener(authHandle)
     }
     
-    
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "signupSegue" {
-            let destination = segue.destination as! SignUpViewController
-//            destination.accounts = accounts
-//            destination.databaseController = databaseController
-            }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "signupSegue" {
+//            let destination = segue.destination as! SignUpViewController
+////            destination.accounts = accounts
+////            destination.databaseController = databaseController
+//            }
+//    }
     
 }

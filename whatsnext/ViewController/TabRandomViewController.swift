@@ -7,34 +7,124 @@
 
 import UIKit
 import CoreData
+import Firebase
+import FirebaseAuth
+import FirebaseStorage
+import FirebaseFirestoreSwift
 
-class TabRandomViewController: UIViewController, UITextFieldDelegate {
+class TabRandomViewController: UIViewController, UITextFieldDelegate, DatabaseListener {
     
     // VARIABLES -------------------------------------------------------------------------------------
     static var randoms = [Random]()
+    var userRandom = [FBRandom()]
     
     // UTILS -----------------------------------------------------------------------------------------
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    weak var databaseController: FirebaseProtocol?
+    var listenerType: ListenerType = .random
+    static var firebase: [FBRandom] = []
     
     // UI ELEMENTS -----------------------------------------------------------------------------------
     @IBOutlet weak var table: UITableView!
     
     // GENERAL METHODS -------------------------------------------------------------------------------
     
+    
+    func loadEverything() {
+        userRandom = []
+         for random in LogInViewController.firebaseRandom{
+            if( Auth.auth().currentUser?.uid == random.userID){
+                userRandom.append(random)
+            }
+        }
+        fetchRandom()
+        if TabRandomViewController.randoms.isEmpty{
+            for each in userRandom {
+                let id = each.id
+                let name = each.name
+                let completed = each.completed
+                let coreRandom = Random(context: context)
+                coreRandom.id = id
+                coreRandom.name = name!
+                coreRandom.completed = completed!
+            }
+            do { try context.save() }
+            catch { print(error) }
+            fetchRandom()
+        }
+    }
+    
     // VIEWDIDLOAD
     override func viewDidLoad() {
         super.viewDidLoad()
+        databaseController = appDelegate?.databaseFirebase
         table.delegate = self
         table.dataSource = self
-        fetchRandom()
-    }
-    
-    // HIDE TITLE
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = true
+        loadEverything()
+//        firebaseToCoredata()
+//        fetchRandom()
     }
 
+    // FIREBASE ---------------------------------------------------------------------------------------
+    
+//    func firebaseToCoredata() {
+//
+//
+//        let firebaseList = TabRandomViewController.firebase
+////        let firebaseList = (databaseController?.getAllRandom())!
+//        for each in firebaseList {
+//            let id = each.id
+//            let name = each.name
+//            let completed = each.completed
+////            print("\(id) || \(name) || \(completed)")
+//
+//            let coreRandom = Random(context: context)
+//            coreRandom.id = id
+//            coreRandom.name = name!
+//            coreRandom.completed = completed!
+//        }
+//        do { try context.save() }
+//        catch { print(error) }
+//    }
+    
+    func onThingChange(change: DatabaseChange, things: [FBThing]) {
+//
+    }
+    
+    func onTimeChange(change: DatabaseChange, times: [FBTime]) {
+//
+    }
+    
+    func onSubClassChange(change: DatabaseChange, subClasses: [FBSubClass]) {
+//
+    }
+    func onJournalChange(change: DatabaseChange, journals: [FBJournal]) {
+//
+    }
+    
+    func onRandomChange(change: DatabaseChange, randoms: [FBRandom]) {
+        userRandom = []
+        for random in randoms{
+            if random.userID == Auth.auth().currentUser?.uid{
+                userRandom.append(random)
+            }
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        databaseController?.removeListener(listener: self)
+    }
+    override func viewWillAppear(_ animated: Bool){
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+        databaseController?.addListener(listener: self)
+        TabRandomViewController.firebase = []
+        
+        
+    }
+    
     // CRUD - RANDOM ----------------------------------------------------------------------------------
     
     // FETCH RANDOMS INTO VIEW
@@ -42,6 +132,9 @@ class TabRandomViewController: UIViewController, UITextFieldDelegate {
         do {
             TabRandomViewController.randoms = try context.fetch(Random.fetchRequest())
             TabRandomViewController.randoms.sort(by: { $0.completed && !$1.completed })
+            for each in TabRandomViewController.randoms {
+//                print("ID \(each.id ?? "no-id") | name \(each.name)")
+            }
             self.table.reloadData()
         }
         catch { print(error) }
@@ -91,6 +184,7 @@ extension TabRandomViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             let random = TabRandomViewController.randoms[indexPath.row]
+            self.databaseController?.deleteRandom(id: random.id!)
             self.context.delete(random)
             do {
                 try self.context.save()
@@ -98,6 +192,7 @@ extension TabRandomViewController: UITableViewDelegate {
             catch {
                 print(error)
             }
+            
             self.fetchRandom()
         }
         return UISwipeActionsConfiguration(actions: [action])
@@ -145,6 +240,9 @@ extension TabRandomViewController: UITableViewDataSource {
             // which row to remove
             let randomToRemove = TabRandomViewController.randoms[textField.tag]
             // remove it
+            if let id = randomToRemove.id {
+                databaseController?.deleteRandom(id: id) // firebase
+            }
             self.context.delete(randomToRemove)
             // save it
             do {
@@ -156,9 +254,15 @@ extension TabRandomViewController: UITableViewDataSource {
             // re-fetch
             self.fetchRandom()
         } else {
+                let existing = TabRandomViewController.randoms[textField.tag]
+            if let id = existing.id {
+                databaseController?.editRandom(id: id, completed: existing.completed, name: textField.text!) // update name
+            } else {
+                TabRandomViewController.randoms[textField.tag].id = databaseController?.addRandom(name: textField.text!, completed: false).id // add to firebase
+            }
+            // add to coredata
             addBTN(self)
         }
-        print(TabRandomViewController.randoms.count)
         return false
     }
     
@@ -174,14 +278,20 @@ class RandomTableViewCell: UITableViewCell, UITextFieldDelegate {
     @IBOutlet weak var checkView: UIButton!
     @IBOutlet weak var nameTF: UITextField!
     
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    weak var databaseController: FirebaseProtocol?
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     // TOGGLE RANDOM.COMPLETED
     @IBAction func checkBTN(_ sender: Any) {
         if let button = sender as? UIButton {
             // toggle completed
+            databaseController = appDelegate?.databaseFirebase
+            let random = TabRandomViewController.randoms[button.tag]
+            databaseController?.editRandom(id: random.id!, completed: !random.completed, name: random.name)
             TabRandomViewController.randoms[button.tag].completed = !TabRandomViewController.randoms[button.tag].completed
             fetchRandom()
+            
             // change tick view acccordingly
             TabRandomViewController.randoms[button.tag].completed ?
             checkView.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal) :
