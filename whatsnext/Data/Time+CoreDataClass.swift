@@ -43,10 +43,19 @@ public class Time: NSManagedObject {
         }
     
     
-    func fullformater(date: Date) -> String {
+    func dateToStringFull(date: Date) -> String {
         let fullFormatter = DateFormatter()
+        fullFormatter.locale = Locale(identifier: "en_US")
         fullFormatter.dateFormat = "dd/MM/yyyy hh:mm a"
         return fullFormatter.string(from: date)
+    }
+    
+    
+    func stringToDate(string: String) -> Date{
+        let fullFormatter = DateFormatter()
+        fullFormatter.locale = Locale(identifier: "en_US")
+        fullFormatter.dateFormat = "dd/MM/yyyy hh:mm a"
+        return fullFormatter.date(from: string)!
     }
 
 }

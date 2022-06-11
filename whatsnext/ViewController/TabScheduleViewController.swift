@@ -16,10 +16,12 @@ import FirebaseFirestoreSwift
 class TabScheduleViewController: UIViewController, DatabaseListener {
      
     // VARIABLES -------------------------------------------------------------------------------------
-    static var things = [Thing]() // TODO - switch to non-static later
+    static var things = [Thing]()
+    var journals = [Journal]()
     var journal: Journal?
-    var userRandom = [FBRandom()]
-    var listenerType: ListenerType = .random
+    var userJournal = [FBJournal()]
+    var userThing = [FBThing()]
+    var listenerType: ListenerType = .all
     
     // UTILS -----------------------------------------------------------------------------------------
     let dateFormatter = DateFormatter()
@@ -44,34 +46,111 @@ class TabScheduleViewController: UIViewController, DatabaseListener {
         table.dataSource = self
 //        firebaseTestItems()
 //        coredataTestItems()
-        fetchThings()
-        fetchJournal()
+        loadAllThing()
+        loadAllJournal()
     }
     
     // FIREBASE ---------------------------------------------------------------------------------------
     
+    func loadAllJournal() {
+        userJournal = []
+         for journal in LogInViewController.firebaseDiary{
+            if( Auth.auth().currentUser?.uid == journal.userID){
+                userJournal.append(journal)
+            }
+        }
+        fetchJournal()
+        if journals.isEmpty{
+            for each in userJournal {
+                let coreJournal = Journal(context: context)
+                coreJournal.id = each.id
+                coreJournal.day = coreJournal.stringToDate(string: each.date!)
+                coreJournal.diary = each.diary!
+            }
+            do { try context.save() }
+            catch { print(error) }
+            fetchJournal()
+        }
+    }
+    
+    
+    func loadAllThing() {
+        userThing = []
+         for thing in LogInViewController.firebaseThing{
+             if( Auth.auth().currentUser?.uid == thing.userID){
+                userThing.append(thing)
+            }
+        }
+        fetchThings()
+        if TabScheduleViewController.things.isEmpty{
+            for each in userThing {
+                
+                let id = each.id!
+                let category = each.category!
+                let completed = each.completed!
+                let day = dateFormatter.date(from: each.date!)!
+                let name = each.name!
+                let notes = each.note!
+                let coreTime = Time(context: context)
+                
+                for time in LogInViewController.firebaseTime{
+                    if time.thingID == each.id {
+                        coreTime.type = time.type!
+                        coreTime.id = time.id
+//                        coreTime.thing
+                        switch coreTime.type {
+                        case "exact":
+                            coreTime.exact = coreTime.stringToDate(string: time.exact!)
+                        case "start-end":
+                            coreTime.start = coreTime.stringToDate(string: time.start!)
+                            coreTime.end = coreTime.stringToDate(string: time.end!)
+                        case "duration":
+                            coreTime.duration = time.duaration
+                        default:
+                            print("prob won't happen")
+                        }
+                    }
+                }
+                
+                let coreThing = Thing(context: context)
+                coreThing.id = id
+                coreThing.category = category
+                coreThing.completed = completed
+                coreThing.day = day
+                coreThing.name = name
+                coreThing.notes = notes
+                coreThing.time = coreTime
+            }
+            do { try context.save() }
+            catch { print(error) }
+            fetchThings()
+        }
+    }
+    
+    
     func onThingChange(change: DatabaseChange, things: [FBThing]) {
-//
+        LogInViewController.firebaseThing = things
     }
     
     func onTimeChange(change: DatabaseChange, times: [FBTime]) {
-//
+        LogInViewController.firebaseTime = times
     }
     
     func onSubClassChange(change: DatabaseChange, subClasses: [FBSubClass]) {
-//
+        LogInViewController.firebaseSubClass = subClasses
     }
     func onJournalChange(change: DatabaseChange, journals: [FBJournal]) {
-//
+        LogInViewController.firebaseDiary = journals
     }
     
     func onRandomChange(change: DatabaseChange, randoms: [FBRandom]) {
-        print(randoms)
-        for random in randoms{
-            if random.userID == Auth.auth().currentUser?.uid{
-                userRandom.append(random)
-            }
-        }
+        LogInViewController.firebaseRandom = randoms
+    
+//        for random in randoms{
+//            if random.userID == Auth.auth().currentUser?.uid{
+//                userRandom.append(random)
+//            }
+//        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -291,6 +370,12 @@ class ItemTableViewCell: UITableViewCell {
     
     @IBAction func checkBTN(_ sender: Any) {
         if let button = sender as? UIButton {
+            
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            weak var databaseController: FirebaseProtocol?
+            databaseController = appDelegate?.databaseFirebase
+            let thingChanged = TabScheduleViewController.things[button.tag]
+            databaseController?.toggleThing(id: thingChanged.id!, completed: !thingChanged.completed)
             
             TabScheduleViewController.things[button.tag].completed = !TabScheduleViewController.things[button.tag].completed // coredata edit thing's completed
             do { try context.save()}

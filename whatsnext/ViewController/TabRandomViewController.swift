@@ -12,7 +12,7 @@ import FirebaseAuth
 import FirebaseStorage
 import FirebaseFirestoreSwift
 
-class TabRandomViewController: UIViewController, UITextFieldDelegate, DatabaseListener {
+class TabRandomViewController: UIViewController, UITextFieldDelegate {
     
     // VARIABLES -------------------------------------------------------------------------------------
     static var randoms = [Random]()
@@ -88,38 +88,14 @@ class TabRandomViewController: UIViewController, UITextFieldDelegate, DatabaseLi
 //        catch { print(error) }
 //    }
     
-    func onThingChange(change: DatabaseChange, things: [FBThing]) {
-//
-    }
-    
-    func onTimeChange(change: DatabaseChange, times: [FBTime]) {
-//
-    }
-    
-    func onSubClassChange(change: DatabaseChange, subClasses: [FBSubClass]) {
-//
-    }
-    func onJournalChange(change: DatabaseChange, journals: [FBJournal]) {
-//
-    }
-    
-    func onRandomChange(change: DatabaseChange, randoms: [FBRandom]) {
-//        userRandom = []
-//        for random in randoms{
-//            if random.userID == Auth.auth().currentUser?.uid{
-//                userRandom.append(random)
-//            }
-//        }
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        databaseController?.removeListener(listener: self)
+//        databaseController?.removeListener(listener: self)
     }
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
-        databaseController?.addListener(listener: self)
+//        databaseController?.addListener(listener: self)
         TabRandomViewController.firebase = []
         
         
