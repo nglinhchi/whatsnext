@@ -13,13 +13,13 @@ class ItemDetailsViewController: UIViewController {
     // VARIABLES -------------------------------------------------------------------------------------
     var thing = Thing()
     var subtasks = [Subtask]()
-    var userSubstask = [FBSubClass()]
     
     // UTILS -----------------------------------------------------------------------------------------
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     public var completion: ((String) -> Void)?
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     weak var databaseController: FirebaseProtocol?
+    var userSubstask = [FBSubClass()]
     
     // UI ELEMENTS -----------------------------------------------------------------------------------
     @IBOutlet weak var taskNameLabel: UILabel!
@@ -50,34 +50,6 @@ class ItemDetailsViewController: UIViewController {
         table.dataSource = self
         loadEverything()
     }
-    
-    @IBAction func discardBTN(_ sender: Any) {
-        completion?("done") // just completion to come back
-    }
-    
-    func loadEverything() {
-        userSubstask = []
-         for subtask in LogInViewController.firebaseSubClass{
-             if( subtask.thingID == thing.id){
-                userSubstask.append(subtask)
-            }
-        }
-        fetchSubtasks()
-        if subtasks.isEmpty{
-            for each in userSubstask {
-                let coreSubtask = Subtask(context: context)
-                coreSubtask.id = each.id
-                coreSubtask.thingID = each.thingID
-                coreSubtask.name = each.name!
-                coreSubtask.completed = each.completed!
-            }
-            do { try context.save() }
-            catch { print(error) }
-            fetchSubtasks()
-        }
-    }
-    
-    
     
     // CRUD - THING -------------------------------------------------------------------------------
     
@@ -127,6 +99,32 @@ class ItemDetailsViewController: UIViewController {
             self.fetchSubtasks()
         }
         return UISwipeActionsConfiguration(actions: [action])
+    }
+    
+    @IBAction func discardBTN(_ sender: Any) {
+        completion?("done") // just completion to come back
+    }
+    
+    func loadEverything() {
+        userSubstask = []
+         for subtask in LogInViewController.firebaseSubClass{
+             if( subtask.thingID == thing.id){
+                userSubstask.append(subtask)
+            }
+        }
+        fetchSubtasks()
+        if subtasks.isEmpty{
+            for each in userSubstask {
+                let coreSubtask = Subtask(context: context)
+                coreSubtask.id = each.id
+                coreSubtask.thingID = each.thingID
+                coreSubtask.name = each.name!
+                coreSubtask.completed = each.completed!
+            }
+            do { try context.save() }
+            catch { print(error) }
+            fetchSubtasks()
+        }
     }
     
 }

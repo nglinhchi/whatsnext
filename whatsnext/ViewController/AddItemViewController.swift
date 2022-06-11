@@ -31,17 +31,17 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
 //    var listenerType: ListenerType = .thing // not sure?????
     
     // UI ELEMENTS -----------------------------------------------------------------------------------
-    @IBOutlet weak var taskTF: UITextField!
+    @IBOutlet weak var taskTextField: UITextField!
     @IBOutlet weak var categorySegment: UISegmentedControl!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var timeSegment: UISegmentedControl!
-    @IBOutlet weak var exactTF: UITextField!
-    @IBOutlet weak var startTF: UITextField!
-    @IBOutlet weak var endTF: UITextField!
-    @IBOutlet weak var durationTF: UITextField!
-    @IBOutlet weak var notesTF: UITextField!
-    @IBOutlet weak var table: UITableView!
-    @IBOutlet weak var subtaskTF: UITextField!
+    @IBOutlet weak var exactTextField: UITextField!
+    @IBOutlet weak var startTextField: UITextField!
+    @IBOutlet weak var endTextField: UITextField!
+    @IBOutlet weak var durationTextField: UITextField!
+    @IBOutlet weak var notesTextField: UITextField!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var subtaskTextField: UITextField!
     @IBOutlet weak var timePicker: UIDatePicker!
     
     // GENERAL METHODS -------------------------------------------------------------------------------
@@ -59,14 +59,14 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
                 }
         databaseController = appDelegate?.databaseFirebase
         
-        exactTF.isHidden = true
-        startTF.isHidden = true
-        endTF.isHidden = true
-        durationTF.isHidden = true
+        exactTextField.isHidden = true
+        startTextField.isHidden = true
+        endTextField.isHidden = true
+        durationTextField.isHidden = true
         timePicker.isHidden = true
         
-        table.delegate = self
-        table.dataSource = self
+        tableView.delegate = self
+        tableView.dataSource = self
         
         dateFormatter.dateFormat = "dd/MM/yyyy"
         
@@ -75,7 +75,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         
         // FOR EDIT TASK - prefill detail
         if let item = item {
-            taskTF.text = item.name
+            taskTextField.text = item.name
             let cat_index: Int
             switch item.category {
             case "home":
@@ -108,13 +108,13 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
                 self.changeTimePicker(self)
             case "duration":
                 time_index = 3
-                durationTF.text = item.time.duration
+                durationTextField.text = item.time.duration
             default:
                 time_index = 0
             }
             timeSegment.selectedSegmentIndex = time_index
             self.timeSegmentControl(self)
-            notesTF.text = item.notes
+            notesTextField.text = item.notes
             
             do {
                 let request = Subtask.fetchRequest() as NSFetchRequest<Subtask>
@@ -125,26 +125,22 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
                     subtasks.append(subtask.name)
                 }
                 subtaskOldCount = subtasks.count
-                table.reloadData()
+                tableView.reloadData()
             }
             catch { print(error) }
             
         }
         
-        taskTF.delegate = self
-        notesTF.delegate = self
-        subtaskTF.delegate = self
-        taskTF.becomeFirstResponder()
+        taskTextField.delegate = self
+        notesTextField.delegate = self
+        subtaskTextField.delegate = self
+        taskTextField.becomeFirstResponder()
         
     }
-    
-    
-    // FIREBASE ---------------------------------------------------------------------------------------
     
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
-//        databaseController?.addListener(listener: self)
     }
     
     
@@ -159,7 +155,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         */
         
         // AC task name filled
-        guard let name = taskTF.text, !name.isEmpty else {
+        guard let name = taskTextField.text, !name.isEmpty else {
             displayMessage(title: "Invalid Task", message: "Please fill in the name.")
             return
         }
@@ -186,7 +182,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         switch timeIndex {
         case 1:
             // AC exact time filled
-            guard let stringTime = exactTF.text, !stringTime.isEmpty else {
+            guard let stringTime = exactTextField.text, !stringTime.isEmpty else {
                 displayMessage(title: "Invalid Task", message: "Please fill in the time.")
                 return
             }
@@ -194,11 +190,11 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
             let exact = fullFormatter.date(from: stringExact)!
             time.type = timeType
             time.exact = exact
-            fbExact = AddItemViewController.timeFormatter.string(from: time.exact!)
+            fbExact = stringExact
         case 2:
             // AC start filled, end filled, start > end
-            guard let stringTimeStart = startTF.text, !stringTimeStart.isEmpty,
-                  let stringTimeEnd = endTF.text, !stringTimeEnd.isEmpty else {
+            guard let stringTimeStart = startTextField.text, !stringTimeStart.isEmpty,
+                  let stringTimeEnd = endTextField.text, !stringTimeEnd.isEmpty else {
                 displayMessage(title: "Invalid Task", message: "Please fill in all time intervals.")
                 return
             }
@@ -213,11 +209,11 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
             time.type = timeType
             time.start = start
             time.end = end
-            fbStart = AddItemViewController.timeFormatter.string(from: time.start!)
-            fbEnd = AddItemViewController.timeFormatter.string(from: time.end!)
+            fbStart = stringStart
+            fbEnd = stringEnd
         case 3:
             // AC duration filled
-            guard let duration = durationTF.text, !duration.isEmpty else {
+            guard let duration = durationTextField.text, !duration.isEmpty else {
                 displayMessage(title: "Invalid Task", message: "Please fill in the duration.")
                 return
             }
@@ -230,7 +226,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         
         let category = categorySegment.titleForSegment(at: categorySegment.selectedSegmentIndex) ?? ""
         let day = datePicker.date
-        let notes = notesTF.text ?? ""
+        let notes = notesTextField.text ?? ""
         
         
         // UPDATE OR CREATE NEW ITEM
@@ -263,8 +259,6 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
             item!.time = time
             item!.notes = notes
             
-            
-            
         } else {
             print("not nil - update thing")
             
@@ -295,9 +289,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         do { try self.context.save() }
         catch { print(error) }
         
-        //  let thingRef = storageReference.child("\(userID)/\(item!.id)")
-
-        
+        // LOCAL NOTIFCATION
         if item?.time.type == "exact" || item?.time.type == "start-end" {
             
             let day: Date
@@ -360,19 +352,14 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         
         completion?("done")
         
-        
-        
-        
-        
-        
     }
     
-    func formattedDate(date: Date) -> String
-        {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "d MMM y HH:mm"
-            return formatter.string(from: date)
-        }
+    func formattedDate(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US")
+        formatter.dateFormat = "d MMM y HH:mm"
+        return formatter.string(from: date)
+    }
     
     // UI UNDERLYING MECHANISM ----------------------------------------------------------------------
     
@@ -384,18 +371,18 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     // SELECT TIME SEGMENT -> DECIDE WHICH TEXT FIELDS TO SHOW
     @IBAction func timeSegmentControl(_ sender: Any) {
         timePicker.isHidden     = true
-        exactTF.isHidden        = true
-        startTF.isHidden        = true
-        endTF.isHidden          = true
-        durationTF.isHidden     = true
+        exactTextField.isHidden        = true
+        startTextField.isHidden        = true
+        endTextField.isHidden          = true
+        durationTextField.isHidden     = true
         switch timeSegment.selectedSegmentIndex {
         case 1:
-            exactTF.isHidden = false
+            exactTextField.isHidden = false
         case 2:
-            startTF.isHidden = false
-            endTF.isHidden = false
+            startTextField.isHidden = false
+            endTextField.isHidden = false
         case 3:
-            durationTF.isHidden = false
+            durationTextField.isHidden = false
         default:
             return
         }
@@ -436,13 +423,13 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         let duration = "\(hours) \(minutes)"
         switch AddItemViewController.timeField {
         case "exact":
-            exactTF.text = time
+            exactTextField.text = time
         case "start":
-            startTF.text = time
+            startTextField.text = time
         case "end":
-            endTF.text = time
+            endTextField.text = time
         case "duration":
-            durationTF.text = duration
+            durationTextField.text = duration
         default:
             return
         }
@@ -467,7 +454,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     
     // HIDE KEYBOARD ON RETURN KEY
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            if textField == subtaskTF {
+            if textField == subtaskTextField {
                 addSubtaskBTN(self)
             } else {
                 self.view.endEditing(true)
@@ -477,12 +464,12 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     
     // ADD SUBTASK
     @IBAction func addSubtaskBTN(_ sender: Any) {
-        guard let subtask = subtaskTF.text, !subtask.isEmpty else {
+        guard let subtask = subtaskTextField.text, !subtask.isEmpty else {
             return
         }
         subtasks.append(subtask)
-        subtaskTF.text = ""
-        self.table.reloadData()
+        subtaskTextField.text = ""
+        self.tableView.reloadData()
     }
     
 }
@@ -530,7 +517,6 @@ extension AddItemViewController: UITableViewDataSource {
 
 
 // *********************************************************************************************
-
 
 
 class SubtaskTableViewCell: UITableViewCell {

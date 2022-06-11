@@ -26,7 +26,7 @@ class TabRandomViewController: UIViewController, UITextFieldDelegate {
     static var firebase: [FBRandom] = []
     
     // UI ELEMENTS -----------------------------------------------------------------------------------
-    @IBOutlet weak var table: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     
     // GENERAL METHODS -------------------------------------------------------------------------------
     
@@ -59,8 +59,8 @@ class TabRandomViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         databaseController = appDelegate?.databaseFirebase
-        table.delegate = self
-        table.dataSource = self
+        tableView.delegate = self
+        tableView.dataSource = self
         loadEverything()
 //        firebaseToCoredata()
 //        fetchRandom()
@@ -111,7 +111,7 @@ class TabRandomViewController: UIViewController, UITextFieldDelegate {
             for each in TabRandomViewController.randoms {
 //                print("ID \(each.id ?? "no-id") | name \(each.name)")
             }
-            self.table.reloadData()
+            self.tableView.reloadData()
         }
         catch { print(error) }
     }
@@ -138,8 +138,8 @@ class TabRandomViewController: UIViewController, UITextFieldDelegate {
             let row = TabRandomViewController.randoms.count-1
             let cell: RandomTableViewCell
             let indexPath = IndexPath(row: row, section: 0)
-            table.scrollToRow(at: indexPath, at: .none, animated: true)
-            cell = table.cellForRow(at: indexPath) as! RandomTableViewCell
+            tableView.scrollToRow(at: indexPath, at: .none, animated: true)
+            cell = tableView.cellForRow(at: indexPath) as! RandomTableViewCell
             cell.nameTF.becomeFirstResponder()
         }
     }

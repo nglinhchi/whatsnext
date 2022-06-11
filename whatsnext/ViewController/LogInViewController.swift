@@ -28,6 +28,9 @@ class LogInViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
 
+    // GENERAL METHODS -------------------------------------------------------------------------------
+    
+    // VIEWDIDLOAD
     override func viewDidLoad() {
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as? AppDelegate

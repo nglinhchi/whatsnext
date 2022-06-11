@@ -547,7 +547,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Random" id="RNg-6E-kpR"/>
                     <connections>
-                        <outlet property="table" destination="7Nk-ci-FIn" id="f3J-Hw-ekF"/>
+                        <outlet property="tableView" destination="7Nk-ci-FIn" id="f3J-Hw-ekF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wtf-Oe-9Hy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -641,8 +641,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Darkmode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oO6-sa-Xad">
-                                                    <rect key="frame" x="20" y="13.5" width="85" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Darkmode (coming soon!)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oO6-sa-Xad">
+                                                    <rect key="frame" x="20" y="13.5" width="212" height="21"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -704,8 +704,21 @@
                     <view key="view" contentMode="scaleToFill" id="Krn-K8-YAw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Vr5-Cy-1mi">
+                                <rect key="frame" x="132" y="346.5" width="150" height="149"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="AiP-l6-E6U"/>
+                                    <constraint firstAttribute="width" constant="150" id="oLG-4o-Kxq"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="9Pq-x8-A1N"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Vr5-Cy-1mi" firstAttribute="centerY" secondItem="Krn-K8-YAw" secondAttribute="centerY" id="4dE-o1-npi"/>
+                            <constraint firstItem="Vr5-Cy-1mi" firstAttribute="centerX" secondItem="Krn-K8-YAw" secondAttribute="centerX" id="y8Z-HP-lVS"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Account" id="Yca-9e-mIl"/>
                 </viewController>
@@ -788,8 +801,30 @@
                     <view key="view" contentMode="scaleToFill" id="gxn-Bu-fDN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OOPS... YOU CAUGHT US AGAIN! COMING SOON 🥺😉😎" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMw-wL-ogs">
+                                <rect key="frame" x="80" y="349.5" width="254" height="143.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4cj-Df-bwl">
+                                <rect key="frame" x="207" y="503" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="kQN-3g-KN9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="BMw-wL-ogs" firstAttribute="centerY" secondItem="gxn-Bu-fDN" secondAttribute="centerY" id="3nb-6E-Nj7"/>
+                            <constraint firstItem="BMw-wL-ogs" firstAttribute="centerX" secondItem="gxn-Bu-fDN" secondAttribute="centerX" id="PtT-oh-CJ9"/>
+                            <constraint firstItem="kQN-3g-KN9" firstAttribute="trailing" secondItem="BMw-wL-ogs" secondAttribute="trailing" constant="80" id="RTY-WB-cTL"/>
+                            <constraint firstItem="4cj-Df-bwl" firstAttribute="centerX" secondItem="gxn-Bu-fDN" secondAttribute="centerX" id="g21-Re-8IO"/>
+                            <constraint firstItem="BMw-wL-ogs" firstAttribute="leading" secondItem="kQN-3g-KN9" secondAttribute="leading" constant="80" id="mOj-0A-hcD"/>
+                            <constraint firstItem="4cj-Df-bwl" firstAttribute="top" secondItem="BMw-wL-ogs" secondAttribute="bottom" constant="10" id="zez-7Q-3TG"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Notification settings" id="rBh-Qe-L6v"/>
                 </viewController>
@@ -1120,14 +1155,14 @@
                     <connections>
                         <outlet property="categorySegment" destination="H6i-2Z-kOM" id="MLh-4c-6Tm"/>
                         <outlet property="datePicker" destination="e0g-Jf-Qds" id="90f-Gb-dIN"/>
-                        <outlet property="durationTF" destination="tu7-2Y-vEV" id="GnG-qb-vGn"/>
-                        <outlet property="endTF" destination="BaE-w2-sCc" id="fuY-9j-Fsc"/>
-                        <outlet property="exactTF" destination="Zh4-5o-wgo" id="vhP-fh-llQ"/>
-                        <outlet property="notesTF" destination="Lt6-tf-P4V" id="Spc-ZR-Agk"/>
-                        <outlet property="startTF" destination="XzY-Nt-x3J" id="Eu8-Yn-g4J"/>
-                        <outlet property="subtaskTF" destination="jxd-4l-Ffl" id="S5b-rD-l0i"/>
-                        <outlet property="table" destination="p6m-n9-T8y" id="ij7-58-cOF"/>
-                        <outlet property="taskTF" destination="I9K-xE-QaH" id="0NZ-WW-YRR"/>
+                        <outlet property="durationTextField" destination="tu7-2Y-vEV" id="GnG-qb-vGn"/>
+                        <outlet property="endTextField" destination="BaE-w2-sCc" id="fuY-9j-Fsc"/>
+                        <outlet property="exactTextField" destination="Zh4-5o-wgo" id="vhP-fh-llQ"/>
+                        <outlet property="notesTextField" destination="Lt6-tf-P4V" id="Spc-ZR-Agk"/>
+                        <outlet property="startTextField" destination="XzY-Nt-x3J" id="Eu8-Yn-g4J"/>
+                        <outlet property="subtaskTextField" destination="jxd-4l-Ffl" id="S5b-rD-l0i"/>
+                        <outlet property="tableView" destination="p6m-n9-T8y" id="ij7-58-cOF"/>
+                        <outlet property="taskTextField" destination="I9K-xE-QaH" id="0NZ-WW-YRR"/>
                         <outlet property="timePicker" destination="txv-Su-Ziz" id="SLQ-jD-UOt"/>
                         <outlet property="timeSegment" destination="b3V-gc-4vM" id="4yp-nJ-GUu"/>
                     </connections>
@@ -1197,7 +1232,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Edit diary" id="l8H-y6-gDF"/>
                     <connections>
-                        <outlet property="journalTV" destination="vK5-jU-5t1" id="F2J-4A-fCn"/>
+                        <outlet property="journalTextView" destination="vK5-jU-5t1" id="F2J-4A-fCn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ib6-Ki-h1w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1376,6 +1411,7 @@
         <image name="ellipses.bubble" catalog="system" width="32" height="32"/>
         <image name="gear" catalog="system" width="32" height="32"/>
         <image name="lightbulb" catalog="system" width="32" height="32"/>
+        <image name="person.circle.fill" catalog="system" width="32" height="32"/>
         <image name="plus" catalog="system" width="32" height="32"/>
         <image name="plus.circle.fill" catalog="system" width="32" height="32"/>
         <image name="xmark" catalog="system" width="32" height="32"/>

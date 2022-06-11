@@ -9,9 +9,6 @@ import UIKit
 
 class AccountViewController: UIViewController {
     
-    // temporary account, will pull from firebase later
-//    static var account = Account(username: "chloe", password: "asd123", firstname: "Chloe", lastname: "Nguyen")
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

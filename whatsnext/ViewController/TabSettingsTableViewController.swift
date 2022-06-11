@@ -10,23 +10,26 @@ import FirebaseAuth
 
 class TabSettingsTableViewController: UITableViewController {
 
+    // VARIABLES -------------------------------------------------------------------------------------
+    
+    // UTILS -----------------------------------------------------------------------------------------
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    // UI ELEMENTS -----------------------------------------------------------------------------------
     @IBOutlet weak var darkmodeCell: UITableViewCell!
     @IBOutlet weak var logoutCell: UITableViewCell!
-    @IBOutlet weak var darkmodeSwitch: UISwitch!
+//    @IBOutlet weak var darkmodeSwitch: UISwitch!
     
+    // GENERAL METHODS -------------------------------------------------------------------------------
+    
+    // VIEWDIDLOAD
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        navigationController?.navigationBar.titleTextAttributes = [
+            .foregroundColor: self.view.tintColor,
+            .font: UIFont(name: "HelveticaNeue-Bold", size: 25)!
+        ]
     }
-    
     
     // MARK: - Table view data source
 
@@ -54,25 +57,22 @@ class TabSettingsTableViewController: UITableViewController {
     }
     
     func signOut() {
-//        Task{
-            do {
-                try Auth.auth().signOut()
-            }
-            catch {
-                print("Log out error: \(error.localizedDescription)")
-            }
-            navigationController?.popViewController(animated: true)
+        do {
+            try Auth.auth().signOut()
+        }
+        catch {
+            print("Log out error: \(error.localizedDescription)")
+        }
+        navigationController?.popViewController(animated: true)
         // clear coredata
         clearCoreData()
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "login") as? LogInViewController else {
                 return
         }
         navigationController?.pushViewController(vc, animated: true)
-//        }
     }
     
     func clearCoreData() {
-        
         // time
         do {
             let all = try context.fetch(Time.fetchRequest())
@@ -81,7 +81,6 @@ class TabSettingsTableViewController: UITableViewController {
             }
         }
         catch { print(error) }
-        
         // subtask
         do {
             let all = try context.fetch(Subtask.fetchRequest())
@@ -90,7 +89,6 @@ class TabSettingsTableViewController: UITableViewController {
             }
         }
         catch { print(error) }
-        
         // thing
         do {
             let all = try context.fetch(Thing.fetchRequest())
@@ -99,18 +97,14 @@ class TabSettingsTableViewController: UITableViewController {
             }
         }
         catch { print(error) }
-        
         // random
         do {
             let all = try context.fetch(Random.fetchRequest())
             for each in all {
-//                print(each)
                 context.delete(each)
             }
-//            print(try context.fetch(Random.fetchRequest()))
         }
         catch { print(error) }
-        
         // journal
         do {
             let all = try context.fetch(Journal.fetchRequest())
@@ -119,7 +113,6 @@ class TabSettingsTableViewController: UITableViewController {
             }
         }
         catch { print(error) }
-        
         // save
         do {
             try context.save()
@@ -127,49 +120,4 @@ class TabSettingsTableViewController: UITableViewController {
         catch { print(error) }
     }
     
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
 }

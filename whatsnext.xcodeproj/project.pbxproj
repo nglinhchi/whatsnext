@@ -30,7 +30,6 @@
 		AF8AB91D28540EAD006DA2E4 /* Journal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8AB91528540EAD006DA2E4 /* Journal+CoreDataProperties.swift */; };
 		AF8AB91E28540EAD006DA2E4 /* Subtask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8AB91628540EAD006DA2E4 /* Subtask+CoreDataClass.swift */; };
 		AF8AB91F28540EAD006DA2E4 /* Subtask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8AB91728540EAD006DA2E4 /* Subtask+CoreDataProperties.swift */; };
-		AF9F80DF283C9F1D00E647DC /* EditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F80DE283C9F1D00E647DC /* EditItemViewController.swift */; };
 		AF9F80E1283DD54000E647DC /* TabRandomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F80E0283DD54000E647DC /* TabRandomViewController.swift */; };
 		AF9F80E7283F120E00E647DC /* TabSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F80E6283F120E00E647DC /* TabSettingsTableViewController.swift */; };
 		AF9F80E9283F1D7500E647DC /* TabRoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F80E8283F1D7500E647DC /* TabRoutineViewController.swift */; };
@@ -97,7 +96,6 @@
 		AF8AB91528540EAD006DA2E4 /* Journal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Journal+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AF8AB91628540EAD006DA2E4 /* Subtask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subtask+CoreDataClass.swift"; sourceTree = "<group>"; };
 		AF8AB91728540EAD006DA2E4 /* Subtask+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subtask+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		AF9F80DE283C9F1D00E647DC /* EditItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemViewController.swift; sourceTree = "<group>"; };
 		AF9F80E0283DD54000E647DC /* TabRandomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabRandomViewController.swift; sourceTree = "<group>"; };
 		AF9F80E6283F120E00E647DC /* TabSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSettingsTableViewController.swift; sourceTree = "<group>"; };
 		AF9F80E8283F1D7500E647DC /* TabRoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabRoutineViewController.swift; sourceTree = "<group>"; };
@@ -218,7 +216,6 @@
 				AFF9BF322823AFD90082AC74 /* EditJournalViewController.swift */,
 				AF6E0CEC282B82A700FAB86F /* ItemDetailsViewController.swift */,
 				AF26B2742822580A00ACE8B9 /* AddItemViewController.swift */,
-				AF9F80DE283C9F1D00E647DC /* EditItemViewController.swift */,
 				AF9F80E0283DD54000E647DC /* TabRandomViewController.swift */,
 				AF9F80E8283F1D7500E647DC /* TabRoutineViewController.swift */,
 				AF9F80E6283F120E00E647DC /* TabSettingsTableViewController.swift */,
@@ -398,7 +395,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF9F80DF283C9F1D00E647DC /* EditItemViewController.swift in Sources */,
 				AFDC9FB62819244700BB5C39 /* LogInViewController.swift in Sources */,
 				AF8AB91F28540EAD006DA2E4 /* Subtask+CoreDataProperties.swift in Sources */,
 				AF6E0CED282B82A700FAB86F /* ItemDetailsViewController.swift in Sources */,

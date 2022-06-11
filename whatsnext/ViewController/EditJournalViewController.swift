@@ -22,23 +22,20 @@ class EditJournalViewController: UIViewController {
     weak var databaseController: FirebaseProtocol?
     
     // UI ELEMENTS -----------------------------------------------------------------------------------
-    @IBOutlet weak var journalTV: UITextView!
+    @IBOutlet weak var journalTextView: UITextView!
     
     // GENERAL METHODS -------------------------------------------------------------------------------
     
     // VIEWDIDLOAD
     override func viewDidLoad() {
         super.viewDidLoad()
-        journalTV.text = currentJournal?.diary ?? ""
+        journalTextView.text = currentJournal?.diary ?? ""
         dateFormatter.dateFormat = "dd/MM/yyyy"
-        journalTV.layer.cornerRadius = 10
-        journalTV.layer.borderWidth = 1
-        journalTV.layer.borderColor = .init(genericCMYKCyan: 0, magenta: 255, yellow: 0, black: 255, alpha: 1)
+        journalTextView.layer.cornerRadius = 10
+        journalTextView.layer.borderWidth = 1
+        journalTextView.layer.borderColor = .init(genericCMYKCyan: 0, magenta: 255, yellow: 0, black: 255, alpha: 1)
         databaseController = appDelegate?.databaseFirebase
     }
-    
-    
-    
     
     // JOURNAL - CRUD -------------------------------------------------------------------------------
     
@@ -49,7 +46,7 @@ class EditJournalViewController: UIViewController {
     
     // CREATE/EDIT JOURNAL
     @IBAction func saveBTN(_ sender: Any) {
-        if let journal = journalTV.text, !journal.isEmpty { // contain text
+        if let journal = journalTextView.text, !journal.isEmpty { // contain text
             if currentJournal == nil { // the day doesn't have journal yet --> create journal
                 currentJournal = Journal(context: context) // coredata add
                 currentJournal!.day = currentDate!

@@ -18,5 +18,4 @@ class TabRoutineViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
-    
 }
