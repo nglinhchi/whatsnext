@@ -1,4 +1,4 @@
-//
+// done
 //  AddItemViewController.swift
 //  whatsnext
 //
@@ -29,6 +29,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     weak var databaseController: FirebaseProtocol?
 //    var listenerType: ListenerType = .thing // not sure?????
+    
     
     // UI ELEMENTS -----------------------------------------------------------------------------------
     @IBOutlet weak var taskTextField: UITextField!
