@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Image references" minToolsVersion="12.0"/>
@@ -13,7 +14,7 @@
             <objects>
                 <viewController storyboardIdentifier="login" title="LogIn" id="BYZ-38-t0r" customClass="LogInViewController" customModule="whatsnext" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IEG-Zx-txM">
@@ -87,7 +88,7 @@
             <objects>
                 <viewController modalPresentationStyle="pageSheet" id="hre-Qa-vIr" customClass="SignUpViewController" customModule="whatsnext" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="r2n-IR-5Eg">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ig7-54-dlm">
@@ -302,7 +303,7 @@
             <objects>
                 <viewController id="CIU-Lq-Jjn" customClass="TabScheduleViewController" customModule="whatsnext" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bRv-nF-z4h">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g5U-RM-Saw">
@@ -445,7 +446,7 @@
                     <connections>
                         <outlet property="dateFilter" destination="Jnn-Fy-A0q" id="vS7-Lz-ZWW"/>
                         <outlet property="journalLabel" destination="8c9-FU-GR6" id="6KK-Rf-KTV"/>
-                        <outlet property="table" destination="nfn-bO-roM" id="gaI-UO-zS3"/>
+                        <outlet property="tableView" destination="nfn-bO-roM" id="gaI-UO-zS3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5dk-Xr-unC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -457,7 +458,7 @@
             <objects>
                 <viewController id="fDF-md-vec" customClass="TabRandomViewController" customModule="whatsnext" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ocu-oC-baK">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Random Things" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CeB-UA-BI8">
@@ -558,7 +559,7 @@
             <objects>
                 <tableViewController id="p8x-cS-78C" customClass="TabSettingsTableViewController" customModule="whatsnext" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="48" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="7bg-w2-qSd">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <sections>
@@ -701,7 +702,7 @@
             <objects>
                 <viewController id="f2P-Uo-Gah" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Krn-K8-YAw">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="9Pq-x8-A1N"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -717,7 +718,7 @@
             <objects>
                 <viewController id="e9L-WD-Trw" customClass="JournalLogsViewController" customModule="whatsnext" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sqg-tX-KQK">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="cX0-9k-sMZ">
@@ -785,7 +786,7 @@
             <objects>
                 <viewController id="dGQ-i1-Qhg" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gxn-Bu-fDN">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="kQN-3g-KN9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -801,7 +802,7 @@
             <objects>
                 <viewController id="yea-qM-hIv" customClass="TabRoutineViewController" customModule="whatsnext" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RRL-y0-NYh">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Routine" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BbS-F6-hyv">
@@ -810,12 +811,30 @@
                                 <color key="textColor" red="0.92156862750000001" green="0.43137254899999999" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COMING SOON!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kUc-Fg-b5q">
+                                <rect key="frame" x="80" y="361.5" width="254" height="119.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="50"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🥺😉😎" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AMG-b2-bcn">
+                                <rect key="frame" x="139.5" y="491" width="135" height="48"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LjA-2o-dNa"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="AMG-b2-bcn" firstAttribute="top" secondItem="kUc-Fg-b5q" secondAttribute="bottom" constant="10" id="FPD-4W-nFb"/>
+                            <constraint firstItem="kUc-Fg-b5q" firstAttribute="centerX" secondItem="RRL-y0-NYh" secondAttribute="centerX" id="FUJ-Fr-BcA"/>
                             <constraint firstItem="BbS-F6-hyv" firstAttribute="top" secondItem="LjA-2o-dNa" secondAttribute="top" constant="5" id="WQi-TW-dfN"/>
+                            <constraint firstItem="kUc-Fg-b5q" firstAttribute="leading" secondItem="LjA-2o-dNa" secondAttribute="leading" constant="80" id="beH-gW-B6f"/>
+                            <constraint firstItem="kUc-Fg-b5q" firstAttribute="centerY" secondItem="RRL-y0-NYh" secondAttribute="centerY" id="iRI-0b-AfO"/>
+                            <constraint firstItem="AMG-b2-bcn" firstAttribute="centerX" secondItem="RRL-y0-NYh" secondAttribute="centerX" id="opQ-hY-GDZ"/>
                             <constraint firstItem="BbS-F6-hyv" firstAttribute="centerX" secondItem="RRL-y0-NYh" secondAttribute="centerX" id="ozR-Yu-XdU"/>
+                            <constraint firstItem="LjA-2o-dNa" firstAttribute="trailing" secondItem="kUc-Fg-b5q" secondAttribute="trailing" constant="80" id="vX0-1y-ds7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Routine" id="ayq-am-DuX"/>
@@ -1122,7 +1141,7 @@
             <objects>
                 <viewController storyboardIdentifier="journal" id="WbH-fn-CCa" customClass="EditJournalViewController" customModule="whatsnext" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="t4U-ej-6wq">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Journal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MgC-CS-nZ7">
@@ -1197,7 +1216,7 @@
             <objects>
                 <viewController storyboardIdentifier="details" id="84T-po-Ott" customClass="ItemDetailsViewController" customModule="whatsnext" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GaZ-7Z-nqr">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F2D-me-0ol">

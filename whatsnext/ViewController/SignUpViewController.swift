@@ -83,7 +83,7 @@ class SignUpViewController: UIViewController {
                 print(error)
             }
         }
-        displayMessage(title: "Successful!", message: "Congrations, your account has been successfully created.")
+//        self.displayMessage(title: "Successful!", message: "Congrations, your account has been successfully created.")
         // databaseController?.addAccount(username: username, password: password, firstname: firstname, lastname: lastname)
     }
 
