@@ -10,6 +10,7 @@ import CoreData
 import Firebase
 import FirebaseFirestore
 import FirebaseStorage
+import UserNotifications
 
 class AddItemViewController: UIViewController, UITextFieldDelegate {
 
@@ -18,7 +19,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     var item: Thing?
     var subtasks = [String]()
     var subtaskOldCount: Int = 0
-    
+    let notificationCenter = UNUserNotificationCenter.current()
     // UTILS -----------------------------------------------------------------------------------------
     static var timeFormatter = DateFormatter()
     let dateFormatter = DateFormatter()
@@ -49,7 +50,13 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
+        notificationCenter.requestAuthorization(options: [.alert, .sound]) {
+                    (permissionGranted, error) in
+                    if(!permissionGranted)
+                    {
+                        print("Permission Denied")
+                    }
+                }
         databaseController = appDelegate?.databaseFirebase
         
         exactTF.isHidden = true
@@ -291,8 +298,81 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         //  let thingRef = storageReference.child("\(userID)/\(item!.id)")
 
         
+        if item?.time.type == "exact" || item?.time.type == "start-end" {
+            
+            let day: Date
+            if item?.time.type == "exact" { day = (item?.time.exact)! }
+            else { day = (item?.time.start)! }
+                
+            notificationCenter.getNotificationSettings { (settings) in
+                        
+                        DispatchQueue.main.async
+                        {
+                            let title = "asd"
+                            let message = "asd"
+                            let date = day
+                            
+                            if(settings.authorizationStatus == .authorized)
+                            {
+                                let content = UNMutableNotificationContent()
+                                content.title = title
+                                content.body = message
+                                
+                                let dateComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+                                
+                                let trigger = UNCalendarNotificationTrigger(dateMatching: dateComp, repeats: false)
+                                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                                
+                                self.notificationCenter.add(request) { (error) in
+                                    if(error != nil)
+                                    {
+                                        print("Error " + error.debugDescription)
+                                        return
+                                    }
+                                }
+                                let ac = UIAlertController(title: "Notification Scheduled", message: "At " + self.formattedDate(date: date), preferredStyle: .alert)
+                                ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in}))
+                                self.present(ac, animated: true)
+                            }
+                            else
+                            {
+                                let ac = UIAlertController(title: "Enable Notifications?", message: "To use this feature you must enable notifications in settings", preferredStyle: .alert)
+                                let goToSettings = UIAlertAction(title: "Settings", style: .default)
+                                { (_) in
+                                    guard let setttingsURL = URL(string: UIApplication.openSettingsURLString)
+                                    else
+                                    {
+                                        return
+                                    }
+                                    
+                                    if(UIApplication.shared.canOpenURL(setttingsURL))
+                                    {
+                                        UIApplication.shared.open(setttingsURL) { (_) in}
+                                    }
+                                }
+                                ac.addAction(goToSettings)
+                                ac.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (_) in}))
+                                self.present(ac, animated: true)
+                            }
+                        }
+                    }
+        }
+        
         completion?("done")
+        
+        
+        
+        
+        
+        
     }
+    
+    func formattedDate(date: Date) -> String
+        {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "d MMM y HH:mm"
+            return formatter.string(from: date)
+        }
     
     // UI UNDERLYING MECHANISM ----------------------------------------------------------------------
     

@@ -13,8 +13,8 @@ class LogInViewController: UIViewController {
     
     // UI ELEMENTS !!!!!!!!!!!!!!!
 //    @IBOutlet weak var appLogo: UIView!
-    @IBOutlet weak var emailTF: UITextField!
-    @IBOutlet weak var passwordTF: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     weak var databaseController: FirebaseProtocol?
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -34,12 +34,12 @@ class LogInViewController: UIViewController {
     
     @IBAction func loginButton(_ sender: Any) {
     
-        guard let password = passwordTF.text, !password.isEmpty else {
+        guard let password = passwordTextField.text, !password.isEmpty else {
             displayMessage(title: "Error", message: "Please enter a password")
             return
         }
         
-        guard let email = emailTF.text, !email.isEmpty else {
+        guard let email = emailTextField.text, !email.isEmpty else {
             displayMessage(title: "Error", message: "Please enter an email")
             return
         }
@@ -99,7 +99,7 @@ class LogInViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseFirebase
         self.tabBarController?.tabBar.isHidden = true
-        emailTF.becomeFirstResponder()
+        emailTextField.becomeFirstResponder()
     }
     
     override func viewWillAppear(_ animated: Bool) {

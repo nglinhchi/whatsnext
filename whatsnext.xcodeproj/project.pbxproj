@@ -174,8 +174,6 @@
 				AF2750452819174C00152BB1 /* Assets.xcassets */,
 				AF2750422819174A00152BB1 /* Main.storyboard */,
 				AF2750472819174C00152BB1 /* LaunchScreen.storyboard */,
-				AFDB5B7B28538D9400608D5F /* FirebaseController.swift */,
-				AFDC9FC4281A7A9000BB5C39 /* DatabaseProtocol.swift */,
 				AFDB5B732853437800608D5F /* GoogleService-Info.plist */,
 				AF27504A2819174C00152BB1 /* Info.plist */,
 			);
@@ -252,6 +250,8 @@
 				AF8AB91628540EAD006DA2E4 /* Subtask+CoreDataClass.swift */,
 				AF8AB91728540EAD006DA2E4 /* Subtask+CoreDataProperties.swift */,
 				AFDB5B7728538C1300608D5F /* FBObject.swift */,
+				AFDB5B7B28538D9400608D5F /* FirebaseController.swift */,
+				AFDC9FC4281A7A9000BB5C39 /* DatabaseProtocol.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
