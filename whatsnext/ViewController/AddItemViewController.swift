@@ -301,8 +301,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
                         
                         DispatchQueue.main.async
                         {
-                            let title = "asd"
-                            let message = "asd"
+                            let title = "WhatsNext"
+                            let message = "\((self.item?.name)!) | \((self.item?.time.getTime())!)"
                             let date = day
                             
                             if(settings.authorizationStatus == .authorized)
