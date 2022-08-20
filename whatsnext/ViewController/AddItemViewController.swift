@@ -30,6 +30,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     weak var databaseController: FirebaseProtocol?
 //    var listenerType: ListenerType = .thing // not sure?????
     
+    // MARK: - UI THINGS
     
     // UI ELEMENTS -----------------------------------------------------------------------------------
     @IBOutlet weak var taskTextField: UITextField!
@@ -253,6 +254,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
                 coreSubtask.completed = false
                 coreSubtask.id = (databaseController?.addSubClass(completed: coreSubtask.completed, name: coreSubtask.name, thingID: item!.id!).id)! // firebase add subtask
             }
+            
+            
             
             item!.name = name
             item!.category = category
